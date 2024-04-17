@@ -1,11 +1,18 @@
-import Image from 'next/image';
+'use client';
 
-export default function Home() {
+import * as React from 'react';
+import { ThemeProvider } from '@mui/material/styles';
+import { Button, Box, AppBar, Toolbar } from '@mui/material';
+import theme from './theme';
+
+export default function App() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        장민영ddd 배승원ddd 1
-      </div>
-    </main>
+    <Box sx={{ backgroundColor: 'black', height: '100vh', width: '100vw' }}>
+        <video muted autoPlay loop>
+            <source src="/videos/Preview.mp4" type="video/mp4" />
+        </video>
+        <div>안녕하세요</div>
+    </Box>
+
   );
 }
