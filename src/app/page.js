@@ -10,8 +10,8 @@ export default function Home() {
         반갑습니다 새테스트2
         네 새테스트3n
 
-        배승원
-        원승배
+        배승원11
+        원승배11
       </div>
     </main>
   );
