@@ -6,6 +6,9 @@ export default function Home() {
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
         안녕하세요 새테스트12 안녕하세요 새테스트1 반갑습니다 새테스트2 네 새테스트3 테스트 오창진
         테스트테스트
+        안녕하세요 새테스트1
+        반갑습니다 새테스트2
+        네 새테스트3n
       </div>
     </main>
   );
