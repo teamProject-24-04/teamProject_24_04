@@ -12,6 +12,9 @@ export default function App() {
             <source src="/videos/Preview.mp4" type="video/mp4" />
         </video>
         <div>안녕하세요</div>
+        <Button variant="outlined" href="sub/">
+            sub로 이동
+          </Button>
     </Box>
 
   );
