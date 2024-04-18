@@ -111,3 +111,10 @@ video {
   border-style: solid;
   border-color: theme('borderColor.DEFAULT', currentColor);
 }
+
+/* style.css */
+#google-login-button iframe{
+  height: 100px !important;
+  transform: scale(1.5);
+  transform-origin: top;
+}
