@@ -19,7 +19,7 @@ export default function App() {
     <Box sx={{ backgroundColor: 'black', height: '100vh', width: '100vw', position: 'relative', overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <Box sx={{ width: '80%', height: '70%', position: 'relative' }}>
             <video muted autoPlay loop style={{ width: '100%', height: '40%', objectFit: 'fill', borderRadius: '10px', overflow: 'hidden',}}>
-                <source src="https://cdn.pixabay.com/video/2021/09/06/87692-602894354_tiny.mp4" type="video/mp4" />
+                <source src="/videos/Preview.mp4" type="video/mp4" />
             </video>
             <Stack sx={{ position: 'absolute', top: '60%', left: '50%', transform: 'translate(-50%, -50%)', color: 'white', fontSize: '24px' }}> {/* Stack으로 변경 */}
             <Button onClick={handleLogin} className="KakaoButton" style={{ backgroundImage: `url('/kakaologin.png')`, backgroundSize: 'cover', backgroundPosition: 'center', width: '200px', height: '50px', border: 'none' }}>
