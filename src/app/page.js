@@ -24,7 +24,7 @@ export default function App() {
         </video>
         <Stack sx={{ position: 'absolute', top: '60%', left: '50%', transform: 'translate(-50%, -50%)', color: 'white', fontSize: '24px' }}>
           <Button onClick={handleLogin} className="KakaoButton" style={{ backgroundImage: `url('/kakaologin.png')`, backgroundSize: 'cover', backgroundPosition: 'center', width: '200px', height: '50px', border: 'none' }} />
-          <div style={{ width: '200px', height: '50px' }}>
+          <div style={{ width: '200px', height: '50px', marginTop: '20px' }}>
             <GoogleOAuthProvider clientId={clientId}>
               <GoogleLogin
                 onSuccess={(res) => {
@@ -36,6 +36,7 @@ export default function App() {
               />
             </GoogleOAuthProvider>
           </div>
+          <a style={{ width: '200px', height: '50px', marginTop: '20px', textAlign:'center', fontSize:'15px' }}>회원 가입</a>
         </Stack>
       </Box>
       <Button variant="outlined" href="sub/" style={{ position: 'absolute', bottom: '20px', left: '50%', transform: 'translateX(-50%)' }}>
