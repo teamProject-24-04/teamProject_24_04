@@ -6,6 +6,7 @@ import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import theme from './theme';
 
 export default function App() {
+
   const Rest_api_key = '2b0126c640456aaae60160b93a596b32'; //REST API KEY
   const redirect_uri = 'http://localhost:3000/auth'; //Redirect URI
   // oauth 요청 URL
@@ -39,8 +40,8 @@ export default function App() {
           <a style={{ width: '200px', height: '50px', marginTop: '20px', textAlign:'center', fontSize:'15px' }}>회원 가입</a>
         </Stack>
       </Box>
-      <Button variant="outlined" href="sub/" style={{ position: 'absolute', bottom: '20px', left: '50%', transform: 'translateX(-50%)' }}>
-        sub로 이동
+      <Button variant="outlined" href="mypage/" style={{ position: 'absolute', bottom: '20px', left: '50%', transform: 'translateX(-50%)' }}>
+        마이 페이지
       </Button>
     </Box>
   );
