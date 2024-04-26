@@ -1,6 +1,6 @@
 // ProductPage.js
 'use client';
-
+import { BrowserRouter as Router } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import ProductList from './ProductList';
 

@@ -22,3 +22,5 @@ connection.query('SELECT * FROM products', (err, rows) => {
   }
   console.log('Products:', rows);
 });
+
+export default db;
