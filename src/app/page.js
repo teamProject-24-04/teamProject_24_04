@@ -110,6 +110,18 @@ export default function App() {
         }}>
         마이 페이지
       </Button>
+
+      <Button
+        variant="outlined"
+        href="youtuberList/"
+        style={{
+          position: 'absolute',
+          bottom: '220px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+        }}>
+        dwad
+      </Button>
     </Box>
   );
 }
