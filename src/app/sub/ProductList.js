@@ -74,7 +74,7 @@ const ProductList = () => {
               />
               <div className="product-info">
                 <h3>{product.name}</h3>
-                <p>가격: {product.price}</p>
+                <p>가격: {product.price}원원</p>
               </div>
             </div>
           </Link>
