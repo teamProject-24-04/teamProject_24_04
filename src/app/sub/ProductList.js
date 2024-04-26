@@ -1,3 +1,5 @@
+// ProductList.js
+
 import React, { useState, useEffect } from 'react';
 import { TextField, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import { FiSearch } from 'react-icons/fi';
@@ -62,9 +64,10 @@ const ProductList = () => {
         {filteredProducts.map((product) => (
           <Link
             key={product.id}
-            href="/product-details/[productId]"
-            as={`/product-details/${product.id}`}>
-            {/* href 속성에는 실제 페이지의 경로를, as 속성에는 브라우저의 URL 경로를 지정합니다. */}
+            href={`/product-details/${product.id}`}
+            // 클릭했을 때 해당 상품의 ID를 서버로 전달
+            // 서버에서는 이 ID를 기반으로 상세 정보를 가져와 응답할 것임
+          >
             <div className="product-card">
               <img
                 src={product.imageURL}
@@ -74,7 +77,7 @@ const ProductList = () => {
               />
               <div className="product-info">
                 <h3>{product.name}</h3>
-                <p>가격: {product.price}원원</p>
+                <p>가격: {product.price}원</p>
               </div>
             </div>
           </Link>

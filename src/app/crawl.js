@@ -104,33 +104,32 @@ app.get('/product-details/:productId', async (req, res) => {
     const productDetailUrl = `https://m.bbqtown.co.kr/goods/goods_view.php?goodsNo=${productId}`;
     await page.goto(productDetailUrl, { waitUntil: 'domcontentloaded' });
 
-    // 상세 정보를 가져오는 코드 작성
-    await page.waitForSelector('.product-name');
-    const name = await page.$eval('.product-name', (element) => element.textContent.trim());
-
-    await page.waitForSelector('.product-price');
-    const price = await page.$eval('.product-price', (element) => element.textContent.trim());
-
-    await page.waitForSelector('.product-description');
-    const description = await page.$eval('.product-description', (element) =>
-      element.textContent.trim(),
-    );
-
     // 이미지 URL 가져오는 코드 작성
-    await page.waitForSelector('.product-image');
-    const imageURL = await page.$eval('.product-image', (element) => element.getAttribute('src'));
+    await page.waitForSelector('.js-smart-img'); // 이미지가 있는 클래스명으로 대기
+    const imageElements = await page.$$('.js-smart-img'); // 이미지 요소들을 모두 가져옴
 
-    // 가져온 상세 정보와 상품 정보를 연동하여 DB에 넣기
-    const query = `INSERT INTO product_details (id, name, price, imageURL, description) VALUES (${mysql.escape(productId)}, ${mysql.escape(name)}, ${mysql.escape(price)}, ${mysql.escape(imageURL)}, ${mysql.escape(description)})`;
-    connection.query(query, (err, result) => {
-      if (err) {
-        console.error('Error inserting product details into database:', err);
-        return;
-      }
-      console.log('Product details inserted into database:', result);
-    });
+    // 이미지 URL들을 담을 배열
+    const imageURLs = [];
 
-    const productDetails = { id: productId, name, price, imageURL, description };
+    // 각 이미지의 URL을 추출하여 배열에 추가
+    for (const imageElement of imageElements) {
+      const imageURL = await page.evaluate((element) => element.getAttribute('src'), imageElement);
+      imageURLs.push(imageURL);
+    }
+
+    // 가져온 이미지 정보를 프로덕트 테이블에 추가
+    for (const imageURL of imageURLs) {
+      const updateQuery = `INSERT INTO product_images (product_id, image_url) VALUES (${mysql.escape(productId)}, ${mysql.escape(imageURL)})`;
+      connection.query(updateQuery, (err, result) => {
+        if (err) {
+          console.error('Error updating product images in database:', err);
+          return;
+        }
+        console.log('Product images updated in database:', result);
+      });
+    }
+
+    const productDetails = { id: productId, imageURLs };
     res.json(productDetails);
   } catch (error) {
     console.error('Error during fetching product details:', error);
