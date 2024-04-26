@@ -83,7 +83,7 @@ export default function App() {
               textAlign: 'center',
               fontSize: '15px',
             }}>
-            회원 가입
+            원회가입
           </a>
         </Stack>
       </Box>
