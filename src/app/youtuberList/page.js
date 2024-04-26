@@ -151,10 +151,12 @@ function App() {
                 textAlign: 'left',
               }}
               onClick={handleButtonClick1}>
-              <span style={{ fontSize: '20px', fontWeight: 'bold', lineHeight: '1.2' }}>
+              <span
+                style={{ fontSize: '110%', fontWeight: 'bold', lineHeight: '1.2', padding: '0' }}>
                 인기 유튜버 레시피 <br />
-                <span style={{ fontSize: '8px', fontWeight: 'bold', lineHeight: '1.2' }}>
-                  완벽한 바베큐를 위한 유튜버들의 레시피(보기)
+                <span
+                  style={{ fontSize: '50%', fontWeight: 'bold', lineHeight: '1.2', padding: '0' }}>
+                  완벽한 바베큐를 위한 유튜버들의 레시피
                 </span>
               </span>
             </Button>
@@ -171,10 +173,12 @@ function App() {
                 textAlign: 'left',
               }}
               onClick={handleButtonClick2}>
-              <span style={{ fontSize: '20px', fontWeight: 'bold', lineHeight: '1.2' }}>
+              <span
+                style={{ fontSize: '110%', fontWeight: 'bold', lineHeight: '1.2', padding: '0' }}>
                 회원 바베큐 레시피 <br />
-                <span style={{ fontSize: '8px', fontWeight: 'bold', lineHeight: '1.2' }}>
-                  완벽한 바베큐를 위한 회원들의 레시피(보기)
+                <span
+                  style={{ fontSize: '50%', fontWeight: 'bold', lineHeight: '1.2', padding: '0' }}>
+                  완벽한 바베큐를 위한 회원들의 레시피
                 </span>
               </span>
             </Button>
