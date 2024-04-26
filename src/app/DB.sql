@@ -9,4 +9,20 @@ CREATE TABLE IF NOT EXISTS products (
     imageURL VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE article (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title TEXT,
+    content TEXT
+);
+
+
+INSERT INTO article
+SET title = '제목1',
+content = '내용1'
+
+INSERT INTO article
+SET title = '제목2',
+content = '내용2'
+
+select * from article
 SELECT * FROM products
