@@ -1,0 +1,20 @@
+/* 각 상품 카드 스타일 */
+.product-list .product-card {
+  display: flex;
+  align-items: center;
+}
+.product-card {
+  margin-bottom: 50px;
+}
+
+/* 상품 이미지 스타일 */
+.product-list .product-card .product-image {
+  max-width: 100px;
+  max-height: 100px;
+  margin-right: 20px; /* 이미지와 글씨 사이 간격 조절 */
+}
+
+/* 상품 정보 스타일 */
+.product-list .product-card .product-info {
+  font-size: 10px;
+}

@@ -1,12 +1,13 @@
 // ProductPage.js
+'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ProductList from './ProductList';
 
 const ProductPage = () => {
   return (
     <div>
-      <h1>Product List</h1>
+      <h1></h1>
       <ProductList />
     </div>
   );

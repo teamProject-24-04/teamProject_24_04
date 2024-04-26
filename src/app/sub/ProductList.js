@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import { FiSearch } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
+import './Product.css';
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
@@ -10,7 +10,7 @@ const ProductList = () => {
 
   useEffect(() => {
     // 서버에서 상품 데이터 가져오기
-    fetch('/products')
+    fetch('http://localhost:3002/products') // 서버의 실제 URL로 변경
       .then((response) => response.json())
       .then((data) => setProducts(data))
       .catch((error) => console.error('상품 데이터를 가져오는 중 오류가 발생했습니다:', error));
@@ -59,20 +59,19 @@ const ProductList = () => {
       <div className="product-list">
         {/* 각 상품을 클릭했을 때 해당 상품의 상세 정보 페이지로 이동할 수 있도록 Link 컴포넌트 사용 */}
         {filteredProducts.map((product) => (
-          <Link to={`/products/${product.id}`} key={product.id} className="product-link">
-            <div className="product-card">
-              <img
-                src={product.image}
-                alt={product.name}
-                className="product-image"
-                style={{ maxWidth: '100px', maxHeight: '100px' }}
-              />
-              <div className="product-info">
-                <h3>{product.name}</h3>
-                <p>가격: {product.price}원</p>
-              </div>
+          <div key={product.id} className="product-card">
+            <img
+              src={product.imageURL}
+              alt={product.name}
+              className="product-image"
+              style={{ maxWidth: '100px', maxHeight: '100px' }}
+            />
+            <div className="product-info" style={{}}>
+              <h3>{product.name}</h3>
+              <p>가격: {product.price}원</p>
+              {/* 카테고리*/}
             </div>
-          </Link>
+          </div>
         ))}
       </div>
     </div>

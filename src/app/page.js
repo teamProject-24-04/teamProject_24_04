@@ -4,7 +4,7 @@ import * as React from 'react';
 import { Button, Box, Stack } from '@mui/material';
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import theme from './theme';
-
+import Link from 'next/link';
 export default function App() {
   const Rest_api_key = '2b0126c640456aaae60160b93a596b32'; //REST API KEY
   const redirect_uri = 'http://localhost:3000/auth'; //Redirect URI

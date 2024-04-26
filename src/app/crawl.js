@@ -1,9 +1,13 @@
 const express = require('express');
 const puppeteer = require('puppeteer');
 const mysql = require('mysql');
+const cors = require('cors'); // CORS 미들웨어 추가
 
 const app = express();
 const port = 3002;
+
+// CORS 미들웨어 설정
+app.use(cors());
 
 // MySQL 연결 설정
 const connection = mysql.createConnection({
