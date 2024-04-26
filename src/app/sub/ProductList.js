@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import { FiSearch } from 'react-icons/fi';
+import Link from 'next/link'; // Next.js의 Link 컴포넌트 임포트
 import './Product.css';
 
 const ProductList = () => {
@@ -59,19 +60,24 @@ const ProductList = () => {
       <div className="product-list">
         {/* 각 상품을 클릭했을 때 해당 상품의 상세 정보 페이지로 이동할 수 있도록 Link 컴포넌트 사용 */}
         {filteredProducts.map((product) => (
-          <div key={product.id} className="product-card">
-            <img
-              src={product.imageURL}
-              alt={product.name}
-              className="product-image"
-              style={{ maxWidth: '100px', maxHeight: '100px' }}
-            />
-            <div className="product-info" style={{}}>
-              <h3>{product.name}</h3>
-              <p>가격: {product.price}원</p>
-              {/* 카테고리*/}
+          <Link
+            key={product.id}
+            href="/product-details/[productId]"
+            as={`/product-details/${product.id}`}>
+            {/* href 속성에는 실제 페이지의 경로를, as 속성에는 브라우저의 URL 경로를 지정합니다. */}
+            <div className="product-card">
+              <img
+                src={product.imageURL}
+                alt={product.name}
+                className="product-image"
+                style={{ maxWidth: '100px', maxHeight: '100px' }}
+              />
+              <div className="product-info">
+                <h3>{product.name}</h3>
+                <p>가격: {product.price}</p>
+              </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
