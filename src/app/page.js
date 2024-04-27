@@ -6,6 +6,7 @@ import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import theme from './theme';
 import Link from 'next/link';
 import RecipyDetail from '../app/ocj/recipyDetail';
+
 export default function App() {
   const Rest_api_key = '2b0126c640456aaae60160b93a596b32'; //REST API KEY
   const redirect_uri = 'http://localhost:3000/auth'; //Redirect URI
@@ -84,8 +85,9 @@ export default function App() {
                 marginTop: '20px',
                 textAlign: 'center',
                 fontSize: '15px',
-              }}>
-              원회가입
+              }}
+              href="/login">
+              회원 가입
             </a>
           </Stack>
         </Box>
