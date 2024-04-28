@@ -113,7 +113,7 @@ video {
 }
 
 /* style.css */
-#google-login-button iframe{
+#google-login-button iframe {
   height: 100px !important;
   transform: scale(1.5);
   transform-origin: top;

@@ -279,6 +279,100 @@ function App() {
           </div>
         </div>
       </div>
+      <div className="member_recipe" style={{ display: isPressed1 ? 'none' : 'block' }}>
+        <div className="recipe_list">
+          <img
+            src="https://americanmeat.co.kr/wp-content/uploads/2020/09/USMEF_%EB%AC%B8%EC%B8%A0101%ED%81%B4%EB%A0%88%EC%8A%A4_img1-1024x1024.png"
+            alt=""
+          />
+          <div className="recipe_info">
+            <p>문츠</p>
+            <p>유튜브 제목 들어갈 자리</p>
+            <div className="views">
+              <FaUser />
+              <span>500</span>
+            </div>
+          </div>
+        </div>
+        <div className="recipe_list">
+          <img
+            src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDAxMTFfNTIg%2FMDAxNzA0OTQ0MjMxNzE2.Wbx2U8JUNvX8AMICUP1yhJTfAr6meUJ-GXAM5BT3Yccg.T1xkyO4diCOE95Tai073Fs153sYm0jNvTuUdKtGEjNog.JPEG.7hansollee%2Fgfgdfgdffg.JPG&type=sc960_832"
+            alt=""
+          />
+          <div className="recipe_info">
+            <p>고기남자</p>
+            <p>유튜브 제목 들어갈 자리</p>
+            <div className="views">
+              <FaUser />
+              <span>500</span>
+            </div>
+          </div>
+        </div>
+        <div className="recipe_list">
+          <img src="https://cdn.class101.net/images/ff5fbbb5-35a7-4fee-8540-35a0a120066e" alt="" />
+          <div className="recipe_info">
+            <p>정육왕</p>
+            <p>유튜브 제목 들어갈 자리</p>
+            <div className="views">
+              <FaUser />
+              <span>500</span>
+            </div>
+          </div>
+        </div>
+        <div className="recipe_list">
+          <img
+            src="https://i.namu.wiki/i/nQJW2e_q6_y8kEDDoQQm-uqQxcp9kdpEt5GXcdPj5KFGiHLfz5OYnWztz2FYImuC-3S6lUxX7undv90l_8_jPg.webp"
+            alt=""
+          />
+          <div className="recipe_info">
+            <p>육식맨</p>
+            <p>유튜브 제목 들어갈 자리</p>
+            <div className="views">
+              <FaUser />
+              <span>500</span>
+            </div>
+          </div>
+        </div>
+        <div className="recipe_list">
+          <img
+            src="https://i.namu.wiki/i/Xp4MMRlKcjkKf5CNoTmUcUjUL5VFfg9FvvWpT4U1XdXgSHqA1K5g2u3HT-n_3aJcsVufREe3GBTw3NBcUPab2g.webp"
+            alt=""
+          />
+          <div className="recipe_info">
+            <p>승우아빠</p>
+            <p>유튜브 제목 들어갈 자리</p>
+            <div className="views">
+              <FaUser />
+              <span>500</span>
+            </div>
+          </div>
+        </div>
+        <div className="recipe_list">
+          <img
+            src="https://i.namu.wiki/i/LWNmFEecKVs4e0rXZS52gnDvzSZ-PUfNh6zGZCD-1XCLR2bRRX-cpnUGv9KvqvaJLtPTDQPVfCkXgbdHGV0C4Nkr8-a8U-bfITZpgcmrmxPHFDPEQh7aFb-XYFQDo7uhlGmBq0nGJRCF7XAjOF-F3w.webp"
+            alt=""
+          />
+          <div className="recipe_info">
+            <p>취요남</p>
+            <p>유튜브 제목 들어갈 자리</p>
+            <div className="views">
+              <FaUser />
+              <span>500</span>
+            </div>
+          </div>
+        </div>
+        <div className="recipe_list">
+          <img src="https://dimg.donga.com/wps/NEWS/IMAGE/2018/10/23/92539689.2.jpg" alt="" />
+          <div className="recipe_info">
+            <p>백종원</p>
+            <p>유튜브 제목 들어갈 자리</p>
+            <div className="views">
+              <FaUser />
+              <span>500</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
