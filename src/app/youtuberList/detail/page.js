@@ -14,10 +14,66 @@ import 'slick-carousel/slick/slick-theme.css';
 import { HiUsers } from 'react-icons/hi2';
 import { FaHeart } from 'react-icons/fa';
 import RootTheme from '../../theme';
-import YouTube, { YouTubeProps } from 'react-youtube';
+import YouTube from 'react-youtube';
+import { FaPlayCircle } from 'react-icons/fa';
 import '../App.css';
 import '../../globals.css';
+
 function App() {
+  const videos = [
+    {
+      id: 'dBEzkrcniLg',
+      title: '고기의 끝, 텍사스 브리스킷',
+      channel: '고기남자',
+    },
+    {
+      id: 'fkV7U7jIgTA',
+      title: '우대갈비의 끝',
+      channel: '고기남자',
+    },
+    {
+      id: 'q6DbnQOUnts',
+      title: '풀드포크 바베큐는 집에서 하세요',
+      channel: '고기남자',
+    },
+    {
+      id: 'KXkOt0O4VnY',
+      title: '평생 써먹는 통삼겹살 먹는 방법',
+      channel: '고기남자',
+    },
+    {
+      id: 'dEzMEjXSlgY',
+      title: '삼겹살을 최대한 맛있게 먹는 법',
+      channel: '고기남자',
+    },
+    // 추가 비디오...
+  ];
+
+  const [videoId, setVideoId] = useState(videos[0].id); // 첫 번째 비디오의 ID로 초기화
+
+  const handlePlayVideo = (videoId) => {
+    setVideoId(videoId);
+  };
+
+  const playVideoFullScreen = (videoId) => {
+    if (typeof window !== 'undefined') {
+      // 클라이언트 측에서만 실행
+      const YouTube = require('react-youtube').default;
+      const opts = {
+        width: '100%',
+        height: '270px',
+        playerVars: {
+          autoplay: 1,
+          modestbranding: 1,
+          loop: 1,
+          playlist: videoId,
+        },
+      };
+      return <YouTube videoId={videoId} opts={opts} />;
+    }
+    return null;
+  };
+
   return (
     <>
       <Container>
@@ -51,11 +107,8 @@ function App() {
             />
           </div>
         </div>
-        <div
-          style={{
-            width: '100%',
-            marginTop: '5%',
-          }}>
+        <Container style={{ display: 'flex', justifyContent: 'space-between' }}>
+          {/* 유튜브 비디오 목록 */}
           <Slider
             dots={false}
             infinite={true}
@@ -63,53 +116,49 @@ function App() {
             slidesToShow={3}
             slidesToScroll={3}
             arrows={true}
-            autoplay={false}>
-            <div className="detail_img_slider">
-              <img
-                src="https://picsum.photos/id/237/120/120"
-                style={{ marginLeft: '10px', marginRight: '10px', flexShrink: 0 }}
-              />
-            </div>
-            <div className="detail_img_slider">
-              <img
-                src="https://picsum.photos/id/238/120/120"
-                style={{ marginLeft: '10px', marginRight: '10px', flexShrink: 0 }}
-              />
-            </div>
-            <div className="detail_img_slider">
-              <img
-                src="https://picsum.photos/id/239/120/120"
-                style={{ marginLeft: '10px', marginRight: '10px', flexShrink: 0 }}
-              />
-            </div>
-            <div className="detail_img_slider">
-              <img
-                src="https://picsum.photos/id/240/120/120"
-                style={{ marginLeft: '10px', marginRight: '10px', flexShrink: 0 }}
-              />
-            </div>
-            <div className="detail_img_slider">
-              <img
-                src="https://picsum.photos/id/241/120/120"
-                style={{ marginLeft: '10px', marginRight: '10px', flexShrink: 0 }}
-              />
-            </div>
-            <div className="detail_img_slider">
-              <img
-                src="https://picsum.photos/id/242/120/120"
-                style={{ marginLeft: '10px', marginRight: '10px', flexShrink: 0 }}
-              />
-            </div>
+            autoplay={false}
+            style={{ marginTop: '40px', width: '100%' }}>
+            {videos.map((video, index) => (
+              <div key={index} className="detail_img_slider">
+                <div style={{ position: 'relative', cursor: 'pointer' }}>
+                  <div
+                    style={{
+                      width: '100%',
+                      height: '120px',
+                      overflow: 'hidden',
+                    }}>
+                    <img
+                      src={`https://img.youtube.com/vi/${video.id}/maxresdefault.jpg`}
+                      style={{ width: '100%', height: '100%', objectFit: 'fill' }}
+                      alt="video thumbnail"
+                    />
+                  </div>
+                  <FaPlayCircle
+                    style={{
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      fontSize: '48px',
+                      color: 'white',
+                    }}
+                    onClick={() => handlePlayVideo(video.id)} // 수정된 부분
+                  />
+                </div>
+                <p style={{ margin: '5px 0', fontSize: '14px', fontWeight: 'bold' }}>
+                  {video.title}
+                </p>
+                <p style={{ margin: '0', fontSize: '12px' }}>{video.channel}</p>
+              </div>
+            ))}
           </Slider>
-        </div>
-        <div>
-          <iframe
-            width="100%"
-            src="//www.youtube.com/embed/ubGpDoyJvmI"
-            frameborder="0"
-            allowfullscreen></iframe>
-        </div>
+        </Container>
       </Container>
+      {videoId && (
+        <div style={{ marginTop: '20px' }}>
+          <YouTube videoId={videoId} opts={{ width: '100%', height: '270px' }} />
+        </div>
+      )}
     </>
   );
 }
