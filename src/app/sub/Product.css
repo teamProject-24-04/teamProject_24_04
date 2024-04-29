@@ -17,4 +17,16 @@
 /* 상품 정보 스타일 */
 .product-list .product-card .product-info {
   font-size: 10px;
+  margin-right: 20px;
+}
+.search-input {
+  display: flex;
+  margin: 20px;
+}
+.ToggleButtonGroup {
+  display: flex;
+}
+.ToggleButton {
+  width: 150px; /* 원하는 크기로 조정하세요 */
+  height: 40px; /* 원하는 높이로 조정하세요 */
 }
