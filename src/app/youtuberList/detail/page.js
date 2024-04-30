@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { RecoilRoot } from 'recoil';
-import { ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider, Button } from '@mui/material/';
 import { Container } from '@mui/material';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -89,7 +89,7 @@ function App() {
           <div style={{ marginRight: 'auto', display: 'flex', flexDirection: 'column' }}>
             <p style={{ margin: '0', marginBottom: '5px' }}>인기 유튜버 레시피</p>
             <p style={{ margin: '0', marginTop: '15px' }}>고기의 끝, 텍사스 브리스킷</p>
-            <p style={{ margin: '0', fontSize: '10px' }}>유튜브(고기남자)</p>
+            <p style={{ margin: '0', fontSize: '10px' }}>박태영(고기남자)</p>
             <div style={{ display: 'flex', alignItems: 'center', marginTop: '5%' }}>
               <FaHeart style={{ color: 'red', fontSize: '15px' }} />
               <span style={{ marginLeft: '5px' }}>100</span> {/* 좋아요 숫자 표시 */}
@@ -124,7 +124,7 @@ function App() {
                   <div
                     style={{
                       width: '100%',
-                      height: '120px',
+                      height: '100px',
                       overflow: 'hidden',
                     }}>
                     <img
@@ -159,6 +159,31 @@ function App() {
           <YouTube videoId={videoId} opts={{ width: '100%', height: '270px' }} />
         </div>
       )}
+      <div style={{ fontSize: '12px', fontWeight: '500', marginTop: '20px' }}>
+        <p>
+          대한민국 136만명의 구독자를 보유한 요리 유튜버 자신의 얼굴을 드러내지 않고 오직 목소리와
+          손동작으로 고기 요리를 진행한다. 항상 자신의 전완근을 어필하는 독특한 영상 썸네일을
+          지향한다.
+        </p>
+        <p style={{ marginTop: '20px' }}>[레시피 소개]</p>
+        <p>고기의 끝, 텍사스 브리스킷</p>
+        <p style={{ marginTop: '20px' }}>우대갈비의 끝</p>
+        <p style={{ marginTop: '20px' }}>폴드포크 바베큐는 집에서 하세요</p>
+        <p style={{ marginTop: '20px' }}>평생 써먹는 통삼겹살 먹는 방법</p>
+        <p style={{ marginTop: '20px' }}>삼겹살을 최대한 맛있게 먹는 법</p>
+      </div>
+      <Button
+        style={{
+          width: '100%',
+          marginTop: '20px',
+          position: 'fixed',
+          zIndex: '1000',
+          bottom: '0px',
+        }}
+        size="large"
+        variant="contained">
+        내 레시피에 추가하기
+      </Button>
     </>
   );
 }
