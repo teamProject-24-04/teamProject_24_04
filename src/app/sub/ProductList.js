@@ -62,10 +62,10 @@ const ProductList = () => {
         aria-label="카테고리"
         className="toggle-button-group">
         {/* 각 카테고리 코드를 value로 설정 */}
-        <ToggleButton value="080001">바베큐 고기</ToggleButton>
-        <ToggleButton value="080002">시즈닝</ToggleButton>
-        <ToggleButton value="080003">숯</ToggleButton>
-        <ToggleButton value="080004">바베큐 도구</ToggleButton>
+        <ToggleButton value="080001">바베큐큐큐 </ToggleButton>
+        <ToggleButton value="080002">바베큐큐큐 </ToggleButton>
+        <ToggleButton value="080003">바베큐큐큐 </ToggleButton>
+        <ToggleButton value="080004">바베큐큐큐 </ToggleButton>
       </ToggleButtonGroup>
       <div style={{ marginBottom: '20px' }} />
       <div className="product-list">
@@ -83,7 +83,6 @@ const ProductList = () => {
               <div className="product-info">
                 <h3>{product.name}</h3>
                 <p>가격: {product.price}원</p>
-                <p>가격: {product.id}원</p>
               </div>
             </Link>
           </div>
