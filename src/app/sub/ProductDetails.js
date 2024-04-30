@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router'; // Next.js의 useRouter 훅 사용
+import axios from 'axios';
 
 const ProductDetails = () => {
   const router = useRouter();
@@ -9,12 +10,14 @@ const ProductDetails = () => {
   useEffect(() => {
     if (id) {
       // 서버에서 상세 정보 데이터 가져오기
-      fetch(`http://localhost:3002/product-details/${id}`)
-        .then((response) => response.json())
-        .then((data) => setProduct(data))
-        .catch((error) =>
-          console.error('상세 정보 데이터를 가져오는 중 오류가 발생했습니다:', error),
-        );
+      axios
+        .get(`/api/products/${id}`)
+        .then((response) => {
+          setProduct(response.data);
+        })
+        .catch((error) => {
+          console.error('상세 정보 데이터를 가져오는 중 오류가 발생했습니다:', error);
+        });
     }
   }, [id]);
 
