@@ -86,7 +86,7 @@ export default function App() {
                 textAlign: 'center',
                 fontSize: '15px',
               }}
-              href="/login">
+              href="member/signup">
               회원 가입
             </a>
           </Stack>
@@ -105,7 +105,7 @@ export default function App() {
 
         <Button
           variant="outlined"
-          href="mypage/"
+          href="/member/mypage/"
           style={{
             position: 'absolute',
             bottom: '20px',

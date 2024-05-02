@@ -1,5 +1,4 @@
-// src/pages/api/articles.js
-import pool from '../../app/lib/db';
+import pool from '../../../app/lib/db';
 
 export default async function handler(req, res) {
   try {
@@ -7,6 +6,6 @@ export default async function handler(req, res) {
     res.status(200).json(rows);
   } catch (error) {
     console.error('Error fetching member:', error);
-    res.status(500).json({ error: 'Error fetching articles' });
+    res.status(500).json({ error: 'Error fetching member' });
   }
 }

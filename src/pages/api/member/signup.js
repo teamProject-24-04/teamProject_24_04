@@ -1,5 +1,5 @@
 // src/pages/api/articleWrite.js
-import pool from '../../app/lib/db';
+import pool from '../../../app/lib/db';
 
 export default async function handler(req, res) {
   try {
@@ -20,7 +20,7 @@ export default async function handler(req, res) {
     // 삽입된 행의 ID를 반환
     res.status(200).json({ id: result.insertId });
   } catch (error) {
-    console.error('Error inserting article:', error);
-    res.status(500).json({ error: 'Error inserting article' });
+    console.error('Error inserting members:', error);
+    res.status(500).json({ error: 'Error inserting members' });
   }
 }
