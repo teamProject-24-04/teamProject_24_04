@@ -182,7 +182,7 @@ export default function Page() {
               if (e.target.value.trim() === '') {
                 setErrors((prevState) => ({
                   ...prevState,
-                  confirmLoginPw: '비밀번호를 입력하세요.',
+                  confirmLoginPw: '비밀번호를 입력해주세요.',
                 }));
               } else {
                 setErrors((prevState) => ({ ...prevState, confirmLoginPw: '' }));
