@@ -1,20 +1,36 @@
 'use client';
-// src/pages/login.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { TextField, Button, Typography, Box } from '@mui/material';
 
-export default function LoginPage() {
+const LoginPage = () => {
   const [loginId, setLoginId] = useState('');
   const [loginPw, setLoginPw] = useState('');
   const [error, setError] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
+
+  useEffect(() => {
+    // 페이지 로드 시 로그인 상태 확인
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    if (isLoggedIn === 'true') {
+      // 이미 로그인된 경우, 알림 후 다른 페이지로 이동
+      if (window.confirm('이미 로그인 중입니다. 로그아웃하시겠습니까?')) {
+        handleLogout();
+      } else {
+        window.location.href = '/member/mypage';
+      }
+    }
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.post('/api/member/login', { loginId, loginPw });
-      setSuccessMessage('로그인에 성공했습니다.');
-      // 로그인 성공시 리다이렉트 또는 다른 작업을 수행할 수 있습니다.
+      const response = await axios.post('/api/member/login', { loginId, loginPw });
+      const member = response.data; // 응답에서 회원 정보를 가져옴
+      // 로그인 성공
+      localStorage.setItem('isLoggedIn', true); // 로그인 상태를 로컬 스토리지에 저장
+      localStorage.setItem('loginId', loginId); // 아이디를 로컬 스토리지에 저장
+      localStorage.setItem('member', JSON.stringify(member)); // 회원 정보를 로컬 스토리지에 저장
+      window.location.href = '/member/mypage'; // 로그인 후에 페이지 이동
     } catch (error) {
       console.error('Error logging in:', error);
       if (error.response && error.response.status === 401) {
@@ -25,26 +41,43 @@ export default function LoginPage() {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('loginId');
+    localStorage.removeItem('member');
+    window.location.href = 'member/login';
+  };
+
   return (
-    <div>
-      <h1>로그인 페이지</h1>
+    <Box sx={{ maxWidth: 400, margin: 'auto', mt: 4 }}>
+      <Typography variant="h4" align="center" gutterBottom>
+        로그인 페이지
+      </Typography>
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="아이디"
+        <TextField
+          label="아이디"
+          variant="outlined"
+          fullWidth
           value={loginId}
           onChange={(e) => setLoginId(e.target.value)}
+          sx={{ mb: 2 }}
         />
-        <input
+        <TextField
           type="password"
-          placeholder="비밀번호"
+          label="비밀번호"
+          variant="outlined"
+          fullWidth
           value={loginPw}
           onChange={(e) => setLoginPw(e.target.value)}
+          sx={{ mb: 2 }}
         />
-        <button type="submit">로그인</button>
+        <Button type="submit" variant="contained" fullWidth>
+          로그인
+        </Button>
       </form>
-      {error && <p>{error}</p>}
-      {successMessage && <p>{successMessage}</p>}
-    </div>
+      {error && <Typography color="error">{error}</Typography>}
+    </Box>
   );
-}
+};
+
+export default LoginPage;
