@@ -3,32 +3,31 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function DetailPage({ match }) {
-  const [recipe, setRecipe] = useState(null);
+  const [youtuber, setYoutuber] = useState(null);
 
   useEffect(() => {
-    async function fetchRecipe() {
+    async function fetchData() {
       try {
         const response = await axios.get(`/api/youtubers/${match.params.id}`);
-        setRecipe(response.data);
+        setYoutuber(response.data);
       } catch (error) {
-        console.error('Error fetching recipe:', error);
+        console.error('Error fetching data:', error);
       }
     }
 
-    fetchRecipe();
+    fetchData();
   }, [match.params.id]);
 
-  if (!recipe) {
+  if (!youtuber) {
     return <div>Loading...</div>;
   }
 
   return (
     <div>
-      <h2>{recipe.name}</h2>
-      <img src={recipe.img_url} alt={recipe.name} />
-      <p>{recipe.content_name}</p>
-      <p>Views: {recipe.views}</p>
-      {/* Additional YouTuber information to display */}
+      <h2>{youtuber.name}</h2>
+      <img src={youtuber.img_url} alt={youtuber.name} />
+      <p>{youtuber.content_name}</p>
+      <p>Views: {youtuber.views}</p>
     </div>
   );
 }
