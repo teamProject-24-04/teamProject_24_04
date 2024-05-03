@@ -1,15 +1,17 @@
 // ProductPage.js
 'use client';
-import { BrowserRouter as Router } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import dynamic from 'next/dynamic';
 import ProductList from './ProductList';
-import ProductDetails from './ProductDetails';
+//ddddd
+// ProductDetails 컴포넌트를 동적으로 로드합니다.
+const DynamicProductDetails = dynamic(() => import('./ProductDetails'), { ssr: false });
 
 const ProductPage = () => {
   return (
     <div>
-      <h1></h1>
       <ProductList />
+      <DynamicProductDetails />
     </div>
   );
 };
