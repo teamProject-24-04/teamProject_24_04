@@ -8,7 +8,7 @@ const App = () => {
     <Router>
       <Switch>
         <Route path="/sub" exact component={ProductList} /> {/* exact 추가 */}
-        <Route path="/sub/:productId" component={ProductDetails} />{' '}
+        {/* <Route path="/sub/:productId" component={ProductDetails} />{' '} */}
         {/* productId 파라미터를 받을 수 있도록 수정 */}
       </Switch>
     </Router>

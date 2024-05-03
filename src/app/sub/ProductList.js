@@ -1,21 +1,20 @@
-// ProductList.js
-
 import React, { useState, useEffect } from 'react';
 import { TextField, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import { FiSearch } from 'react-icons/fi';
-import Link from 'next/link'; // Next.js의 Link 컴포넌트 임포트
+import Link from 'next/link';
 import './Product.css';
 import axios from 'axios';
+
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   useEffect(() => {
     async function fetchProducts() {
       try {
         const response = await axios.get('/api/products');
-        setProducts(response.data); // 수정된 부분: setArticles -> setProducts
+        setProducts(response.data);
       } catch (error) {
         console.error('Error fetching products:', error);
       }
@@ -28,17 +27,18 @@ const ProductList = () => {
     setSearchTerm(event.target.value);
   };
 
-  const handleCategoryChange = (event, newCategories) => {
-    setSelectedCategory(newCategories);
+  const handleCategoryChange = (event, newCategory) => {
+    setSelectedCategory(newCategory);
   };
 
-  const filteredProducts = Array.isArray(products)
-    ? products.filter(
-        (product) =>
-          product.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-          (selectedCategory.length === 0 || selectedCategory.includes(product.category)),
-      )
-    : [];
+  const filteredProducts = products.filter((product) => {
+    const isMatchingSearchTerm = product.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const isMatchingCategory =
+      selectedCategory === '' ||
+      product.categoryCode === selectedCategory ||
+      selectedCategory.includes(product.categoryCode);
+    return isMatchingSearchTerm && isMatchingCategory;
+  });
 
   return (
     <div>
@@ -55,25 +55,30 @@ const ProductList = () => {
           }}
         />
       </div>
-      {/* ToggleButtonGroup 내의 ToggleButton 클릭 시 handleCategoryChange 함수 호출하여 선택된 카테고리를 변경 */}
       <ToggleButtonGroup
         value={selectedCategory}
         onChange={handleCategoryChange}
         aria-label="카테고리"
-        className="toggle-button-group">
-        {/* 각 카테고리 코드를 value로 설정 */}
-        <ToggleButton value="080001">바베큐큐큐 </ToggleButton>
-        <ToggleButton value="080002">바베큐큐큐 </ToggleButton>
-        <ToggleButton value="080003">바베큐큐큐 </ToggleButton>
-        <ToggleButton value="080004">바베큐큐큐 </ToggleButton>
+        className="toggle-button-group"
+        multiple>
+        <ToggleButton value="080001" style={{ width: '100px', height: '50px' }}>
+          바베큐도구
+        </ToggleButton>
+        <ToggleButton value="079" style={{ width: '100px', height: '50px' }}>
+          시즈닝
+        </ToggleButton>
+        <ToggleButton value="092" style={{ width: '100px', height: '50px' }}>
+          훈화도구
+        </ToggleButton>
+        <ToggleButton value="078001" style={{ width: '100px', height: '50px' }}>
+          화로대
+        </ToggleButton>
       </ToggleButtonGroup>
       <div style={{ marginBottom: '20px' }} />
       <div className="product-list">
-        {/* 각 상품을 클릭했을 때 해당 상품의 상세 정보 페이지로 이동할 수 있도록 Link 컴포넌트 사용 */}
         {filteredProducts.map((product) => (
-          <div key={product.id} className="product-card">
-            <Link href={`/product-details/${product.id}`}>
-              {/* 클릭했을 때 해당 상품의 ID를 서버로 전달하고, 서버에서는 이 ID를 기반으로 상세 정보를 가져와 응답할 것임 */}
+          <Link href={`/product-details/${product.id}`} key={product.id}>
+            <div className="product-card">
               <img
                 src={product.imageURL}
                 alt={product.name}
@@ -84,8 +89,8 @@ const ProductList = () => {
                 <h3>{product.name}</h3>
                 <p>가격: {product.price}원</p>
               </div>
-            </Link>
-          </div>
+            </div>
+          </Link>
         ))}
       </div>
     </div>
