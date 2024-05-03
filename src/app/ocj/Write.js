@@ -1,20 +1,7 @@
 'use client';
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
-import {
-  Box,
-  TextField,
-  Button,
-  List,
-  ListItem,
-  ListItemText,
-  InputLabel,
-  MenuItem,
-  FormControl,
-  Select,
-} from '@mui/material';
-
-import CloseIcon from '@mui/icons-material/Close';
+import { Box, TextField, Button, InputLabel, MenuItem, FormControl, Select } from '@mui/material';
 
 const Write = ({ noticeSnackbarStatus, articlesStatus }) => {
   const [boardId, setBoardId] = useState('');
@@ -39,7 +26,7 @@ const Write = ({ noticeSnackbarStatus, articlesStatus }) => {
 
     try {
       // 글 작성
-      const response = await axios.post('/api/articleWrite', {
+      const response = await axios.post('/api/recipy/articleWrite', {
         boardId: boardId,
         title: title,
         content: content,
