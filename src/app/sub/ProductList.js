@@ -4,11 +4,13 @@ import { FiSearch } from 'react-icons/fi';
 import Link from 'next/link';
 import './Product.css';
 import axios from 'axios';
+import { IoMdCart } from 'react-icons/io';
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
     async function fetchProducts() {
@@ -31,14 +33,23 @@ const ProductList = () => {
     setSelectedCategory(newCategory);
   };
 
-  const filteredProducts = products.filter((product) => {
-    const isMatchingSearchTerm = product.name.toLowerCase().includes(searchTerm.toLowerCase());
-    const isMatchingCategory =
-      selectedCategory === '' ||
-      product.categoryCode === selectedCategory ||
-      selectedCategory.includes(product.categoryCode);
-    return isMatchingSearchTerm && isMatchingCategory;
-  });
+  const handleAddToCart = (product) => {
+    setSelectedProduct(product);
+  };
+
+  const handleConfirmAddToCart = async () => {
+    try {
+      // 여기에 장바구니에 상품을 추가하는 로직을 추가할 수 있습니다.
+      console.log('장바구니에 상품을 추가합니다:', selectedProduct);
+      // 장바구니에 상품을 추가한 후 장바구니 페이지로 이동합니다.
+      const response = await axios.post('/api/addToCart', selectedProduct);
+      console.log('장바구니에 상품 추가 완료:', response.data);
+      // 장바구니 페이지로 이동합니다.
+      router.push('/cart');
+    } catch (error) {
+      console.error('장바구니에 상품을 추가하는 중 에러 발생:', error);
+    }
+  };
 
   return (
     <div>
@@ -76,23 +87,38 @@ const ProductList = () => {
       </ToggleButtonGroup>
       <div style={{ marginBottom: '20px' }} />
       <div className="product-list">
-        {filteredProducts.map((product) => (
-          <Link href={`/product-details/${product.id}`} key={product.id}>
-            <div className="product-card">
-              <img
-                src={product.imageURL}
-                alt={product.name}
-                className="product-image"
-                style={{ maxWidth: '100px', maxHeight: '100px' }}
-              />
-              <div className="product-info">
+        {products.map((product) => (
+          <div className="product-card" key={product.id}>
+            <img
+              src={product.imageURL}
+              alt={product.name}
+              className="product-image"
+              style={{ maxWidth: '100px', maxHeight: '100px' }}
+            />
+            <div className="product-info">
+              <Link href={`/product-details/${product.id}`}>
                 <h3>{product.name}</h3>
                 <p>가격: {product.price}원</p>
+              </Link>
+              <div>
+                <button onClick={() => handleAddToCart(product)}>
+                  <IoMdCart className="cart" />
+                </button>
               </div>
             </div>
-          </Link>
+          </div>
         ))}
       </div>
+      {/* 확인 모달 */}
+      {selectedProduct && (
+        <div className="modal">
+          <div className="modal-content">
+            <p>장바구니에 담으시겠습니까?</p>
+            <button onClick={handleConfirmAddToCart}>예</button>
+            <button onClick={() => setSelectedProduct(null)}>아니오</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
