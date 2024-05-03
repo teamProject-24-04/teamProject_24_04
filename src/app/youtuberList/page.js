@@ -5,7 +5,7 @@ import { RecoilRoot } from 'recoil';
 import { ThemeProvider } from '@mui/material/styles';
 import { Container } from '@mui/material';
 import RootTheme from '../theme';
-import Header from './header';
+import Header from './Header';
 import SliderComponent from './SliderComponent';
 import ButtonGroupComponent from './ButtonGroupComponent';
 import RecipeListComponent from './RecipeListComponent';
