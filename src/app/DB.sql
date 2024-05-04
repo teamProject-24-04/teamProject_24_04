@@ -14,11 +14,15 @@ CREATE TABLE `member` (
   `id` INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `loginId` CHAR(20) NOT NULL,
   `loginPw` CHAR(80) NOT NULL,
+  `name` VARCHAR(50) NOT NULL, -- 이름 추가
+  `nickname` VARCHAR(50) NOT NULL, -- 닉네임 추가
+  `phoneNumber` VARCHAR(20) NOT NULL, -- 전화번호 추가
   `address` CHAR(10) NOT NULL,
   `roadAddress` VARCHAR(255) NOT NULL,
   `jibunAddress` VARCHAR(255) NOT NULL,
   `latitude` DECIMAL(10, 8) NOT NULL,
-  `longitude` DECIMAL(11, 8) NOT NULL
+  `longitude` DECIMAL(11, 8) NOT NULL,
+  `detailAddress` VARCHAR(255) NOT NULL -- 상세주소 추가
 );
 
 
