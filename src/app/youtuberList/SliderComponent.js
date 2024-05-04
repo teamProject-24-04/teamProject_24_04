@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Slider from 'react-slick';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 function SliderComponent() {
   const [youtubers, setYoutubers] = useState([]);
@@ -66,10 +67,10 @@ function SliderComponent() {
   return (
     <Slider {...settings} style={{ marginTop: '5%' }}>
       {youtubers.map((item, index) => (
-        <div key={index} className="image-container">
+        <Link to={`/detail/${item.id}`} key={index} className="image-container">
           <img src={item.img_url} alt={item.name} />
           <p>{item.name}</p>
-        </div>
+        </Link>
       ))}
     </Slider>
   );
