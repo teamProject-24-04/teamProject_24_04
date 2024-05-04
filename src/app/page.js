@@ -1,6 +1,6 @@
 'use client';
 
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Box, Stack } from '@mui/material';
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import Link from 'next/link';

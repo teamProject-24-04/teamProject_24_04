@@ -14,6 +14,9 @@ import axios from 'axios';
 import * as yup from 'yup';
 
 const schema = yup.object().shape({
+  name: yup.string().required('이름을 입력하세요.'),
+  nickname: yup.string().required('닉네임을 입력하세요.'),
+  phoneNumber: yup.string().required('전화번호를 입력하세요.'),
   loginId: yup
     .string()
     .required('아이디를 입력하세요.')
@@ -100,15 +103,23 @@ const AddressFinder = ({
 };
 
 export default function Page() {
+  const [name, setName] = useState('');
+  const [nickname, setNickname] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [loginId, setLoginId] = useState('');
   const [loginPw, setLoginPw] = useState('');
   const [confirmLoginPw, setConfirmLoginPw] = useState('');
+  const [detailAddress, setDetailAddress] = useState('');
   const [isDuplicate, setIsDuplicate] = useState(false);
   const [members, setMembers] = useState([]);
   const [errors, setErrors] = useState({
+    name: '',
+    nickname: '',
+    phoneNumber: '',
     loginId: '',
     loginPw: '',
     confirmLoginPw: '',
+    detailAddress: '',
   });
   const [address, setAddress] = useState('');
   const [zonecode, setZonecode] = useState('');
@@ -129,6 +140,29 @@ export default function Page() {
     } catch (error) {
       console.error('Error fetching members:', error);
     }
+  };
+
+  const handleNameChange = (event) => {
+    const newName = event.target.value;
+    setName(newName);
+    // 유효성 검사 또는 필요한 로직 추가
+  };
+
+  const handleNicknameChange = (event) => {
+    const newNickname = event.target.value;
+    setNickname(newNickname);
+    // 유효성 검사 또는 필요한 로직 추가
+  };
+
+  const handlePhoneNumberChange = (event) => {
+    const newPhoneNumber = event.target.value;
+    setPhoneNumber(newPhoneNumber);
+    // 유효성 검사 또는 필요한 로직 추가
+  };
+
+  const handleDetailAddressChange = (event) => {
+    const newDetailAddress = event.target.value;
+    setDetailAddress(newDetailAddress);
   };
 
   const handleIdChange = (event) => {
@@ -156,7 +190,18 @@ export default function Page() {
     event.preventDefault();
     try {
       schema
-        .validate({ loginId, loginPw, confirmLoginPw }, { abortEarly: false })
+        .validate(
+          {
+            name,
+            nickname,
+            phoneNumber,
+            loginId,
+            loginPw,
+            confirmLoginPw,
+            detailAddress,
+          },
+          { abortEarly: false },
+        )
         .then(() => {
           const duplicateCheck = members.find((member) => member.loginId === loginId);
           if (duplicateCheck) {
@@ -165,6 +210,9 @@ export default function Page() {
           }
           axios
             .post('/api/member/signup', {
+              name,
+              nickname,
+              phoneNumber,
               loginId,
               loginPw,
               zonecode,
@@ -172,23 +220,35 @@ export default function Page() {
               jibunAddress,
               latitude,
               longitude,
+              detailAddress,
             })
             .then(() => {
               fetchMembers();
+              setName('');
+              setNickname('');
+              setPhoneNumber('');
               setLoginId('');
               setLoginPw('');
+              setConfirmLoginPw('');
               setZonecode('');
               setRoadAddress('');
               setJibunAddress('');
               setLatitude('');
               setLongitude('');
               handleSignupSuccess();
+              setDetailAddress();
             })
             .catch((error) => console.error('Error writing member:', error));
         })
         .catch((errors) => {
           errors.inner.forEach((err) => {
-            if (err.path === 'loginId') {
+            if (err.path === 'name') {
+              setErrors((prevState) => ({ ...prevState, name: err.message }));
+            } else if (err.path === 'nickname') {
+              setErrors((prevState) => ({ ...prevState, nickname: err.message }));
+            } else if (err.path === 'phoneNumber') {
+              setErrors((prevState) => ({ ...prevState, phoneNumber: err.message }));
+            } else if (err.path === 'loginId') {
               setErrors((prevState) => ({ ...prevState, loginId: err.message }));
             } else if (err.path === 'loginPw') {
               setErrors((prevState) => ({ ...prevState, loginPw: err.message }));
@@ -284,6 +344,36 @@ export default function Page() {
               }
             }}
           />
+          <TextField
+            variant="outlined"
+            label="이름 입력"
+            value={name}
+            onChange={handleNameChange}
+            fullWidth
+            margin="normal"
+            error={!!errors.name}
+            helperText={errors.name}
+          />
+          <TextField
+            variant="outlined"
+            label="닉네임 입력"
+            value={nickname}
+            onChange={handleNicknameChange}
+            fullWidth
+            margin="normal"
+            error={!!errors.nickname}
+            helperText={errors.nickname}
+          />
+          <TextField
+            variant="outlined"
+            label="전화번호 입력"
+            value={phoneNumber}
+            onChange={handlePhoneNumberChange}
+            fullWidth
+            margin="normal"
+            error={!!errors.phoneNumber}
+            helperText={errors.phoneNumber}
+          />
           <AddressFinder
             setAddress={setAddress}
             setZonecode={setZonecode}
@@ -310,6 +400,14 @@ export default function Page() {
             variant="outlined"
             label="지번주소"
             value={jibunAddress}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            variant="outlined"
+            label="상세 주소"
+            value={detailAddress} // 입력된 상세 주소를 표시합니다.
+            onChange={handleDetailAddressChange} // 상세 주소가 변경될 때마다 호출됩니다.
             fullWidth
             margin="normal"
           />
