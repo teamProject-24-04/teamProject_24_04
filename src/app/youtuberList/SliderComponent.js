@@ -1,7 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Slider from 'react-slick';
+import axios from 'axios';
 
-function SliderComponent({ youtubers }) {
+function SliderComponent() {
+  const [youtubers, setYoutubers] = useState([]);
+
+  useEffect(() => {
+    async function fetchYoutubers() {
+      try {
+        const response = await axios.get('/api/youtubers');
+        setYoutubers(response.data);
+      } catch (error) {
+        console.error('Error fetching youtubers:', error);
+      }
+    }
+    fetchYoutubers();
+  }, []);
+
   const settings = {
     dots: false,
     infinite: true,
