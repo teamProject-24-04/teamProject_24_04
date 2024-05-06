@@ -1,33 +1,70 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect, useRef } from 'react';
+import { useParams } from 'react-router-dom';
 
-const ProductDetails = ({ productId }) => {
+const ProductDetails = () => {
+  const { id } = useParams();
   const [product, setProduct] = useState(null);
+  const [showImages, setShowImages] = useState(false);
+  const imagesRef = useRef(null);
 
   useEffect(() => {
-    const fetchProductDetails = async () => {
+    async function fetchProduct() {
       try {
-        // 상품의 ID를 기반으로 API 요청을 보냅니다.
-        const response = await axios.get(`/api/products/${productId}`);
-        setProduct(response.data); // API로부터 받은 데이터를 상태에 저장합니다.
+        const response = await fetch(`/api/product-details?id=${id}`);
+        const data = await response.json();
+        setProduct(data);
       } catch (error) {
         console.error('Error fetching product details:', error);
       }
-    };
+    }
+    
+    if (id) {
+      fetchProduct();
+    }
+  }, [id]);
 
-    fetchProductDetails(); // useEffect에서 호출하는 함수를 정의하고 호출합니다.
-  }, [productId]); // productId가 변경될 때마다 useEffect가 다시 실행됩니다.
+  const handleShowImages = () => {
+    setShowImages(true);
+    // Scroll to the bottom where images are located
+    imagesRef.current.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  if (!id) {
+    return <div>Loading...</div>;
+  }
+
+  if (!product) {
+    return <div>Product not found</div>;
+  }
 
   return (
-    <div>
-      {/* product가 로드되면 해당 정보를 표시합니다. */}
-      {product && (
-        <div>
-          <h2>{product.name}</h2>
-          <p>가격: {product.price}</p>
-          {/* 기타 상세 정보를 여기에 표시합니다. */}
-        </div>
+    <div className="product-details">
+      <div className="product-card">
+        <img
+          src={product.imageURL}
+          alt={product.name}
+          className="product-detailimg"
+          style={{ maxWidth: '100%' }}
+        />
+      </div>
+      <h2>{product.name}</h2>   
+      <p>가격: {product.price}원</p>
+      <p>설명: {product.description}</p>
+      {showImages && product.detailImages && (
+  <div ref={imagesRef}>
+    {product.detailImages.map((detailImage, index) => (
+      <img key={index} src={detailImage} alt={`Detail Image ${index + 1}`} />
+    ))}
+  </div>
+)}
+
+      {!showImages && (
+        <button onClick={handleShowImages}>더보기</button>
       )}
+      {/* 결제하기 버튼 추가 */}
+      <div style={{ position: 'fixed', bottom: 20, left: '50%', transform: 'translateX(-50%)', zIndex: 999 }}>
+        <button>결제하기</button>
+      </div>
     </div>
   );
 };

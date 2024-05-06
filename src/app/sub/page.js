@@ -1,19 +1,66 @@
-// ProductPage.js
+// App.js
+
 'use client';
-import React from 'react';
-import dynamic from 'next/dynamic';
-import ProductList from './ProductList';
-//ddddd
-// ProductDetails 컴포넌트를 동적으로 로드합니다.
-const DynamicProductDetails = dynamic(() => import('./ProductDetails'), { ssr: false });
+import React, { useState } from 'react';
+import { MemoryRouter as Router, Route, Switch } from 'react-router-dom';
+import { RecoilRoot } from 'recoil';
+import { ThemeProvider } from '@mui/material/styles';
+import { Container } from '@mui/material';
+import RootTheme from '../theme';
 
-const ProductPage = () => {
+
+
+import ProductList from './ProductList'; // 추가
+import ProductDetails from './ProductDetails'; // 추가
+
+import '../globals.css';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
+function App() {
+  const [isPressed1, setIsPressed1] = useState(true);
+  const [isPressed2, setIsPressed2] = useState(false);
+
+  const handleButtonClick1 = () => {
+    setIsPressed1(true);
+    setIsPressed2(false);
+  };
+
+  const handleButtonClick2 = () => {
+    setIsPressed1(false);
+    setIsPressed2(true);
+  };
+
+  const youtubers = [
+    /* Define your youtubers array here */
+  ];
+
   return (
-    <div>
-      <ProductList />
-      <DynamicProductDetails />
-    </div>
+    <Router>
+      <Container>
+    
+        <Switch>
+          <Route path="/" exact>
+           
+            {/* ProductList로 변경 */}
+            <ProductList />
+          </Route>
+          {/* ProductDetails 추가 */}
+          <Route path="/product-details/:id" component={ProductDetails} />
+        </Switch>
+      </Container>
+    </Router>
   );
-};
+}
 
-export default ProductPage;
+export default function themeApp() {
+  const theme = RootTheme();
+
+  return (
+    <RecoilRoot>
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
+    </RecoilRoot>
+  );
+}
