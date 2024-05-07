@@ -39,10 +39,9 @@ export default function Sub() {
   // 회원 정보 문자열을 객체로 변환
   const memberInfo = JSON.parse(memberInfoString);
 
-  // memberInfo 객체에서 latitude 값 가져오기
-  const latitude = memberInfo.member.latitude;
+  const regDate = memberInfo.member.regDate;
 
-  console.log(latitude); // latitude 값 출력
+  const formattedRegDate = regDate.slice(0, 10); // "2024-05-06" 부분만 가져옴
 
   const bull = (
     <Box component="span" sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}>
@@ -78,7 +77,7 @@ export default function Sub() {
         <Stack direction="row" spacing={2}>
           <Avatar alt="Remy Sharp" src="/profile/cat.jpg" />
         </Stack>
-        <div style={{ fontWeight: 'bold', marginLeft: '13px' }}>김선우</div>
+        <div style={{ fontWeight: 'bold', marginLeft: '13px' }}>{memberInfo.member.name}</div>
         <LuPencil style={{ marginLeft: '13px', marginTop: '7px', fontSize: '9px' }} />
       </div>
       <Box sx={{ display: 'flex', marginTop: '20px' }}>
@@ -95,7 +94,8 @@ export default function Sub() {
             p={2}
             borderRadius={1}
             sx={{ border: '2px solid grey' }}>
-            가입 날짜 2024.04.15
+            가입일
+            {formattedRegDate}
           </Box>
           <Box
             marginLeft={1}
