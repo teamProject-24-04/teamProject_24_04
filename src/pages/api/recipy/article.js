@@ -1,4 +1,4 @@
-// src/pages/api/recipy/article.js
+// src/pages/api/article.js
 import pool from '../../../app/lib/db';
 
 export default async function handler(req, res) {
