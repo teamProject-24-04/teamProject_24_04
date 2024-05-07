@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import { FiSearch } from 'react-icons/fi';
-import Link from 'next/link';
-import './Product.css';
+import { Link } from 'react-router-dom'; // Link import 추가
 import axios from 'axios';
-import { IoMdCart } from 'react-icons/io';
+import './Product.css';
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
-  const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
     async function fetchProducts() {
@@ -23,7 +21,7 @@ const ProductList = () => {
     }
 
     fetchProducts();
-  }, []);
+  }, []); // 빈 배열을 넣어 처음 한 번만 실행되도록 설정
 
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
@@ -33,23 +31,14 @@ const ProductList = () => {
     setSelectedCategory(newCategory);
   };
 
-  const handleAddToCart = (product) => {
-    setSelectedProduct(product);
-  };
-
-  const handleConfirmAddToCart = async () => {
-    try {
-      // 여기에 장바구니에 상품을 추가하는 로직을 추가할 수 있습니다.
-      console.log('장바구니에 상품을 추가합니다:', selectedProduct);
-      // 장바구니에 상품을 추가한 후 장바구니 페이지로 이동합니다.
-      const response = await axios.post('/api/addToCart', selectedProduct);
-      console.log('장바구니에 상품 추가 완료:', response.data);
-      // 장바구니 페이지로 이동합니다.
-      router.push('/cart');
-    } catch (error) {
-      console.error('장바구니에 상품을 추가하는 중 에러 발생:', error);
-    }
-  };
+  const filteredProducts = products.filter((product) => {
+    const isMatchingSearchTerm = product.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const isMatchingCategory =
+      selectedCategory === '' ||
+      product.categoryCode === selectedCategory ||
+      selectedCategory.includes(product.categoryCode);
+    return isMatchingSearchTerm && isMatchingCategory;
+  });
 
   return (
     <div>
@@ -71,7 +60,8 @@ const ProductList = () => {
         onChange={handleCategoryChange}
         aria-label="카테고리"
         className="toggle-button-group"
-        multiple>
+        multiple
+      >
         <ToggleButton value="080001" style={{ width: '100px', height: '50px' }}>
           바베큐도구
         </ToggleButton>
@@ -87,38 +77,23 @@ const ProductList = () => {
       </ToggleButtonGroup>
       <div style={{ marginBottom: '20px' }} />
       <div className="product-list">
-        {products.map((product) => (
-          <div className="product-card" key={product.id}>
-            <img
-              src={product.imageURL}
-              alt={product.name}
-              className="product-image"
-              style={{ maxWidth: '100px', maxHeight: '100px' }}
-            />
-            <div className="product-info">
-              <Link href={`/product-details/${product.id}`}>
+        {filteredProducts.map((product) => (
+          <Link to={`/product-details/${product.id}`} key={product.id} className="product-link"> {/* Link로 감싸기 */}
+            <div className="product-card">
+              <img
+                src={product.imageURL}
+                alt={product.name}
+                className="product-image"
+                style={{ maxWidth: '100px', maxHeight: '100px' }}
+              />
+              <div className="product-info">
                 <h3>{product.name}</h3>
                 <p>가격: {product.price}원</p>
-              </Link>
-              <div>
-                <button onClick={() => handleAddToCart(product)}>
-                  <IoMdCart className="cart" />
-                </button>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
-      {/* 확인 모달 */}
-      {selectedProduct && (
-        <div className="modal">
-          <div className="modal-content">
-            <p>장바구니에 담으시겠습니까?</p>
-            <button onClick={handleConfirmAddToCart}>예</button>
-            <button onClick={() => setSelectedProduct(null)}>아니오</button>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
