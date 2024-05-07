@@ -37,9 +37,9 @@ function App() {
   return (
     <Router>
       <Container>
-        <Header />
         <Switch>
           <Route path="/" exact>
+            <Header /> {/* Header 컴포넌트를 Switch 컴포넌트 안으로 이동 */}
             <SliderComponent youtubers={youtubers} />
             <ButtonGroupComponent
               isPressed1={isPressed1}
@@ -49,7 +49,7 @@ function App() {
             />
             <RecipeListComponent youtubers={youtubers} isPressed1={isPressed1} />
           </Route>
-          <Route path="/detail/:id" component={Detail} />
+          <Route path="/detail/:id" render={(props) => <Detail {...props} hideHeader={true} />} />
         </Switch>
       </Container>
     </Router>
