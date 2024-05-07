@@ -8,7 +8,7 @@ import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 //db연결을 위한 axios
 import axios from 'axios';
 //날짜 변환 유틸
-import dateToStr from './dateUtil';
+import dateToStr from '../app/Ut/dateUtil';
 //className 사용하게 해주는거
 import classNames from 'classnames';
 //테마

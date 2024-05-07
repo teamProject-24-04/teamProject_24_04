@@ -11,21 +11,21 @@ CREATE TABLE IF NOT EXISTS products (
     detailImageURL TEXT
 );
 
-
 # member 테이블 생성
 CREATE TABLE `member` (
   `id` INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `loginId` CHAR(20) NOT NULL,
   `loginPw` CHAR(80) NOT NULL,
-  `name` VARCHAR(50) NOT NULL, -- 이름 추가
-  `nickname` VARCHAR(50) NOT NULL, -- 닉네임 추가
-  `phoneNumber` VARCHAR(20) NOT NULL, -- 전화번호 추가
+  `name` VARCHAR(50) NOT NULL,
+  `nickname` VARCHAR(50) NOT NULL,
+  `phoneNumber` VARCHAR(20) NOT NULL,
   `address` CHAR(10) NOT NULL,
   `roadAddress` VARCHAR(255) NOT NULL,
   `jibunAddress` VARCHAR(255) NOT NULL,
   `latitude` DECIMAL(10, 8) NOT NULL,
   `longitude` DECIMAL(11, 8) NOT NULL,
-  `detailAddress` VARCHAR(255) NOT NULL -- 상세주소 추가
+  `detailAddress` VARCHAR(255) NOT NULL,
+  `regDate` DATE NOT NULL -- 가입일자 추가
 );
 
 
@@ -258,6 +258,21 @@ content = '내용1'
 INSERT INTO article
 SET title = '제목2',
 content = '내용2'
+
+#멤버 테스트 아이디
+INSERT INTO `member`
+SET loginId = 'test1',
+loginPw = 'asdf',
+`name` = '김철수',
+nickname = '별명1',
+phoneNumber = '01012345678',
+address = '35270',
+roadAddress = '대전 서구 갈마로 3',
+jibunAddress = '대전 서구 갈마동 308-18',
+latitude = '36.35182030',
+longitude = '127.36976000',
+detailAddress = '103동',
+regDate = '2024.05.07';
 
 SELECT * FROM article
 SELECT * FROM products;
