@@ -8,10 +8,9 @@ import { ThemeProvider } from '@mui/material/styles';
 import { Container } from '@mui/material';
 import RootTheme from '../theme';
 
-
-
 import ProductList from './ProductList'; // 추가
 import ProductDetails from './ProductDetails'; // 추가
+import PaymentPage from './PaymentPage';
 
 import '../globals.css';
 import 'slick-carousel/slick/slick.css';
@@ -38,15 +37,15 @@ function App() {
   return (
     <Router>
       <Container>
-    
         <Switch>
           <Route path="/" exact>
-           
             {/* ProductList로 변경 */}
             <ProductList />
           </Route>
           {/* ProductDetails 추가 */}
           <Route path="/product-details/:id" component={ProductDetails} />
+          {/* PaymentPage에 대한 라우트 추가 */}
+          <Route path="/PaymentPage/:id" component={PaymentPage} />
         </Switch>
       </Container>
     </Router>

@@ -4,10 +4,13 @@ USE teamProject_24_04;
 
 CREATE TABLE IF NOT EXISTS products (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    NAME VARCHAR(255) NOT NULL,
+    categoryCode VARCHAR(10) NOT NULL,
+    `name` VARCHAR(255) NOT NULL,
     price VARCHAR(50) NOT NULL,
-    imageURL VARCHAR(255) NOT NULL
+    imageURL VARCHAR(255) NOT NULL,
+    detailImageURL TEXT
 );
+
 
 # member 테이블 생성
 CREATE TABLE `member` (
