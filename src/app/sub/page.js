@@ -11,7 +11,7 @@ import RootTheme from '../theme';
 import ProductList from './ProductList'; // 추가
 import ProductDetails from './ProductDetails'; // 추가
 import PaymentPage from './PaymentPage';
-
+import TossPaymentPage from './tossPaymentPage';
 import '../globals.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -44,7 +44,7 @@ function App() {
           </Route>
           {/* ProductDetails 추가 */}
           <Route path="/product-details/:id" component={ProductDetails} />
-          {/* PaymentPage에 대한 라우트 추가 */}
+          <Route exact path="/toss-payment" component={TossPaymentPage} />
           <Route path="/PaymentPage/:id" component={PaymentPage} />
         </Switch>
       </Container>
