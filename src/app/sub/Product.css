@@ -58,3 +58,10 @@
   height: 10px;
   font-size: 10px;
 }
+.product-detailimg {
+  display: flex;
+  width: 100%;
+}
+.detail-font {
+  font-size: 15px;
+}

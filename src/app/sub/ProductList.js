@@ -60,8 +60,7 @@ const ProductList = () => {
         onChange={handleCategoryChange}
         aria-label="카테고리"
         className="toggle-button-group"
-        multiple
-      >
+        multiple>
         <ToggleButton value="080001" style={{ width: '100px', height: '50px' }}>
           바베큐도구
         </ToggleButton>
@@ -78,7 +77,9 @@ const ProductList = () => {
       <div style={{ marginBottom: '20px' }} />
       <div className="product-list">
         {filteredProducts.map((product) => (
-          <Link to={`/product-details/${product.id}`} key={product.id} className="product-link"> {/* Link로 감싸기 */}
+          <Link to={`/product-details/${product.id}`} key={product.id} className="product-link">
+            {' '}
+            {/* Link로 감싸기 */}
             <div className="product-card">
               <img
                 src={product.imageURL}

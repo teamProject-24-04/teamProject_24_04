@@ -128,9 +128,25 @@ export default function Page() {
   const [latitude, setLatitude] = useState('');
   const [longitude, setLongitude] = useState('');
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [regDate, setRegDate] = useState('');
+
+  const setTodayAsRegDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    let month = today.getMonth() + 1;
+    let day = today.getDate();
+
+    month = month < 10 ? '0' + month : month;
+    day = day < 10 ? '0' + day : day;
+
+    const formattedDate = `${year}.${month}.${day}`;
+
+    setRegDate(formattedDate);
+  };
 
   useEffect(() => {
     fetchMembers();
+    setTodayAsRegDate(); // 가입일자를 설정
   }, []);
 
   const fetchMembers = async () => {
@@ -145,19 +161,16 @@ export default function Page() {
   const handleNameChange = (event) => {
     const newName = event.target.value;
     setName(newName);
-    // 유효성 검사 또는 필요한 로직 추가
   };
 
   const handleNicknameChange = (event) => {
     const newNickname = event.target.value;
     setNickname(newNickname);
-    // 유효성 검사 또는 필요한 로직 추가
   };
 
   const handlePhoneNumberChange = (event) => {
     const newPhoneNumber = event.target.value;
     setPhoneNumber(newPhoneNumber);
-    // 유효성 검사 또는 필요한 로직 추가
   };
 
   const handleDetailAddressChange = (event) => {
@@ -221,6 +234,7 @@ export default function Page() {
               latitude,
               longitude,
               detailAddress,
+              regDate, // 가입일자 추가
             })
             .then(() => {
               fetchMembers();
@@ -275,8 +289,7 @@ export default function Page() {
 
   const handleSignupSuccess = () => {
     handleSnackbarOpen();
-    // 회원가입 성공 후 페이지 이동
-    window.location.href = '/member/mypage'; // 페이지 이동
+    window.location.href = '/member/login'; // 회원가입 성공 후 페이지 이동
   };
 
   return (
@@ -438,12 +451,6 @@ export default function Page() {
           </Button>
         </form>
       </div>
-      <Snackbar
-        open={snackbarOpen}
-        autoHideDuration={6000}
-        onClose={handleSnackbarClose}
-        message="회원가입이 성공했습니다."
-      />
     </Container>
   );
 }

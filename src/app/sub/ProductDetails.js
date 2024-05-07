@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom'; // Link 추가
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
 
 const ProductDetails = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
-  const [showImages, setShowImages] = useState(false);
+  const [showImages, setShowImages] = useState(true); // Set showImages to true by default
   const imagesRef = useRef(null);
 
   useEffect(() => {
@@ -17,17 +19,11 @@ const ProductDetails = () => {
         console.error('Error fetching product details:', error);
       }
     }
-    
+
     if (id) {
       fetchProduct();
     }
   }, [id]);
-
-  const handleShowImages = () => {
-    setShowImages(true);
-    // Scroll to the bottom where images are located
-    imagesRef.current.scrollIntoView({ behavior: 'smooth' });
-  };
 
   if (!id) {
     return <div>Loading...</div>;
@@ -47,24 +43,47 @@ const ProductDetails = () => {
           style={{ maxWidth: '100%' }}
         />
       </div>
-      <h2>{product.name}</h2>   
-      <p>가격: {product.price}원</p>
-      <p>설명: {product.description}</p>
-      {showImages && product.detailImages && (
-  <div ref={imagesRef}>
-    {product.detailImages.map((detailImage, index) => (
-      <img key={index} src={detailImage} alt={`Detail Image ${index + 1}`} />
-    ))}
-  </div>
-)}
-
-      {!showImages && (
-        <button onClick={handleShowImages}>더보기</button>
-      )}
-      {/* 결제하기 버튼 추가 */}
-      <div style={{ position: 'fixed', bottom: 20, left: '50%', transform: 'translateX(-50%)', zIndex: 999 }}>
-        <button>결제하기</button>
+      <div className="detail-font" style={{ marginTop: '20px' }}>
+        <h2>{product.name}</h2>
+        <p>가격: {product.price}원</p>
       </div>
+
+      {showImages && product.detailImageURL && (
+        <div ref={imagesRef} style={{ marginTop: '50px' }}>
+          {Array.isArray(product.detailImageURL) ? (
+            product.detailImageURL.map((detailImageUrl, index) => (
+              <img key={index} src={detailImageUrl} alt={`Detail Image ${index + 1}`} />
+            ))
+          ) : (
+            <img src={product.detailImageURL} alt="Detail Image" />
+          )}
+        </div>
+      )}
+
+      {/* 구매하기 버튼에 Link 컴포넌트 사용 */}
+      <Stack spacing={2} direction="column" alignItems="center">
+        <div
+          style={{
+            position: 'fixed',
+            bottom: 20,
+            left: '50%',
+            transform: 'translateX(-50%)',
+            zIndex: 999,
+            backgroundColor: 'white', // Set background color to white
+          }}>
+          <Stack spacing={2} direction="row">
+            {/* Link 컴포넌트로 구매 페이지로 이동 */}
+            <Link to={`/PaymentPage/${id}`} style={{ textDecoration: 'none' }}>
+              <Button variant="outlined" style={{ width: '180px', height: '40px' }}>
+                구매하기
+              </Button>
+            </Link>
+            <Button variant="outlined" style={{ width: '180px', height: '40px' }}>
+              장바구니
+            </Button>
+          </Stack>
+        </div>
+      </Stack>
     </div>
   );
 };

@@ -16,7 +16,7 @@ const LoginPage = () => {
       if (window.confirm('이미 로그인 중입니다. 로그아웃하시겠습니까?')) {
         handleLogout();
       } else {
-        window.location.href = '/member/logout';
+        window.location.href = '/youtuberList';
       }
     }
   }, []);
