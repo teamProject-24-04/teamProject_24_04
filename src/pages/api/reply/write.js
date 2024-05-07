@@ -6,11 +6,11 @@ export default async function handler(req, res) {
     const { content } = req.body;
 
     if (!content) {
-      return res.status(400).json({ error: ' content required' });
+      return res.status(400).json({ error: 'content required' });
     }
 
     const [result] = await pool.execute(
-      'INSERT INTO reply (regDate, updateDate, content, ) VALUES (NOW(), NOW(), ?)',
+      'INSERT INTO reply (regDate, updateDate, content) VALUES (NOW(), NOW(), ?)',
       [content],
     );
 
