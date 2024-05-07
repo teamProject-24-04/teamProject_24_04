@@ -8,6 +8,7 @@ import { IoIosArrowBack } from 'react-icons/io';
 import { HiUsers } from 'react-icons/hi2';
 import { FaHeart } from 'react-icons/fa';
 import { FaPlayCircle } from 'react-icons/fa';
+import { useHistory } from 'react-router-dom';
 import Slider from 'react-slick';
 import YouTube from 'react-youtube';
 import './App.css';
@@ -18,6 +19,11 @@ function Detail() {
   const [youtuber, setYoutuber] = useState(null);
   const [videos, setVideos] = useState([]);
   const [videoId, setVideoId] = useState('');
+  const history = useHistory();
+
+  const goBack = () => {
+    history.goBack();
+  };
 
   useEffect(() => {
     async function fetchYoutuberDetail() {
@@ -66,7 +72,9 @@ function Detail() {
           }}
         />
         <div style={{ marginTop: '5%', display: 'flex' }}>
-          <IoIosArrowBack style={{ fontSize: '30px' }} />
+          <div>
+            <IoIosArrowBack style={{ fontSize: '30px', cursor: 'pointer' }} onClick={goBack} />
+          </div>
           <div style={{ marginRight: 'auto', display: 'flex', flexDirection: 'column' }}>
             <p style={{ margin: '0', marginBottom: '5px' }}>인기 유튜버 레시피</p>
             <p style={{ margin: '0', marginTop: '15px' }}>{youtuber.content_name}</p>
