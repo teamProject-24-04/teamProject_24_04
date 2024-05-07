@@ -154,7 +154,7 @@ function Detail() {
       </div>
       <Button
         style={{
-          width: '100%',
+          width: '93%',
           marginTop: '20px',
           position: 'fixed',
           zIndex: '1000',
