@@ -67,7 +67,7 @@ function SliderComponent() {
   return (
     <Slider {...settings} style={{ marginTop: '5%' }}>
       {youtubers.map((item, index) => (
-        <Link to={`/detail/${item.id}`} key={index} className="image-container">
+        <Link to={`/YoutubersDetail/${item.id}`} key={index} className="image-container">
           <img src={item.img_url} alt={item.name} />
           <p>{item.name}</p>
         </Link>

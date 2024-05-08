@@ -10,13 +10,14 @@ import ButtonGroupComponent from './ButtonGroupComponent';
 import Header from './Header';
 import SliderComponent from './SliderComponent';
 import RecipeListComponent from './RecipeListComponent';
-import Detail from './Detail';
+import YoutubersDetail from './YoutubersDetail';
+import MembersDetail from './MembersDetail';
 import './App.css';
 import '../globals.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-function App() {
+function YoutuberList() {
   const [isPressed1, setIsPressed1] = useState(true);
   const [isPressed2, setIsPressed2] = useState(false);
 
@@ -34,12 +35,16 @@ function App() {
     /* Define your youtubers array here */
   ];
 
+  const members = [
+    /* Define your youtubers array here */
+  ];
+
   return (
     <Router>
       <Container>
         <Switch>
           <Route path="/" exact>
-            <Header /> {/* Header 컴포넌트를 Switch 컴포넌트 안으로 이동 */}
+            <Header />
             <SliderComponent youtubers={youtubers} />
             <ButtonGroupComponent
               isPressed1={isPressed1}
@@ -47,23 +52,21 @@ function App() {
               handleButtonClick1={handleButtonClick1}
               handleButtonClick2={handleButtonClick2}
             />
-            <RecipeListComponent youtubers={youtubers} isPressed1={isPressed1} />
+            {isPressed1 && <RecipeListComponent youtubers={youtubers} isPressed1={isPressed1} />}
+            {isPressed2 && <RecipeListComponent members={members} isPressed1={isPressed1} />}
           </Route>
-          <Route path="/detail/:id" render={(props) => <Detail {...props} hideHeader={true} />} />
+          <Route
+            path="/YoutubersDetail/:id"
+            render={(props) => <YoutubersDetail {...props} hideHeader={true} />}
+          />
+          <Route
+            path="/MembersDetail/:id"
+            render={(props) => <MembersDetail {...props} hideHeader={true} />}
+          />
         </Switch>
       </Container>
     </Router>
   );
 }
 
-export default function themeApp() {
-  const theme = RootTheme();
-
-  return (
-    <RecoilRoot>
-      <ThemeProvider theme={theme}>
-        <App />
-      </ThemeProvider>
-    </RecoilRoot>
-  );
-}
+export default YoutuberList;

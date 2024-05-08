@@ -13,13 +13,16 @@ import dateToStr from '../app/Ut/dateUtil';
 import classNames from 'classnames';
 //테마
 import RootTheme from './theme';
-
+import Write from './recipy/Write';
 import MainPage from './mainPage';
+import YoutuberList from './youtuberList/YoutuberList';
 
 function MainPage2() {
+  const [bottomValue, setBottomValue] = React.useState(0);
+
   return (
     <>
-      <div>안녕</div>
+      <YoutuberList />
     </>
   );
 }
