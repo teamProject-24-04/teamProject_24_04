@@ -30,7 +30,7 @@ const LoginPage = () => {
       localStorage.setItem('loginId', loginId);
       localStorage.setItem('loginPw', loginPw);
       localStorage.setItem('member', JSON.stringify(member));
-      window.location.href = '/youtuberList';
+      window.location.href = '/';
     } catch (error) {
       console.error('Error logging in:', error);
       if (error.response && error.response.status === 401) {

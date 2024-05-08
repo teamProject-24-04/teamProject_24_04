@@ -14,7 +14,7 @@ import YouTube from 'react-youtube';
 import './App.css';
 import '../globals.css';
 
-function Detail() {
+function YoutubersDetail() {
   const { id } = useParams();
   const [youtuber, setYoutuber] = useState(null);
   const [videos, setVideos] = useState([]);
@@ -168,4 +168,4 @@ function Detail() {
   );
 }
 
-export default Detail;
+export default YoutubersDetail;
