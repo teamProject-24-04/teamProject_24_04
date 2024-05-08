@@ -4,15 +4,19 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
+import { bottomNavigationActionClasses } from '@mui/material';
 
 const PaymentPage = ({ initialProduct }) => {
   const { id } = useParams();
   const [orderName, setOrderName] = useState('');
   const [receiverName, setReceiverName] = useState('');
+  const [receiverPhoneNumber, setReceiverPhoneNumber] = useState(''); // 새로운 상태 변수
   const [shippingAddress, setShippingAddress] = useState('');
+  const [shippingDetailAddress, setShippingDetailAddress] = useState('');
   const [orderMemo, setOrderMemo] = useState('');
   const [selectedProduct, setSelectedProduct] = useState(initialProduct);
   const [loading, setLoading] = useState(false);
+  const [showNewShippingAddress, setShowNewShippingAddress] = useState(false);
 
   useEffect(() => {
     if (!selectedProduct) {
@@ -32,6 +36,22 @@ const PaymentPage = ({ initialProduct }) => {
     }
   };
 
+  // 전화번호의 유효성을 검사하는 함수
+  const isValidPhoneNumber = (phoneNumber) => {
+    const phoneNumberPattern = /^(010|011|016|017|018|019)-\d{3,4}-\d{4}$/;
+    return phoneNumberPattern.test(phoneNumber);
+  };
+
+  // 전화번호 입력 이벤트 핸들러 함수
+  const handleReceiverPhoneChange = (e) => {
+    const phoneNumber = e.target.value;
+    setReceiverPhoneNumber(phoneNumber);
+    // 전화번호의 유효성을 검사하고 필요한 처리를 수행합니다.
+    if (!isValidPhoneNumber(phoneNumber)) {
+      // 예: 유효하지 않은 전화번호에 대한 처리
+    }
+  };
+
   const handleOrderNameChange = (e) => {
     setOrderName(e.target.value);
   };
@@ -44,14 +64,27 @@ const PaymentPage = ({ initialProduct }) => {
     setShippingAddress(e.target.value);
   };
 
+  const handleShippingDetailAddressChange = (e) => {
+    setShippingDetailAddress(e.target.value);
+  };
+
   const handleOrderMemoChange = (e) => {
     setOrderMemo(e.target.value);
   };
 
-  const handleSubmitPayment = () => {
-    console.log('Payment submitted');
+  const handleSubmitPayment = async () => {
+    try {
+      const response = await axios.post('/api/payments/confirm', {
+        paymentKey: '{PAYMENT_KEY}',
+        amount: selectedProduct.price,
+        orderId: selectedProduct.id,
+      });
+      console.log('Payment confirmed:', response.data);
+      // 서버에서 결제를 진행한 후의 처리를 여기에 추가할 수 있습니다.
+    } catch (error) {
+      console.error('Error confirming payment:', error);
+    }
   };
-
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -60,10 +93,11 @@ const PaymentPage = ({ initialProduct }) => {
     return <div>Product not found</div>;
   }
 
-  const handleAddressChange = (address) => {
-    setShippingAddress(address);
-    // 여기서 주소를 이용하여 좌표를 가져올 수 있도록 구현하면 됩니다.
-  };
+  // localStorage에서 회원 정보 가져오기
+  const memberInfoString = localStorage.getItem('member');
+
+  // 회원 정보 문자열을 객체로 변환
+  const memberInfo = JSON.parse(memberInfoString);
 
   return (
     <div className="order_page">
@@ -80,7 +114,7 @@ const PaymentPage = ({ initialProduct }) => {
               id="orderName"
               label="주문자"
               variant="outlined"
-              value={orderName}
+              value={memberInfo.member.name}
               onChange={handleOrderNameChange}
               fullWidth
             />
@@ -88,33 +122,77 @@ const PaymentPage = ({ initialProduct }) => {
         </fieldset>
       </div>
       <div className="order_box">
-        <h2 className="order_tit">배송 정보</h2>
+        <h2 className="order_tit">주문자 정보</h2>
         <fieldset>
-          <legend>배송 정보 입력</legend>
           <div className="table_box">
             <TextField
               id="receiverName"
               label="수령인"
               variant="outlined"
-              value={receiverName}
+              value={memberInfo.member.name}
               onChange={handleReceiverNameChange}
+              fullWidth
+            />
+            <TextField
+              id="receiverPhoneNumber"
+              label="전화번호"
+              variant="outlined"
+              value={memberInfo.member.phoneNumber}
+              onChange={handleReceiverPhoneChange}
               fullWidth
             />
             <TextField
               id="shippingAddress"
               label="배송 주소"
               variant="outlined"
+              value={memberInfo.member.jibunAddress}
+              onChange={handleShippingAddressChange}
+              fullWidth
+            />
+            <TextField
+              id="shippingDetailAddress"
+              label="상세 주소"
+              variant="outlined"
+              value={memberInfo.member.detailAddress}
+              onChange={handleShippingDetailAddressChange}
+              fullWidth
+            />
+          </div>
+        </fieldset>
+      </div>
+      {/* 새로운 배송 정보 입력란 */}
+      <div className="order_box">
+        <h2 className="order_tit">배송 정보 </h2>
+        <fieldset>
+          <div className="table_box">
+            <TextField
+              id="newReceiverPhoneNumber"
+              label="새로운 전화번호"
+              variant="outlined"
+              value={receiverPhoneNumber}
+              onChange={handleReceiverPhoneChange}
+              fullWidth
+            />
+            <TextField
+              id="newShippingAddress"
+              label="새로운 배송 주소"
+              variant="outlined"
               value={shippingAddress}
               onChange={handleShippingAddressChange}
               fullWidth
             />
-            {/* 주소 입력 기능 추가 */}
-            <AddressFinder handleAddressChange={handleAddressChange} />
+            <TextField
+              id="newShippingDetailAddress"
+              label="새로운 상세 주소"
+              variant="outlined"
+              value={shippingDetailAddress}
+              onChange={handleShippingDetailAddressChange}
+              fullWidth
+            />
           </div>
         </fieldset>
       </div>
       <div className="order_box">
-        <h2 className="order_tit">결제</h2>
         <fieldset>
           <legend>추가 정보</legend>
           <TextField
@@ -125,47 +203,14 @@ const PaymentPage = ({ initialProduct }) => {
             onChange={handleOrderMemoChange}
             fullWidth
           />
-          <p>최종 금액: {selectedProduct.price}</p>
+          <p style={{ marginTop: '30px' }}>최종 금액: {selectedProduct.price}원</p>
+          <Stack spacing={2} direction="row" justifyContent="flex-end">
+            <Button variant="contained" onClick={handleSubmitPayment}>
+              결제하기
+            </Button>
+          </Stack>
         </fieldset>
       </div>
-      <Stack spacing={2} direction="row">
-        <Button variant="contained" onClick={handleSubmitPayment}>
-          결제하기
-        </Button>
-      </Stack>
-    </div>
-  );
-};
-
-// 주소 입력 컴포넌트
-const AddressFinder = ({ handleAddressChange }) => {
-  // 주소 입력 상태
-  const [address, setAddress] = useState('');
-
-  // 주소 입력 핸들러
-  const handleAddressInputChange = (e) => {
-    setAddress(e.target.value);
-  };
-
-  // 주소 입력 완료 핸들러
-  const handleAddressInputComplete = () => {
-    // 여기서 주소를 이용하여 좌표를 가져오고, 부모 컴포넌트로 주소 전달
-    // 주소를 이용하여 좌표를 가져오는 비동기 함수를 호출하고, 좌표를 가져온 후 handleAddressChange를 호출하여 부모 컴포넌트로 주소 전달
-  };
-
-  return (
-    <div>
-      <TextField
-        id="shippingAddress"
-        label="배송 주소"
-        variant="outlined"
-        value={address}
-        onChange={handleAddressInputChange}
-        fullWidth
-      />
-      <Button variant="outlined" onClick={handleAddressInputComplete}>
-        주소 입력 완료
-      </Button>
     </div>
   );
 };
