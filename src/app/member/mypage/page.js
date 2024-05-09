@@ -5,7 +5,7 @@ import { RecoilRoot } from 'recoil';
 import { ThemeProvider } from '@mui/material/styles';
 import { Container } from '@mui/material';
 import RootTheme from '@/app/theme';
-import MyPageModify from './myPageModify';
+import MyPageModify from './MyPageModify';
 import MyPage from './MyPage';
 
 const App = () => {

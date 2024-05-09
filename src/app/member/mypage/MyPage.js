@@ -9,7 +9,7 @@ import { LuBookCopy } from 'react-icons/lu';
 import { FaPlus } from 'react-icons/fa';
 import { FiShoppingCart } from 'react-icons/fi';
 import { IoIosArrowForward } from 'react-icons/io';
-import MyPageModify from './myPageModify';
+import MyPageModify from './MyPageModify';
 
 const MyPage = () => {
   const [showModifyPage, setShowModifyPage] = useState(false);

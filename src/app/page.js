@@ -16,13 +16,21 @@ import RootTheme from './theme';
 import Write from './recipy/Write';
 import MainPage from './mainPage';
 import YoutuberList from './youtuberList/YoutuberList';
+import { Box, BottomNavigation, BottomNavigationAction } from '@mui/material';
+import {
+  Person as PersonIcon,
+  ShoppingBag as ShoppingBagIcon,
+  Navigation as NavigationIcon,
+  Forum as ForumIcon,
+  Receipt as ReceiptIcon,
+} from '@mui/icons-material';
+import BottomNavigationComponent from './BottomNavigationComponent';
 
 function MainPage2() {
   const [bottomValue, setBottomValue] = React.useState(0);
-
   return (
     <>
-      <YoutuberList />
+      <BottomNavigationComponent />
     </>
   );
 }

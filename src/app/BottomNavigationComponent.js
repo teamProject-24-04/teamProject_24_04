@@ -9,51 +9,53 @@ import {
 } from '@mui/icons-material';
 import Write from './recipy/Write';
 import YoutuberList from './youtuberList/YoutuberList';
+import MyPage from './member/mypage/MyPage';
 
 function BottomNavigationComponent({ value, onChange }) {
-  const [bottomValue, setBottomValue] = React.useState(0);
-  const [currentPage, setCurrentPage] = React.useState(null);
+  const [bottomValue, setBottomValue] = React.useState(2);
 
   return (
     <>
-      <Box sx={{ height: '50px' }} />
-      <Box sx={{ position: 'fixed', bottom: 0, left: 0, width: '100%' }}>
+      <Box sx={{ position: 'fixed', bottom: 0, left: 0, width: '100%', zIndex: 1 }}>
         <BottomNavigation
           showLabels
           value={bottomValue}
           onChange={(event, newValue) => {
             setBottomValue(newValue);
-            setCurrentPage(newValue);
           }}>
           <BottomNavigationAction
             label="쇼핑"
             icon={<ShoppingBagIcon />}
-            onClick={() => setCurrentPage(0)}
+            onClick={() => setBottomValue(0)}
           />
           <BottomNavigationAction
             label="자유게시판"
             icon={<ForumIcon />}
-            onClick={() => setCurrentPage(1)}
+            onClick={() => setBottomValue(1)}
           />
           <BottomNavigationAction
             label="레시피"
             icon={<ReceiptIcon />}
-            onClick={() => setCurrentPage(2)}
+            onClick={() => setBottomValue(2)}
           />
           <BottomNavigationAction
             label="길찾기"
             icon={<NavigationIcon />}
-            onClick={() => setCurrentPage(3)}
+            onClick={() => setBottomValue(3)}
           />
           <BottomNavigationAction
             label="마이페이지"
             icon={<PersonIcon />}
-            onClick={() => setCurrentPage(4)}
+            onClick={() => setBottomValue(4)}
           />
         </BottomNavigation>
       </Box>
-      {currentPage === 1 && <Write />}
-      {currentPage === 2 && <YoutuberList />}
+
+      <Box sx={{ paddingBottom: 10, width: '97%' }}>
+        {bottomValue === 1 && <Write />}
+        {bottomValue === 2 && <YoutuberList />}
+        {bottomValue === 4 && <MyPage />}
+      </Box>
     </>
   );
 }
