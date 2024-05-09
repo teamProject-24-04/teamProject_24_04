@@ -120,6 +120,7 @@ CREATE TABLE video_ids (
     FOREIGN KEY (channel_id) REFERENCES channels(id)
 );
 
+# insert 다 하고 마지막에 해야함!!!
 INSERT INTO videos (video_id, title, channel_id)
 SELECT vi.video_id, vi.video_title, vi.channel_id
 FROM video_ids vi
