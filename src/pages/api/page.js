@@ -5,21 +5,25 @@ import React, { useState, useEffect, useRef } from 'react';
 import { atom, useRecoilState, RecoilRoot } from 'recoil';
 //리액트 라우터 돔
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
+
 //db연결을 위한 axios
 import axios from 'axios';
 //날짜 변환 유틸
-import dateToStr from '../Ut/dateUtil';
+import dateToStr from './Ut/dateUtil';
 //className 사용하게 해주는거
 import classNames from 'classnames';
 //테마 입히는거
-import RootTheme from '../theme';
+import RootTheme from './theme';
 
 //컴포넌트화 시킨 파일들
-import Write from './ocj/Write';
-import RecipyDetail from './ocj/RecipyDetail';
-import ShowList from './ocj/ShowList';
-
-import useArticlesStatus from './recipy/recipyStatus';
+import Write from './recipy/write/Write';
+import RecipyDetail from './recipy/detail/RecipyDetail';
+import ShowList from './recipy/list/List';
+import Modify from './recipy/modify/Modify';
+import FreeBoard from './search/searchPage';
+import FreeArticleList from './free/List/freeArticleList';
+//게시물 댓글 status
+import useArticlesStatus from './recipy/RecipyStatus';
 import useRepliesStatus from './reply/replyStatus';
 
 //mui 컴포넌트
@@ -102,13 +106,18 @@ function App() {
         <Toolbar />
         <NoticeSnackbar status={noticeSnackbarStatus} />
 
-        {/* <Write articlesStatus={articlesStatus} noticeSnackbarStatus={noticeSnackbarStatus} /> */}
-        {/* <RecipyDetail noticeSnackbarStatus={noticeSnackbarStatus} repliesStatus={repliesStatus} /> */}
         <Routes>
-          <Route path="/" element={<ShowList />} />
+          {/* <Route path="/" element={<FreeBoard />} /> */}
+          {/* <Route path="/" element={<ShowList />} /> */}
+          <Route path="/" element={<FreeArticleList />} />
+
           <Route
-            path="/detail/:id"
+            path="/recipy/detail/:id"
             element={<RecipyDetail noticeSnackbarStatus={noticeSnackbarStatus} />}
+          />
+          <Route
+            path="/recipy/modify/:id"
+            element={<Modify noticeSnackbarStatus={noticeSnackbarStatus} />}
           />
         </Routes>
 
