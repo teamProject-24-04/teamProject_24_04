@@ -149,8 +149,19 @@ function YoutubersDetail() {
           <YouTube videoId={videoId} opts={{ width: '100%', height: '270px' }} />
         </div>
       )}
-      <div style={{ fontSize: '12px', fontWeight: '500', marginTop: '20px' }}>
+      <div style={{ fontSize: '12px', fontWeight: '500', marginTop: '20px', marginBottom: '40px' }}>
         <p>{youtuber.body}</p>
+        <br />
+        <p>[레시피 소개]</p>
+        <br />
+        {[youtuber.title1, youtuber.title2, youtuber.title3, youtuber.title4, youtuber.title5].map(
+          (title, index) => (
+            <React.Fragment key={index}>
+              <br />
+              <p>{title}</p>
+            </React.Fragment>
+          ),
+        )}
       </div>
       <Button
         style={{
@@ -158,7 +169,7 @@ function YoutubersDetail() {
           marginTop: '20px',
           position: 'fixed',
           zIndex: '1000',
-          bottom: '0px',
+          bottom: '60px',
         }}
         size="large"
         variant="contained">

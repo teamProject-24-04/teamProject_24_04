@@ -2,10 +2,7 @@
 
 import React, { useState } from 'react';
 import { MemoryRouter as Router, Route, Switch } from 'react-router-dom';
-import { RecoilRoot } from 'recoil';
-import { ThemeProvider } from '@mui/material/styles';
 import { Container } from '@mui/material';
-import RootTheme from '../theme';
 import ButtonGroupComponent from './ButtonGroupComponent';
 import Header from './Header';
 import SliderComponent from './SliderComponent';

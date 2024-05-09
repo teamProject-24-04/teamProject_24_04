@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { FaUser } from 'react-icons/fa';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import BottomNavigationComponent from '../BottomNavigationComponent';
 
 function RecipeListComponent({ isPressed1, isPressed2 }) {
   const [youtubers, setYoutubers] = useState([]);
@@ -41,8 +40,14 @@ function RecipeListComponent({ isPressed1, isPressed2 }) {
             <div className="recipe_list">
               <img src={youtuber.img_url} alt={youtuber.name} />
               <div className="recipe_info">
-                <p>{youtuber.name}</p>
-                <p>{youtuber.content_name}</p>
+                <p style={{ marginBottom: '5px' }}>{youtuber.name}</p>
+                <div style={{ fontSize: '8px', fontWeight: '700', marginBottom: '10px' }}>
+                  <p>{youtuber.title1}</p>
+                  <p>{youtuber.title2}</p>
+                  <p>{youtuber.title3}</p>
+                  <p>{youtuber.title4}</p>
+                  <p style={{ fontSize: '8px', fontWeight: '700' }}>{youtuber.title5}</p>
+                </div>
                 <div className="views">
                   <FaUser />
                   <span>{youtuber.views}</span>
