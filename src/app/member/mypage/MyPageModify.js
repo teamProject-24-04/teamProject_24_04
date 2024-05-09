@@ -143,10 +143,28 @@ const MyPageModify = () => {
   };
 
   useEffect(() => {
+    const storedLoginId = localStorage.getItem('loginId');
+    const storedLoginId = localStorage.getItem('loginId');
+    const storedLoginId = localStorage.getItem('loginId');
+    const storedLoginId = localStorage.getItem('loginId');
+    const storedLoginId = localStorage.getItem('loginId');
+    const storedLoginId = localStorage.getItem('loginId');
+    const storedLoginId = localStorage.getItem('loginId');
+    const storedLoginId = localStorage.getItem('loginId');
+    const storedLoginId = localStorage.getItem('loginId');
+    const storedLoginId = localStorage.getItem('loginId');
+    setLoginId(storedLoginId);
+    const storedName = localStorage.getItem('name');
+    if (storedName) {
+      setName(storedName);
+    }
+    const storedNickname = localStorage.getItem('nickname');
+    if (storedNickname) {
+      setName(storedNickname);
+    }
     fetchMembers();
     setTodayAsRegDate(); // 가입일자를 설정
   }, []);
-
   const fetchMembers = async () => {
     try {
       const response = await axios.get('/api/member/members');
