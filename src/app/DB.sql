@@ -27,9 +27,6 @@ CREATE TABLE `member` (
   `detailAddress` VARCHAR(255) NOT NULL,
   `regDate` DATE NOT NULL -- 가입일자 추가
 );
-
-
-
 ## article 생성 (reipy 일수도 있고 자유게시판 글일수도 있어서 article로)
 CREATE TABLE article (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -75,14 +72,51 @@ updateDate = NOW(),
 INSERT INTO board
 SET regDate = NOW(),
 updateDate = NOW(),
-`code` = 'YOUTUBER RECIPY',
-`name` = '유튜버 레시피';
-
-INSERT INTO board
-SET regDate = NOW(),
-updateDate = NOW(),
 `code` = 'FREE',
 `name` = '자유게시판';
+
+## 아티클 TD
+INSERT INTO article
+SET regDate = NOW(),
+updateDate = NOW(),
+boardId = 1,
+title = 'test',
+content = 'test';
+
+## 아티클 TD
+INSERT INTO article
+SET regDate = NOW(),
+updateDate = NOW(),
+boardId = 1,
+title = 'test2',
+content = 'test2';
+
+## 아티클 TD
+INSERT INTO article
+SET regDate = NOW(),
+updateDate = NOW(),
+boardId = 2,
+title = 'test3',
+content = 'test3';
+
+## reply TD
+INSERT INTO reply
+SET regDate = NOW(),
+updateDate = NOW(),
+relId = 1,
+relTypeCode = 'article',
+content = '테스트1';
+
+## reply TD
+INSERT INTO reply
+SET regDate = NOW(),
+updateDate = NOW(),
+relId = 2,
+relTypeCode = 'article',
+content = '테스트2';
+
+
+
 
 CREATE TABLE channels (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -275,13 +309,6 @@ title3 = 'SUB) 소갈비 바베큐!';
 
 
 
-INSERT INTO article
-SET title = '제목1',
-content = '내용1'
-
-INSERT INTO article
-SET title = '제목2',
-content = '내용2'
 
 #멤버 테스트 아이디
 INSERT INTO `member`
@@ -298,14 +325,8 @@ longitude = '127.36976000',
 detailAddress = '103동',
 regDate = '2024.05.07';
 
-INSERT INTO article
-SET regDate = NOW(),
-updateDate = NOW(),
-boardId = 1,
-title = '테스트',
-content = '테스트';
 
 SELECT * FROM `member` WHERE id = 1;
 SELECT * FROM `member`;
-SELECT * FROM article
+
 SELECT * FROM products;
