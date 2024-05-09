@@ -4,7 +4,8 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
-import { bottomNavigationActionClasses } from '@mui/material';
+import { useHistory } from 'react-router-dom';
+import { IoIosArrowBack } from 'react-icons/io';
 
 const PaymentPage = ({ initialProduct }) => {
   const { id } = useParams();
@@ -17,6 +18,11 @@ const PaymentPage = ({ initialProduct }) => {
   const [selectedProduct, setSelectedProduct] = useState(initialProduct);
   const [loading, setLoading] = useState(false);
   const [showNewShippingAddress, setShowNewShippingAddress] = useState(false);
+  const history = useHistory();
+
+  const goBack = () => {
+    history.goBack();
+  };
 
   useEffect(() => {
     if (!selectedProduct) {
@@ -100,118 +106,129 @@ const PaymentPage = ({ initialProduct }) => {
   const memberInfo = JSON.parse(memberInfoString);
 
   return (
-    <div className="order_page">
-      <div className="product_info">
-        <img src={selectedProduct.imageURL} alt="Product" className="product_image" />
-        <p>상품 가격: {selectedProduct.price}원</p>
+    <>
+      <div
+        style={{
+          position: 'fixed',
+          zIndex: '999',
+          width: '100%',
+          background: 'white',
+        }}>
+        <IoIosArrowBack style={{ fontSize: '30px', cursor: 'pointer' }} onClick={goBack} />
       </div>
-      <div className="order_box">
-        <h2 className="order_tit">주문 고객</h2>
-        <fieldset>
-          <legend>주문 고객 정보</legend>
-          <div className="table_box">
+      <div className="order_page">
+        <div className="product_info">
+          <img src={selectedProduct.imageURL} alt="Product" className="product_image" />
+          <p>상품 가격: {selectedProduct.price}원</p>
+        </div>
+        <div className="order_box">
+          <h2 className="order_tit">주문 고객</h2>
+          <fieldset>
+            <legend>주문 고객 정보</legend>
+            <div className="table_box">
+              <TextField
+                id="orderName"
+                label="주문자"
+                variant="outlined"
+                value={memberInfo.member.name}
+                onChange={handleOrderNameChange}
+                fullWidth
+              />
+            </div>
+          </fieldset>
+        </div>
+        <div className="order_box">
+          <h2 className="order_tit">주문자 정보</h2>
+          <fieldset>
+            <div className="table_box">
+              <TextField
+                id="receiverName"
+                label="수령인"
+                variant="outlined"
+                value={memberInfo.member.name}
+                onChange={handleReceiverNameChange}
+                fullWidth
+              />
+              <TextField
+                id="receiverPhoneNumber"
+                label="전화번호"
+                variant="outlined"
+                value={memberInfo.member.phoneNumber}
+                onChange={handleReceiverPhoneChange}
+                fullWidth
+              />
+              <TextField
+                id="shippingAddress"
+                label="배송 주소"
+                variant="outlined"
+                value={memberInfo.member.jibunAddress}
+                onChange={handleShippingAddressChange}
+                fullWidth
+              />
+              <TextField
+                id="shippingDetailAddress"
+                label="상세 주소"
+                variant="outlined"
+                value={memberInfo.member.detailAddress}
+                onChange={handleShippingDetailAddressChange}
+                fullWidth
+              />
+            </div>
+          </fieldset>
+        </div>
+        {/* 새로운 배송 정보 입력란 */}
+        <div className="order_box">
+          <h2 className="order_tit">배송 정보 </h2>
+          <fieldset>
+            <div className="table_box">
+              <TextField
+                id="newReceiverPhoneNumber"
+                label="새로운 전화번호"
+                variant="outlined"
+                value={receiverPhoneNumber}
+                onChange={handleReceiverPhoneChange}
+                fullWidth
+              />
+              <TextField
+                id="newShippingAddress"
+                label="새로운 배송 주소"
+                variant="outlined"
+                value={shippingAddress}
+                onChange={handleShippingAddressChange}
+                fullWidth
+              />
+              <TextField
+                id="newShippingDetailAddress"
+                label="새로운 상세 주소"
+                variant="outlined"
+                value={shippingDetailAddress}
+                onChange={handleShippingDetailAddressChange}
+                fullWidth
+              />
+            </div>
+          </fieldset>
+        </div>
+        <div className="order_box">
+          <fieldset>
+            <legend>추가 정보</legend>
             <TextField
-              id="orderName"
-              label="주문자"
+              id="orderMemo"
+              label="남기실 말씀"
               variant="outlined"
-              value={memberInfo.member.name}
-              onChange={handleOrderNameChange}
+              value={orderMemo}
+              onChange={handleOrderMemoChange}
               fullWidth
             />
-          </div>
-        </fieldset>
+            <p style={{ marginTop: '30px' }}>최종 금액: {selectedProduct.price}원</p>
+            <Stack spacing={2} direction="row" justifyContent="flex-end">
+              <Button variant="contained" onClick={handleSubmitPayment}>
+                결제하기
+              </Button>
+            </Stack>
+          </fieldset>
+        </div>
       </div>
-      <div className="order_box">
-        <h2 className="order_tit">주문자 정보</h2>
-        <fieldset>
-          <div className="table_box">
-            <TextField
-              id="receiverName"
-              label="수령인"
-              variant="outlined"
-              value={memberInfo.member.name}
-              onChange={handleReceiverNameChange}
-              fullWidth
-            />
-            <TextField
-              id="receiverPhoneNumber"
-              label="전화번호"
-              variant="outlined"
-              value={memberInfo.member.phoneNumber}
-              onChange={handleReceiverPhoneChange}
-              fullWidth
-            />
-            <TextField
-              id="shippingAddress"
-              label="배송 주소"
-              variant="outlined"
-              value={memberInfo.member.jibunAddress}
-              onChange={handleShippingAddressChange}
-              fullWidth
-            />
-            <TextField
-              id="shippingDetailAddress"
-              label="상세 주소"
-              variant="outlined"
-              value={memberInfo.member.detailAddress}
-              onChange={handleShippingDetailAddressChange}
-              fullWidth
-            />
-          </div>
-        </fieldset>
-      </div>
-      {/* 새로운 배송 정보 입력란 */}
-      <div className="order_box">
-        <h2 className="order_tit">배송 정보 </h2>
-        <fieldset>
-          <div className="table_box">
-            <TextField
-              id="newReceiverPhoneNumber"
-              label="새로운 전화번호"
-              variant="outlined"
-              value={receiverPhoneNumber}
-              onChange={handleReceiverPhoneChange}
-              fullWidth
-            />
-            <TextField
-              id="newShippingAddress"
-              label="새로운 배송 주소"
-              variant="outlined"
-              value={shippingAddress}
-              onChange={handleShippingAddressChange}
-              fullWidth
-            />
-            <TextField
-              id="newShippingDetailAddress"
-              label="새로운 상세 주소"
-              variant="outlined"
-              value={shippingDetailAddress}
-              onChange={handleShippingDetailAddressChange}
-              fullWidth
-            />
-          </div>
-        </fieldset>
-      </div>
-      <div className="order_box">
-        <fieldset>
-          <legend>추가 정보</legend>
-          <TextField
-            id="orderMemo"
-            label="남기실 말씀"
-            variant="outlined"
-            value={orderMemo}
-            onChange={handleOrderMemoChange}
-            fullWidth
-          />
-          <p style={{ marginTop: '30px' }}>최종 금액: {selectedProduct.price}원</p>
-          <Stack spacing={2} direction="row" justifyContent="flex-end">
-            <Button variant="contained" onClick={handleSubmitPayment}>
-              결제하기
-            </Button>
-          </Stack>
-        </fieldset>
-      </div>
-    </div>
+    </>
   );
 };
 

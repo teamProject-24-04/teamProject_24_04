@@ -10,13 +10,22 @@ import {
 import Write from './recipy/Write';
 import YoutuberList from './youtuberList/YoutuberList';
 import MyPage from './member/mypage/MyPage';
+import ShoppingMainPage from './sub/ShoppingMainPage';
 
 function BottomNavigationComponent({ value, onChange }) {
   const [bottomValue, setBottomValue] = React.useState(2);
 
   return (
     <>
-      <Box sx={{ position: 'fixed', bottom: 0, left: 0, width: '100%', zIndex: 1 }}>
+      <Box
+        sx={{
+          position: 'fixed',
+          bottom: 0,
+          left: 0,
+          width: '100%',
+          zIndex: 1000,
+          backgroundColor: 'white',
+        }}>
         <BottomNavigation
           showLabels
           value={bottomValue}
@@ -52,6 +61,7 @@ function BottomNavigationComponent({ value, onChange }) {
       </Box>
 
       <Box sx={{ paddingBottom: 10, width: '97%' }}>
+        {bottomValue === 0 && <ShoppingMainPage />}
         {bottomValue === 1 && <Write />}
         {bottomValue === 2 && <YoutuberList />}
         {bottomValue === 4 && <MyPage />}
