@@ -149,12 +149,13 @@ const MyPageModify = () => {
 
     fetchMembers();
   }, []);
+
   const fetchMembers = async () => {
     try {
       const response = await axios.get('/api/member/members');
       setMembers(response.data);
     } catch (error) {
-      console.error('Error fetching members:', error);
+      console.error('Error fetching members:', 에러입니다);
     }
   };
 
@@ -189,7 +190,6 @@ const MyPageModify = () => {
   };
 
   const handleSubmit = async (event) => {
-    console(name);
     event.preventDefault();
     try {
       schema
@@ -206,6 +206,13 @@ const MyPageModify = () => {
           { abortEarly: false },
         )
         .then(() => {
+          if (loginPw !== confirmLoginPw) {
+            setErrors((prevState) => ({
+              ...prevState,
+              confirmLoginPw: '비밀번호가 일치하지 않습니다.',
+            }));
+            return;
+          }
           axios
             .post('/api/member/modify', {
               name,
@@ -234,7 +241,7 @@ const MyPageModify = () => {
               setLatitude('');
               setLongitude('');
               handleSignupSuccess();
-              setDetailAddress();
+              setDetailAddress('');
             })
             .catch((error) => console.error('Error writing member:', error));
         })
@@ -274,7 +281,7 @@ const MyPageModify = () => {
 
   const handleSignupSuccess = () => {
     handleSnackbarOpen();
-    window.location.href = '/'; // 회원가입 성공 후 페이지 이동
+    window.location.href = '/member/logout'; // 회원가입 성공 후 페이지 이동
   };
 
   return (
@@ -337,11 +344,8 @@ const MyPageModify = () => {
               variant="outlined"
               label="이름 입력"
               value={name}
-              onChange={handleNameChange}
               fullWidth
               margin="normal"
-              error={!!errors.name}
-              helperText={errors.name}
             />
             <TextField
               variant="outlined"
@@ -420,9 +424,7 @@ const MyPageModify = () => {
               variant="outlined"
               type="submit"
               style={{ marginTop: '10px' }}
-              disabled={
-                !!errors.loginId || !!errors.loginPw || !!errors.confirmLoginPw || isDuplicate
-              }>
+              disabled={!!errors.loginPw || !!errors.confirmLoginPw || isDuplicate}>
               정보 수정
             </Button>
           </form>

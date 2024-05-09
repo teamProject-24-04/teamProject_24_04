@@ -346,11 +346,8 @@ const MyPageModify = () => {
               variant="outlined"
               label="이름 입력"
               value={name}
-              onChange={handleNameChange}
               fullWidth
               margin="normal"
-              error={!!errors.name}
-              helperText={errors.name}
             />
             <TextField
               variant="outlined"

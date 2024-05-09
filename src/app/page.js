@@ -36,14 +36,14 @@ function MainPage2() {
 }
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState('false');
 
   useEffect(() => {
     const storedIsLoggedIn = localStorage.getItem('isLoggedIn');
     setIsLoggedIn(storedIsLoggedIn === 'true'); // 로컬 스토리지에서 가져온 값이 문자열이므로 불리언으로 변환
   }, []);
 
-  return <>{isLoggedIn === null ? <MainPage /> : <MainPage2 />}</>;
+  return <>{isLoggedIn === false ? <MainPage /> : <MainPage2 />}</>;
 }
 
 export default function ThemeApp() {

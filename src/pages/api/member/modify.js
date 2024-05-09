@@ -6,6 +6,7 @@ export default async function handler(req, res) {
     const {
       loginId,
       loginPw,
+      name,
       nickname,
       phoneNumber,
       zonecode,
@@ -28,9 +29,10 @@ export default async function handler(req, res) {
 
     // member 테이블에 수정
     const [result] = await pool.execute(
-      'UPDATE member SET loginPw = ?, nickname = ?, phoneNumber = ?, address = ?, roadAddress = ?, jibunAddress = ?, latitude = ?, longitude = ?, detailAddress = ? WHERE loginId = ?',
+      'UPDATE member SET loginPw = ?, name = ?, nickname = ?, phoneNumber = ?, address = ?, roadAddress = ?, jibunAddress = ?, latitude = ?, longitude = ?, detailAddress = ? WHERE loginId = ?',
       [
         loginPw,
+        name,
         nickname,
         phoneNumber,
         zonecode,
