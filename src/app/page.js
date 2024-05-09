@@ -36,10 +36,13 @@ function MainPage2() {
 }
 
 function App() {
-  // 로그인 상태를 로컬 스토리지에서 가져오기
-  const isLoggedIn = localStorage.getItem('isLoggedIn');
+  const [isLoggedIn, setIsLoggedIn] = useState('');
 
-  // 로그인 상태에 따라 페이지 결정
+  useEffect(() => {
+    const storedIsLoggedIn = localStorage.getItem('isLoggedIn');
+    setIsLoggedIn(storedIsLoggedIn === 'true'); // 로컬 스토리지에서 가져온 값이 문자열이므로 불리언으로 변환
+  }, []);
+
   return <>{isLoggedIn === null ? <MainPage /> : <MainPage2 />}</>;
 }
 

@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { TextField, Button, Container } from '@mui/material';
 import axios from 'axios';
@@ -149,12 +151,13 @@ const MyPageModify = () => {
 
     fetchMembers();
   }, []);
+
   const fetchMembers = async () => {
     try {
       const response = await axios.get('/api/member/members');
       setMembers(response.data);
     } catch (error) {
-      console.error('Error fetching members:', error);
+      console.error('Error fetching members:', 에러입니다);
     }
   };
 
@@ -189,7 +192,6 @@ const MyPageModify = () => {
   };
 
   const handleSubmit = async (event) => {
-    console(name);
     event.preventDefault();
     try {
       schema
@@ -206,6 +208,13 @@ const MyPageModify = () => {
           { abortEarly: false },
         )
         .then(() => {
+          if (loginPw !== confirmLoginPw) {
+            setErrors((prevState) => ({
+              ...prevState,
+              confirmLoginPw: '비밀번호가 일치하지 않습니다.',
+            }));
+            return;
+          }
           axios
             .post('/api/member/modify', {
               name,
@@ -234,7 +243,7 @@ const MyPageModify = () => {
               setLatitude('');
               setLongitude('');
               handleSignupSuccess();
-              setDetailAddress();
+              setDetailAddress('');
             })
             .catch((error) => console.error('Error writing member:', error));
         })
@@ -420,9 +429,7 @@ const MyPageModify = () => {
               variant="outlined"
               type="submit"
               style={{ marginTop: '10px' }}
-              disabled={
-                !!errors.loginId || !!errors.loginPw || !!errors.confirmLoginPw || isDuplicate
-              }>
+              disabled={!!errors.loginPw || !!errors.confirmLoginPw || isDuplicate}>
               정보 수정
             </Button>
           </form>

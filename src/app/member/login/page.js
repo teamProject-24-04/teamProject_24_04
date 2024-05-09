@@ -7,8 +7,18 @@ import { TextField, Button, Typography, Box, Snackbar } from '@mui/material';
 const LoginPage = () => {
   const [loginId, setLoginId] = useState('');
   const [loginPw, setLoginPw] = useState('');
+  const [name, setName] = useState('');
+  const [nickname, setNickname] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [address, setAddress] = useState('');
+  const [roadAddress, setRoadAddress] = useState('');
+  const [jibunAddress, setJibunAddress] = useState('');
+  const [detailAddress, setDetailAddress] = useState('');
+  const [latitude, setLatitude] = useState('');
+  const [longitude, setLongitude] = useState('');
+  const [regDate, setRegDate] = useState('');
   const [error, setError] = useState('');
-  const [snackbarOpen, setSnackbarOpen] = useState(false); // Snackbar 열기 상태 추가
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   useEffect(() => {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
@@ -29,7 +39,16 @@ const LoginPage = () => {
       localStorage.setItem('isLoggedIn', true);
       localStorage.setItem('loginId', loginId);
       localStorage.setItem('loginPw', loginPw);
-      localStorage.setItem('member', JSON.stringify(member));
+      localStorage.setItem('name', member.member.name);
+      localStorage.setItem('nickname', member.member.nickname);
+      localStorage.setItem('phoneNumber', member.member.phoneNumber);
+      localStorage.setItem('address', member.member.address);
+      localStorage.setItem('roadAddress', member.member.roadAddress);
+      localStorage.setItem('jibunAddress', member.member.jibunAddress);
+      localStorage.setItem('detailAddress', member.member.detailAddress);
+      localStorage.setItem('latitude', member.member.latitude);
+      localStorage.setItem('longitude', member.member.longitude);
+      localStorage.setItem('regDate', member.member.regDate);
       window.location.href = '/';
     } catch (error) {
       console.error('Error logging in:', error);
@@ -45,7 +64,16 @@ const LoginPage = () => {
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('loginId');
     localStorage.removeItem('loginPw');
-    localStorage.removeItem('member');
+    localStorage.removeItem('name');
+    localStorage.removeItem('nickname');
+    localStorage.removeItem('phoneNumber');
+    localStorage.removeItem('address');
+    localStorage.removeItem('roadAddress');
+    localStorage.removeItem('jibunAddress');
+    localStorage.removeItem('detailAddress');
+    localStorage.removeItem('latitude');
+    localStorage.removeItem('longitude');
+    localStorage.removeItem('regDate');
     window.location.href = '/member/login'; // 경로 수정
   };
 
