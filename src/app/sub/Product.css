@@ -65,3 +65,63 @@
 .detail-font {
   font-size: 15px;
 }
+.cartbar {
+  font-size: 20px;
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 20px;
+}
+.cart-container {
+  position: relative; /* 상대 위치 지정 */
+  font-size: 10px;
+}
+
+.cart-content {
+  padding-bottom: 100px; /* 결제하기 버튼과 총 가격의 높이만큼 여백 추가 */
+}
+
+.cart-footer {
+  position: fixed; /* 화면 하단에 고정 */
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
+}
+.cart-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-content {
+  flex: 1;
+}
+
+.cart-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.total-price {
+  margin-right: auto;
+  margin-left: 130px;
+}
+
+.cart-actions button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-left: 20px;
+}
+
+.cart-actions button:hover {
+  background-color: #0056b3;
+}
