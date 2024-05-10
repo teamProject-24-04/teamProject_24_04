@@ -11,7 +11,7 @@ import {
 import YoutuberList from './youtuberList/YoutuberList';
 import MyPage from './member/mypage/MyPage';
 import ShoppingMainPage from './sub/ShoppingMainPage';
-
+import FreeBoardTab from './FreeBoardTab';
 function BottomNavigationComponent({ value, onChange }) {
   const [bottomValue, setBottomValue] = React.useState(2);
 
@@ -62,7 +62,7 @@ function BottomNavigationComponent({ value, onChange }) {
 
       <Box sx={{ paddingBottom: 10, width: '97%' }}>
         {bottomValue === 0 && <ShoppingMainPage />}
-        {/* {bottomValue === 1 && <Write />} */}
+        {bottomValue === 1 && <FreeBoardTab />}
         {bottomValue === 2 && <YoutuberList />}
         {bottomValue === 4 && <MyPage />}
       </Box>
