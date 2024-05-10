@@ -7,7 +7,7 @@ import {
   Forum as ForumIcon,
   Receipt as ReceiptIcon,
 } from '@mui/icons-material';
-import Write from './recipy/Write';
+// import Write from './recipy/Write';
 import YoutuberList from './youtuberList/YoutuberList';
 import MyPage from './member/mypage/MyPage';
 import ShoppingMainPage from './sub/ShoppingMainPage';
@@ -62,7 +62,7 @@ function BottomNavigationComponent({ value, onChange }) {
 
       <Box sx={{ paddingBottom: 10, width: '97%' }}>
         {bottomValue === 0 && <ShoppingMainPage />}
-        {bottomValue === 1 && <Write />}
+        {/* {bottomValue === 1 && <Write />} */}
         {bottomValue === 2 && <YoutuberList />}
         {bottomValue === 4 && <MyPage />}
       </Box>

@@ -90,11 +90,11 @@ const AddressFinder = ({
   );
 };
 
-const MyPageModify = () => {
+const MyPageModify = ({ setShowModifyPage }) => {
   const history = useHistory(); // useHistory() 훅 사용
 
   const goBack = () => {
-    history.goBack(); // 뒤로 가기 버튼 클릭 시 '/mypage' 경로로 이동
+    setShowModifyPage(false);
   };
 
   const [name, setName] = useState('');

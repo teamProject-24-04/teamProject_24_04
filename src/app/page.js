@@ -13,7 +13,6 @@ import dateToStr from '../app/Ut/dateUtil';
 import classNames from 'classnames';
 //테마
 import RootTheme from './theme';
-import Write from './recipy/Write';
 import MainPage from './mainPage';
 import YoutuberList from './youtuberList/YoutuberList';
 import { Box, BottomNavigation, BottomNavigationAction } from '@mui/material';

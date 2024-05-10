@@ -9,8 +9,10 @@ import { FaPlus } from 'react-icons/fa';
 import { FiShoppingCart } from 'react-icons/fi';
 import { IoIosArrowForward } from 'react-icons/io';
 import { Link } from 'react-router-dom';
+import MyPageModify from './MyPageModify';
 
 const MyPage = () => {
+  const [showModifyPage, setShowModifyPage] = useState(false);
   const [name, setName] = useState('');
   const [regDate, setRegDate] = useState('');
 
@@ -34,6 +36,14 @@ const MyPage = () => {
       setRegDate(formattedDate);
     }
   }, []);
+
+  const goToModifyPage = () => {
+    setShowModifyPage(true);
+  };
+
+  if (showModifyPage) {
+    return <MyPageModify setShowModifyPage={setShowModifyPage} />;
+  }
 
   return (
     <div>
@@ -171,22 +181,38 @@ const MyPage = () => {
         width={360}
         my={2}
         backgroundColor="#D9D9D9"
-        sx={{ border: '2px solid grey' }}
+        sx={{
+          border: '2px solid grey',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+        }}
         borderRadius={1}>
-        <Typography variant="subtitle1" style={{ fontWeight: 'bold', marginLeft: '10px' }}>
+        <Typography
+          variant="subtitle1"
+          style={{ fontWeight: 'bold', marginLeft: '10px', marginTop: '10px' }}>
           문의 하기
         </Typography>
-        <Typography variant="subtitle1" style={{ fontWeight: 'bold', marginLeft: '10px' }}>
+        <Typography
+          variant="subtitle1"
+          style={{ fontWeight: 'bold', marginLeft: '10px', marginTop: '10px' }}>
           비밀번호 변경
         </Typography>
-        <Typography variant="subtitle1" style={{ fontWeight: 'bold', marginLeft: '10px' }}>
+        <Typography
+          variant="subtitle1"
+          style={{ fontWeight: 'bold', marginLeft: '10px', marginTop: '10px' }}>
           회원정보 변경
         </Typography>
-        <Link to={`/MyPageModify`}>
-          <IoIosArrowForward
-            style={{ marginLeft: '258px', color: '#538DFF', marginTop: '-25px', cursor: 'pointer' }}
-          />
-        </Link>
+        <IoIosArrowForward
+          style={{
+            alignSelf: 'flex-end',
+            marginRight: '10px',
+            marginBottom: '10px',
+            color: '#538DFF',
+            fontSize: '24px', // 아이콘 크기 조정
+          }}
+          onClick={goToModifyPage}
+        />
       </Box>
     </div>
   );
