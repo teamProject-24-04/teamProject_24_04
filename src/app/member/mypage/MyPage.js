@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { Box, Button, Card, CardActions, CardContent, Typography } from '@mui/material';
 import { IoPersonAdd, IoSettingsOutline } from 'react-icons/io5';
 import { LuPencil } from 'react-icons/lu';
@@ -8,13 +9,37 @@ import { LuBookCopy } from 'react-icons/lu';
 import { FaPlus } from 'react-icons/fa';
 import { FiShoppingCart } from 'react-icons/fi';
 import { IoIosArrowForward } from 'react-icons/io';
-import { Link } from 'react-router-dom';
 import MyPageModify from './MyPageModify';
+import PasswordModal from './PasswordModal'; // PasswordModal 컴포넌트 import
 
 const MyPage = () => {
   const [showModifyPage, setShowModifyPage] = useState(false);
   const [name, setName] = useState('');
+  const [loginId, setLoginId] = useState('');
   const [regDate, setRegDate] = useState('');
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
+
+  const handleWithdrawal = () => {
+    setShowPasswordModal(true); // 회원 탈퇴 버튼 클릭 시 비밀번호 모달 열기
+  };
+
+  const handleConfirmWithdrawal = async (password) => {
+    // async 키워드 추가
+    // 비밀번호 확인 후 탈퇴 동작 수행
+    // 이 곳에서 비밀번호를 서버로 보내고 인증을 수행한 후 탈퇴 동작을 수행합니다.
+    console.log('비밀번호 확인:', password);
+    const confirmWithdrawal = window.confirm('정말 탈퇴하시겠습니까?');
+    if (confirmWithdrawal) {
+      try {
+        // 회원 탈퇴를 위한 API 요청
+        const response = await axios.post('/api/member/delete', { loginId });
+        console.log(response.data); // 탈퇴 처리 결과 확인
+        // 탈퇴 후 로직 작성
+      } catch (error) {
+        console.error('Error withdrawing member:', error);
+      }
+    }
+  };
 
   useEffect(() => {
     const style = document.createElement('style');
@@ -29,7 +54,13 @@ const MyPage = () => {
     if (storedName) {
       setName(storedName);
     }
+    const storedloginId = localStorage.getItem('loginId');
+    if (storedloginId) {
+      setLoginId(storedloginId);
+    }
+
     const storedRegDate = localStorage.getItem('regDate');
+
     if (storedRegDate) {
       const date = new Date(storedRegDate);
       const formattedDate = date.toISOString().split('T')[0]; // YYYY-MM-DD 형식으로 변환
@@ -44,7 +75,6 @@ const MyPage = () => {
   if (showModifyPage) {
     return <MyPageModify setShowModifyPage={setShowModifyPage} />;
   }
-
   return (
     <div>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
@@ -66,7 +96,7 @@ const MyPage = () => {
         </div>
         <LuPencil style={{ marginRight: '13px', marginTop: '7px', fontSize: '9px' }} />
       </div>
-      <Box sx={{ display: 'flex', marginTop: '20px' }}>
+      <Box sx={{ display: 'flex', marginTop: '20px', marginLeft: '18px', width: '365px' }}>
         <Card variant="outlined" sx={{ width: '100%' }}>
           <CardContent style={{ backgroundColor: '#ACB9D1' }}>
             <Typography
@@ -86,7 +116,7 @@ const MyPage = () => {
           <Box
             marginLeft={1}
             height={50}
-            width={150}
+            width={120}
             backgroundColor="#ACB9D1"
             display="flex"
             alignItems="center"
@@ -95,14 +125,14 @@ const MyPage = () => {
             borderRadius={1}
             sx={{ border: '2px solid grey', whiteSpace: 'nowrap' }}>
             <Typography variant="subtitle1" style={{ fontWeight: 'bold' }}>
-              가입일
+              회원 가입일
+              <Typography>{regDate}</Typography>
             </Typography>
-            <Typography variant="body2">{regDate}</Typography>
           </Box>
           <Box
             marginLeft={1}
             height={50}
-            width={150}
+            width={120}
             backgroundColor="#ACB9D1"
             my={1}
             display="flex"
@@ -112,9 +142,8 @@ const MyPage = () => {
             borderRadius={1}
             sx={{ border: '2px solid grey' }}>
             <Typography variant="subtitle1" style={{ fontWeight: 'bold' }}>
-              레시피 수
+              레시피 수<Typography>5개</Typography>
             </Typography>
-            <Typography variant="body2">5개</Typography>
           </Box>
         </Box>
       </Box>
@@ -123,6 +152,7 @@ const MyPage = () => {
           height={130}
           width={190}
           backgroundColor="#ACB9D1"
+          marginLeft={2}
           my={4}
           sx={{ border: '2px solid grey' }}
           borderRadius={1}>
@@ -142,7 +172,7 @@ const MyPage = () => {
         <Box
           marginLeft={2}
           height={130}
-          width={190}
+          width={150}
           backgroundColor="#ACB9D1"
           my={4}
           sx={{ border: '2px solid grey' }}
@@ -150,7 +180,7 @@ const MyPage = () => {
           <Typography variant="subtitle1" style={{ fontWeight: 'bold', marginLeft: '10px' }}>
             나의 쇼핑
           </Typography>
-          <FiShoppingCart style={{ fontSize: '50px', marginTop: '20px', marginLeft: '60px' }} />
+          <FiShoppingCart style={{ fontSize: '50px', marginTop: '20px', marginLeft: '30px' }} />
           <Typography
             variant="body2"
             style={{ fontWeight: 'bold', textAlign: 'right', marginRight: '10px' }}>
@@ -162,23 +192,58 @@ const MyPage = () => {
       <Box
         height={130}
         width={360}
+        marginLeft={2}
         backgroundColor="#D9D9D9"
         sx={{ border: '2px solid grey' }}
         borderRadius={1}>
-        <Typography variant="subtitle1" style={{ fontWeight: 'bold', marginLeft: '10px' }}>
-          찜한 목록
-        </Typography>
-        <Typography variant="subtitle1" style={{ fontWeight: 'bold', marginLeft: '10px' }}>
-          찜한 유튜버
-        </Typography>
-        <Typography variant="subtitle1" style={{ fontWeight: 'bold', marginLeft: '10px' }}>
-          찜한 친구
-        </Typography>
+        <div
+          style={{ display: 'flex', alignItems: 'center', marginLeft: '10px', marginTop: '20px' }}>
+          <Typography variant="subtitle1" style={{ fontWeight: 'bold' }}>
+            좋아요 한 레시피
+          </Typography>
+          <IoIosArrowForward
+            style={{
+              marginLeft: '180px',
+              color: '#538DFF',
+              fontSize: '20px', // 아이콘 크기 조정
+            }}
+            onClick={goToModifyPage}
+          />
+        </div>
+        <div
+          style={{ display: 'flex', alignItems: 'center', marginLeft: '10px', marginTop: '30px' }}>
+          <Typography variant="subtitle1" style={{ fontWeight: 'bold' }}>
+            좋아요 한 유튜버
+          </Typography>
+          <IoIosArrowForward
+            style={{
+              marginLeft: '180px',
+              color: '#538DFF',
+              fontSize: '20px', // 아이콘 크기 조정
+            }}
+            onClick={goToModifyPage}
+          />
+        </div>
+        {/* <div
+          style={{ display: 'flex', alignItems: 'center', marginLeft: '10px', marginTop: '10px' }}>
+          <Typography variant="subtitle1" style={{ fontWeight: 'bold' }}>
+            찜한 친구
+          </Typography>
+          <IoIosArrowForward
+            style={{
+              marginLeft: '200px',
+              color: '#538DFF',
+              fontSize: '20px', // 아이콘 크기 조정
+            }}
+            onClick={goToModifyPage}
+          />
+        </div> */}
       </Box>
 
       <Box
         height={130}
         width={360}
+        marginLeft={2}
         my={2}
         backgroundColor="#D9D9D9"
         sx={{
@@ -188,31 +253,53 @@ const MyPage = () => {
           justifyContent: 'space-between',
         }}
         borderRadius={1}>
-        <Typography
-          variant="subtitle1"
-          style={{ fontWeight: 'bold', marginLeft: '10px', marginTop: '10px' }}>
-          문의 하기
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          style={{ fontWeight: 'bold', marginLeft: '10px', marginTop: '10px' }}>
-          비밀번호 변경
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          style={{ fontWeight: 'bold', marginLeft: '10px', marginTop: '10px' }}>
-          회원정보 변경
-        </Typography>
-        <IoIosArrowForward
-          style={{
-            alignSelf: 'flex-end',
-            marginRight: '10px',
-            marginBottom: '10px',
-            color: '#538DFF',
-            fontSize: '24px', // 아이콘 크기 조정
-          }}
-          onClick={goToModifyPage}
-        />
+        <div
+          style={{ display: 'flex', alignItems: 'center', marginLeft: '10px', marginTop: '10px' }}>
+          <Typography variant="subtitle1" style={{ fontWeight: 'bold' }}>
+            비밀번호 변경
+          </Typography>
+          <IoIosArrowForward
+            style={{
+              marginLeft: '200px',
+              color: '#538DFF',
+              fontSize: '20px', // 아이콘 크기 조정
+            }}
+            onClick={goToModifyPage}
+          />
+        </div>
+        <div
+          style={{ display: 'flex', alignItems: 'center', marginLeft: '10px', marginTop: '10px' }}>
+          <Typography variant="subtitle1" style={{ fontWeight: 'bold' }}>
+            회원 탈퇴
+          </Typography>
+          <IoIosArrowForward
+            style={{
+              marginLeft: '233px',
+              color: '#538DFF',
+              fontSize: '20px', // 아이콘 크기 조정
+            }}
+            onClick={handleWithdrawal}
+          />
+          <PasswordModal
+            open={showPasswordModal}
+            onClose={() => setShowPasswordModal(false)}
+            onConfirm={handleConfirmWithdrawal}
+          />
+        </div>
+        <div
+          style={{ display: 'flex', alignItems: 'center', marginLeft: '10px', marginTop: '10px' }}>
+          <Typography variant="subtitle1" style={{ fontWeight: 'bold' }}>
+            회원정보 변경
+          </Typography>
+          <IoIosArrowForward
+            style={{
+              marginLeft: '200px',
+              color: '#538DFF',
+              fontSize: '20px', // 아이콘 크기 조정
+            }}
+            onClick={goToModifyPage}
+          />
+        </div>
       </Box>
     </div>
   );

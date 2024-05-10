@@ -91,8 +91,6 @@ const AddressFinder = ({
 };
 
 const MyPageModify = ({ setShowModifyPage }) => {
-  const history = useHistory(); // useHistory() 훅 사용
-
   const goBack = () => {
     setShowModifyPage(false);
   };
