@@ -9,6 +9,7 @@ const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [cart, setCart] = useState([]);
 
   useEffect(() => {
     async function fetchProducts() {
@@ -42,49 +43,38 @@ const ProductList = () => {
 
   return (
     <div>
-      <div
-        className="header"
-        style={{
-          position: 'fixed',
-          backgroundColor: 'white',
-          top: '0',
-          left: '0',
-          width: '100%',
-          zIndex: '999',
-        }}>
-        <div className="search-container">
-          <TextField
-            id="standard-basic"
-            label="검색.."
-            variant="standard"
-            value={searchTerm}
-            onChange={handleChange}
-            className="search-input"
-            InputProps={{
-              endAdornment: <FiSearch className="search-icon" />,
-            }}
-          />
-        </div>
-        <ToggleButtonGroup
-          value={selectedCategory}
-          onChange={handleCategoryChange}
-          aria-label="카테고리"
-          className="toggle-button-group"
-          multiple>
-          <ToggleButton value="080001" style={{ width: '100px', height: '50px' }}>
-            바베큐도구
-          </ToggleButton>
-          <ToggleButton value="079" style={{ width: '100px', height: '50px' }}>
-            시즈닝
-          </ToggleButton>
-          <ToggleButton value="092" style={{ width: '100px', height: '50px' }}>
-            훈화도구
-          </ToggleButton>
-          <ToggleButton value="078001" style={{ width: '100px', height: '50px' }}>
-            화로대
-          </ToggleButton>
-        </ToggleButtonGroup>
+      <div className="search-container">
+        <TextField
+          id="standard-basic"
+          label="검색.."
+          variant="standard"
+          value={searchTerm}
+          onChange={handleChange}
+          className="search-input"
+          InputProps={{
+            endAdornment: <FiSearch className="search-icon" />,
+          }}
+        />
       </div>
+      <ToggleButtonGroup
+        value={selectedCategory}
+        onChange={handleCategoryChange}
+        aria-label="카테고리"
+        className="toggle-button-group"
+        multiple>
+        <ToggleButton value="080001" style={{ width: '100px', height: '50px' }}>
+          바베큐도구
+        </ToggleButton>
+        <ToggleButton value="079" style={{ width: '100px', height: '50px' }}>
+          시즈닝
+        </ToggleButton>
+        <ToggleButton value="092" style={{ width: '100px', height: '50px' }}>
+          훈화도구
+        </ToggleButton>
+        <ToggleButton value="078001" style={{ width: '100px', height: '50px' }}>
+          화로대
+        </ToggleButton>
+      </ToggleButtonGroup>
       <div style={{ marginBottom: '20px' }} />
       <div className="product-list">
         {filteredProducts.map((product) => (
