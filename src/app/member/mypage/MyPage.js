@@ -8,10 +8,9 @@ import { LuBookCopy } from 'react-icons/lu';
 import { FaPlus } from 'react-icons/fa';
 import { FiShoppingCart } from 'react-icons/fi';
 import { IoIosArrowForward } from 'react-icons/io';
-import MyPageModify from './myPageModify';
+import { Link } from 'react-router-dom';
 
 const MyPage = () => {
-  const [showModifyPage, setShowModifyPage] = useState(false);
   const [name, setName] = useState('');
   const [regDate, setRegDate] = useState('');
 
@@ -36,16 +35,8 @@ const MyPage = () => {
     }
   }, []);
 
-  const goToModifyPage = () => {
-    setShowModifyPage(true);
-  };
-
-  if (showModifyPage) {
-    return <MyPageModify />;
-  }
-
   return (
-    <>
+    <div>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
         <IoPersonAdd style={{ marginRight: '12px', fontSize: '24px' }} />
         <IoSettingsOutline style={{ fontSize: '24px' }} />
@@ -191,12 +182,13 @@ const MyPage = () => {
         <Typography variant="subtitle1" style={{ fontWeight: 'bold', marginLeft: '10px' }}>
           회원정보 변경
         </Typography>
-        <IoIosArrowForward
-          style={{ marginLeft: '258px', color: '#538DFF', marginTop: '-25px', cursor: 'pointer' }}
-          onClick={goToModifyPage}
-        />
+        <Link to={`/MyPageModify`}>
+          <IoIosArrowForward
+            style={{ marginLeft: '258px', color: '#538DFF', marginTop: '-25px', cursor: 'pointer' }}
+          />
+        </Link>
       </Box>
-    </>
+    </div>
   );
 };
 
