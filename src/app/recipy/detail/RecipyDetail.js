@@ -1,15 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import classNames from 'classnames';
-// import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Box, TextField, Button, Typography, Modal } from '@mui/material';
 import { Link } from 'react-router-dom';
 import useRepliesStatus from '../../reply/replyStatus';
 import useArticlesStatus from '../RecipyStatus';
-// import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import useNoticeSnackbarStatus from '../../Ut/noticeSnackBarStatus';
 
 //modal
 //모달창 스타일
@@ -121,95 +122,97 @@ const ReplyModal = ({ status, noticeSnackbarStatus, repliesStatus, replyId }) =>
 
 //modal 여기까지
 
-const RecipyDetail = ({ noticeSnackbarStatus }) => {
-  // const repliesStatus = useRepliesStatus();
-  // const articlesStatus = useArticlesStatus();
-  // const { id } = useParams();
-  // const numericId = parseInt(id, 10);
-  // const article = articlesStatus.findArticleById(numericId);
-  // const replies = repliesStatus.replies.filter(
-  //   (reply) => reply.relId === numericId && reply.relTypeCode === 'article',
-  // );
-  // const relId = numericId;
-  // const relTypeCode = 'article';
-  // const navigate = useNavigate();
-  // //모달창열고닫는거
-  // const editReplyModalStatus = useEditReplyModalStatus();
-  // //댓글 입력받는 곳의 값(댓글의 content)
-  // const [content, setContent] = useState('');
-  // //입력값 변하면 그대로 반영하도록
-  // const handleContentChange = (event) => {
-  //   setContent(event.target.value);
-  // };
+const RecipyDetail = () => {
+  const noticeSnackbarStatus = useNoticeSnackbarStatus();
+  const repliesStatus = useRepliesStatus();
+  const articlesStatus = useArticlesStatus();
+  const { id } = useParams();
+  const numericId = parseInt(id, 10);
+  const article = articlesStatus.findArticleById(numericId);
+  const replies = repliesStatus.replies.filter(
+    (reply) => reply.relId === numericId && reply.relTypeCode === 'article',
+  );
+  const relId = numericId;
+  const relTypeCode = 'article';
+  const history = useHistory();
+  //모달창열고닫는거
+  const editReplyModalStatus = useEditReplyModalStatus();
+  //댓글 입력받는 곳의 값(댓글의 content)
+  const [content, setContent] = useState('');
+  //입력값 변하면 그대로 반영하도록
+  const handleContentChange = (event) => {
+    setContent(event.target.value);
+  };
 
-  // //댓글 작성 할때
-  // const replyWrite = async (event) => {
-  //   //페이지 넘어가는거 막는거
-  //   event.preventDefault();
+  //댓글 작성 할때
+  const replyWrite = async (event) => {
+    //페이지 넘어가는거 막는거
+    event.preventDefault();
 
-  //   try {
-  //     //write로 보내기 content 심어서
-  //     await axios.post('/api/reply/write', {
-  //       content,
-  //       relId,
-  //       relTypeCode,
-  //     });
-  //     //댓글입력창 다시 비워주기
-  //     setContent('');
+    try {
+      //write로 보내기 content 심어서
+      await axios.post('/api/reply/write', {
+        content,
+        relId,
+        relTypeCode,
+      });
+      //댓글입력창 다시 비워주기
+      setContent('');
 
-  //     //성공 메시지
-  //     noticeSnackbarStatus.open('댓글이 작성되었습니다.', 'success');
-  //   } catch (error) {
-  //     // 실패 메시지
-  //     noticeSnackbarStatus.open('댓글 작성에 실패했습니다.', 'error');
-  //   }
-  //   // 작성된 댓글을 상태에 추가
-  //   repliesStatus.replyWrite(content, relId, relTypeCode);
-  // };
+      //성공 메시지
+      noticeSnackbarStatus.open('댓글이 작성되었습니다.', 'success');
+    } catch (error) {
+      // 실패 메시지
+      noticeSnackbarStatus.open('댓글 작성에 실패했습니다.', 'error');
+    }
+    // 작성된 댓글을 상태에 추가
+    repliesStatus.replyWrite(content, relId, relTypeCode);
+  };
 
-  // //댓글 삭제
-  // const replyDelete = async (id) => {
-  //   try {
-  //     // 서버로 댓글 삭제 요청
-  //     await axios.post('/api/reply/delete', { id });
-  //     // 상태에서 댓글 삭제
-  //     repliesStatus.replyDelete(id);
-  //     // 성공 메시지
-  //     noticeSnackbarStatus.open('댓글이 삭제되었습니다.', 'success');
-  //   } catch (error) {
-  //     // 실패 메시지
-  //     noticeSnackbarStatus.open('댓글 삭제에 실패했습니다.', 'error');
-  //   }
-  // };
+  //댓글 삭제
+  const replyDelete = async (id) => {
+    try {
+      // 서버로 댓글 삭제 요청
+      await axios.post('/api/reply/delete', { id });
+      // 상태에서 댓글 삭제
+      repliesStatus.replyDelete(id);
+      // 성공 메시지
+      noticeSnackbarStatus.open('댓글이 삭제되었습니다.', 'success');
+    } catch (error) {
+      // 실패 메시지
+      noticeSnackbarStatus.open('댓글 삭제에 실패했습니다.', 'error');
+    }
+  };
 
-  // const [replyId, setReplyId] = useState('');
-  // //수정하기 버튼 눌렀을때 모달창 열리게 하는거
-  // const modify = (id) => {
-  //   setReplyId(id);
-  //   editReplyModalStatus.open();
-  // };
+  const [replyId, setReplyId] = useState('');
+  //수정하기 버튼 눌렀을때 모달창 열리게 하는거
+  const modify = (id) => {
+    setReplyId(id);
+    editReplyModalStatus.open();
+  };
 
-  // // 글 삭제 함수
-  // const handleDelete = async () => {
-  //   try {
-  //     const response = await axios.post('/api/recipy/articleDelete', { numericId });
+  // 글 삭제 함수
+  const handleDelete = async () => {
+    try {
+      const response = await axios.post('/api/recipy/articleDelete', { numericId });
 
-  //     noticeSnackbarStatus.open('글이 삭제되었습니다.', 'success');
-  //     navigate('/');
-  //   } catch (error) {
-  //     noticeSnackbarStatus.open('글 삭제에 실패했습니다.', 'error');
-  //   }
-  //   articlesStatus.articleDelete(numericId);
-  // };
+      noticeSnackbarStatus.open('글이 삭제되었습니다.', 'success');
+      history.push('/');
+    } catch (error) {
+      noticeSnackbarStatus.open('글 삭제에 실패했습니다.', 'error');
+    }
+    articlesStatus.articleDelete(numericId);
+  };
 
-  // const back = () => {
-  //   navigate('/');
-  // };
+  const back = () => {
+    history.push('/');
+  };
 
   return (
     <>
       <div>디테일페이지</div>
-      {/* <ReplyModal
+      <div>id : {id}</div>
+      <ReplyModal
         status={editReplyModalStatus}
         noticeSnackbarStatus={noticeSnackbarStatus}
         repliesStatus={repliesStatus}
@@ -222,7 +225,7 @@ const RecipyDetail = ({ noticeSnackbarStatus }) => {
           {article && <h1>{article.title}</h1>}
           {article && <h1>조회수 : {article.hitPoint}</h1>}
           좋아요 수 : 10 댓글수 : 10
-          <Link to={`/recipy/modify/${id}`}>
+          <Link to={`/memberRecipy/modify/${id}`}>
             <Button variant="contained">수정하기</Button>
           </Link>
           <Button variant="contained" onClick={handleDelete}>
@@ -305,7 +308,7 @@ const RecipyDetail = ({ noticeSnackbarStatus }) => {
         className="tw-font-bold tw-w-full"
         type="submit">
         <FavoriteIcon />내 레시피에 추가하기
-      </Button> */}
+      </Button>
     </>
   );
 };

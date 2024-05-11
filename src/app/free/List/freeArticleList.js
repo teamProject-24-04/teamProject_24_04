@@ -10,10 +10,21 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ModeCommentIcon from '@mui/icons-material/ModeComment';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import { MemoryRouter as Router, Route, Switch } from 'react-router-dom';
 export default function FreeArticleList() {
   const articlesStatus = useArticlesStatus();
   const articles = articlesStatus.articles.filter((article) => article.boardId === 2);
+
+  const hitPointUp = async (id) => {
+    try {
+      // 해당 글의 ID를 서버로 전송하여 조회수를 증가시킴
+      await axios.post('/api/recipy/increaseHitPoint', { id });
+    } catch (error) {
+      console.error('Error increasing hit point:', error);
+      alert('Error increasing hit point');
+    }
+  };
 
   return (
     <>
@@ -26,7 +37,11 @@ export default function FreeArticleList() {
         <ul>
           {articles.map((article) => (
             <li className="tw-flex tw-justify-around tw-items-center" key={article.id}>
-              <Link to={`/freedetail/${article.id}`}>
+              <Link
+                to={`/freedetail/${article.id}`}
+                onClick={() => {
+                  hitPointUp(article.id);
+                }}>
                 <div>
                   <img
                     style={{ width: '50px', height: '50px' }}

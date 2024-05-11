@@ -6,29 +6,82 @@ import { atom, useRecoilState, RecoilRoot } from 'recoil';
 //리액트 라우터 돔
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 //db연결을 위한 axios
-import axios from 'axios';
+// import axios from 'axios';
 //날짜 변환 유틸
-import dateToStr from '../app/Ut/dateUtil';
+// import dateToStr from '../app/Ut/dateUtil';
 //className 사용하게 해주는거
 import classNames from 'classnames';
 //테마
-import RootTheme from './theme';
+// import RootTheme from './theme';
 import MainPage from './mainPage';
-import YoutuberList from './youtuberList/YoutuberList';
-import { Box, BottomNavigation, BottomNavigationAction } from '@mui/material';
-import {
-  Person as PersonIcon,
-  ShoppingBag as ShoppingBagIcon,
-  Navigation as NavigationIcon,
-  Forum as ForumIcon,
-  Receipt as ReceiptIcon,
-} from '@mui/icons-material';
+// import YoutuberList from './youtuberList/YoutuberList';
+// import { Box, BottomNavigation, BottomNavigationAction } from '@mui/material';
+// import {
+//   Person as PersonIcon,
+//   ShoppingBag as ShoppingBagIcon,
+//   Navigation as NavigationIcon,
+//   Forum as ForumIcon,
+//   Receipt as ReceiptIcon,
+// } from '@mui/icons-material';
 import BottomNavigationComponent from './BottomNavigationComponent';
+
+// //mui 컴포넌트(Snac)
+// import { Snackbar, Alert } from '@mui/material';
+
+// import useNoticeSnackbarStatus from './Ut/noticeSnackBarStatus';
+
+// //스낵바 알림창 시작
+// function useNoticeSnackbarStatus() {
+//   const [opened, setOpened] = React.useState(false);
+//   const [autoHideDuration, setAutoHideDuration] = React.useState(null);
+//   const [variant, setVariant] = React.useState(null);
+//   const [severity, setSeverity] = React.useState(null);
+//   const [msg, setMsg] = React.useState(null);
+
+//   const open = (msg, severity = 'success', autoHideDuration = 3000, variant = 'filled') => {
+//     setOpened(true);
+//     setMsg(msg);
+//     setSeverity(severity);
+//     setAutoHideDuration(autoHideDuration);
+//     setVariant(variant);
+//   };
+
+//   const close = () => {
+//     setOpened(false);
+//   };
+
+//   return {
+//     opened,
+//     open,
+//     close,
+//     autoHideDuration,
+//     variant,
+//     severity,
+//     msg,
+//   };
+// }
+
+// function NoticeSnackbar({ status }) {
+//   return (
+//     <>
+//       <Snackbar
+//         open={status.opened}
+//         autoHideDuration={status.autoHideDuration}
+//         onClose={status.close}>
+//         <Alert variant={status.variant} severity={status.severity}>
+//           {status.msg}
+//         </Alert>
+//       </Snackbar>
+//     </>
+//   );
+// }
 
 function MainPage2() {
   const [bottomValue, setBottomValue] = React.useState(0);
+  // const noticeSnackbarStatus = useNoticeSnackbarStatus();
   return (
     <>
+      {/* <NoticeSnackbar status={noticeSnackbarStatus} /> */}
       <BottomNavigationComponent />
     </>
   );

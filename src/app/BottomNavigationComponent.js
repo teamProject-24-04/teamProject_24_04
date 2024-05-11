@@ -38,7 +38,7 @@ function BottomNavigationComponent({ value, onChange }) {
             onClick={() => setBottomValue(0)}
           />
           <BottomNavigationAction
-            label="자유게시판"
+            label="게시판"
             icon={<ForumIcon />}
             onClick={() => setBottomValue(1)}
           />
@@ -53,7 +53,7 @@ function BottomNavigationComponent({ value, onChange }) {
             onClick={() => setBottomValue(3)}
           />
           <BottomNavigationAction
-            label="마이페이지"
+            label="내정보"
             icon={<PersonIcon />}
             onClick={() => setBottomValue(4)}
           />
