@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 const LogoutPage = () => {
   useEffect(() => {
     // localStorage에서 사용자 정보 삭제
+    localStorage.removeItem('memberId');
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('loginId');
     localStorage.removeItem('loginPw');

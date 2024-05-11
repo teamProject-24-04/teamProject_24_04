@@ -5,6 +5,7 @@ import axios from 'axios';
 import { TextField, Button, Typography, Box, Snackbar } from '@mui/material';
 
 const LoginPage = () => {
+  const [memberId, setMemberId] = useState('');
   const [loginId, setLoginId] = useState('');
   const [loginPw, setLoginPw] = useState('');
   const [name, setName] = useState('');
@@ -37,6 +38,7 @@ const LoginPage = () => {
       const response = await axios.post('/api/member/login', { loginId, loginPw });
       const member = response.data;
       localStorage.setItem('isLoggedIn', true);
+      localStorage.setItem('memberId', member.member.id);
       localStorage.setItem('loginId', loginId);
       localStorage.setItem('loginPw', loginPw);
       localStorage.setItem('name', member.member.name);
