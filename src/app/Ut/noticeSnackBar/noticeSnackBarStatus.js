@@ -1,7 +1,8 @@
+//경로 src/app.Ut/noticeSnackBar/noticeSnackBarStatus.js
 import React from 'react';
 
 //스낵바 알림창 시작
-export default function useNoticeSnackbarStatus() {
+function useNoticeSnackBarStatus() {
   const [opened, setOpened] = React.useState(false);
   const [autoHideDuration, setAutoHideDuration] = React.useState(null);
   const [variant, setVariant] = React.useState(null);
@@ -30,3 +31,5 @@ export default function useNoticeSnackbarStatus() {
     msg,
   };
 }
+
+export default useNoticeSnackBarStatus;

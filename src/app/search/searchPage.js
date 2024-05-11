@@ -69,7 +69,11 @@ function SearchPage() {
             <Tab label="게시판" {...a11yProps(1)} />
           </Tabs>
         </Box>
-        <CustomTabPanel value={value} index={0}></CustomTabPanel>
+        <CustomTabPanel value={value} index={0}>
+          <Button style={{ width: '100%' }} variant="contained">
+            회원 레시피 작성하기
+          </Button>
+        </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
           <Button style={{ width: '100%' }} variant="contained">
             자유게시판 글쓰기

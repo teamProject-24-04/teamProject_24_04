@@ -25,64 +25,33 @@ import MainPage from './mainPage';
 // } from '@mui/icons-material';
 import BottomNavigationComponent from './BottomNavigationComponent';
 
-// //mui 컴포넌트(Snac)
-// import { Snackbar, Alert } from '@mui/material';
+import useNoticeSnackBarStatus from './Ut/noticeSnackBar/noticeSnackBarStatus';
 
-// import useNoticeSnackbarStatus from './Ut/noticeSnackBarStatus';
+//mui 컴포넌트
+import { Snackbar, Alert } from '@mui/material';
 
-// //스낵바 알림창 시작
-// function useNoticeSnackbarStatus() {
-//   const [opened, setOpened] = React.useState(false);
-//   const [autoHideDuration, setAutoHideDuration] = React.useState(null);
-//   const [variant, setVariant] = React.useState(null);
-//   const [severity, setSeverity] = React.useState(null);
-//   const [msg, setMsg] = React.useState(null);
-
-//   const open = (msg, severity = 'success', autoHideDuration = 3000, variant = 'filled') => {
-//     setOpened(true);
-//     setMsg(msg);
-//     setSeverity(severity);
-//     setAutoHideDuration(autoHideDuration);
-//     setVariant(variant);
-//   };
-
-//   const close = () => {
-//     setOpened(false);
-//   };
-
-//   return {
-//     opened,
-//     open,
-//     close,
-//     autoHideDuration,
-//     variant,
-//     severity,
-//     msg,
-//   };
-// }
-
-// function NoticeSnackbar({ status }) {
-//   return (
-//     <>
-//       <Snackbar
-//         open={status.opened}
-//         autoHideDuration={status.autoHideDuration}
-//         onClose={status.close}>
-//         <Alert variant={status.variant} severity={status.severity}>
-//           {status.msg}
-//         </Alert>
-//       </Snackbar>
-//     </>
-//   );
-// }
+function NoticeSnackBar({ status }) {
+  return (
+    <>
+      <Snackbar
+        open={status.opened}
+        autoHideDuration={status.autoHideDuration}
+        onClose={status.close}>
+        <Alert variant={status.variant} severity={status.severity}>
+          {status.msg}
+        </Alert>
+      </Snackbar>
+    </>
+  );
+}
 
 function MainPage2() {
   const [bottomValue, setBottomValue] = React.useState(0);
-  // const noticeSnackbarStatus = useNoticeSnackbarStatus();
+  const noticeSnackBarStatus = useNoticeSnackBarStatus();
   return (
     <>
-      {/* <NoticeSnackbar status={noticeSnackbarStatus} /> */}
-      <BottomNavigationComponent />
+      <NoticeSnackBar status={noticeSnackBarStatus} />
+      <BottomNavigationComponent noticeSnackBarStatus={noticeSnackBarStatus} />
     </>
   );
 }

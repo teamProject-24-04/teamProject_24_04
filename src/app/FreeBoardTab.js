@@ -6,7 +6,7 @@ import FreeDetail from './free/detail/freeDetail';
 import FreeWrite from './free/write/freeWrite';
 import FreeModify from './free/modify/freeModify';
 
-export default function FreeboardTab() {
+export default function FreeboardTab({ noticeSnackBarStatus }) {
   return (
     <Router>
       <Container>
@@ -14,8 +14,16 @@ export default function FreeboardTab() {
           <Route path="/" exact>
             <FreeArticleList />
           </Route>
-          <Route path="/free/write" component={FreeWrite} />
-          <Route path="/freedetail/:id" component={FreeDetail} />
+          <Route
+            path="/free/write"
+            render={(props) => <FreeWrite {...props} noticeSnackBarStatus={noticeSnackBarStatus} />}
+          />
+          <Route
+            path="/freedetail/:id"
+            render={(props) => (
+              <FreeDetail {...props} noticeSnackBarStatus={noticeSnackBarStatus} />
+            )}
+          />
           <Route path="/free/modify/:id" component={FreeModify} />
         </Switch>
       </Container>

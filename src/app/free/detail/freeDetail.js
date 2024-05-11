@@ -10,6 +10,8 @@ import { useHistory } from 'react-router-dom';
 
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+//
+import useNoticeSnackBarStatus from '../../Ut/noticeSnackBar/noticeSnackBarStatus';
 
 //modal
 //모달창 스타일
@@ -44,18 +46,18 @@ function useEditReplyModalStatus() {
   };
 }
 
-const ReplyModal = ({ status, noticeSnackbarStatus, repliesStatus, replyId }) => {
+const ReplyModal = ({ status, noticeSnackBarStatus, repliesStatus, replyId }) => {
   const close = () => {
     status.close();
-    noticeSnackbarStatus.open('댓글 수정 취소됨', 'error');
+    noticeSnackBarStatus.open('댓글 수정 취소됨', 'error');
   };
 
   const modify = async (id, content) => {
     try {
       await axios.post('/api/reply/modify', { id, content });
-      noticeSnackbarStatus.open('댓글이 수정 되었습니다.', 'success');
+      noticeSnackBarStatus.open('댓글이 수정 되었습니다.', 'success');
     } catch (error) {
-      noticeSnackbarStatus.open('댓글 수정에 실패했습니다.', 'error');
+      noticeSnackBarStatus.open('댓글 수정에 실패했습니다.', 'error');
     }
     repliesStatus.replyModify(id, content);
     status.close();
@@ -121,7 +123,7 @@ const ReplyModal = ({ status, noticeSnackbarStatus, repliesStatus, replyId }) =>
 
 //modal 여기까지
 
-const FreeDetail = ({ noticeSnackbarStatus }) => {
+const FreeDetail = ({ noticeSnackBarStatus }) => {
   const repliesStatus = useRepliesStatus();
   const articlesStatus = useArticlesStatus();
   const { id } = useParams();
@@ -158,10 +160,10 @@ const FreeDetail = ({ noticeSnackbarStatus }) => {
       setContent('');
 
       //성공 메시지
-      noticeSnackbarStatus.open('댓글이 작성되었습니다.', 'success');
+      noticeSnackBarStatus.open('댓글이 작성되었습니다.', 'success');
     } catch (error) {
       // 실패 메시지
-      noticeSnackbarStatus.open('댓글 작성에 실패했습니다.', 'error');
+      noticeSnackBarStatus.open('댓글 작성에 실패했습니다.', 'error');
     }
     // 작성된 댓글을 상태에 추가
     repliesStatus.replyWrite(content, relId, relTypeCode);
@@ -175,10 +177,10 @@ const FreeDetail = ({ noticeSnackbarStatus }) => {
       // 상태에서 댓글 삭제
       repliesStatus.replyDelete(id);
       // 성공 메시지
-      noticeSnackbarStatus.open('댓글이 삭제되었습니다.', 'success');
+      noticeSnackBarStatus.open('댓글이 삭제되었습니다.', 'success');
     } catch (error) {
       // 실패 메시지
-      noticeSnackbarStatus.open('댓글 삭제에 실패했습니다.', 'error');
+      noticeSnackBarStatus.open('댓글 삭제에 실패했습니다.', 'error');
     }
   };
 
@@ -194,10 +196,10 @@ const FreeDetail = ({ noticeSnackbarStatus }) => {
     try {
       const response = await axios.post('/api/recipy/articleDelete', { numericId });
 
-      noticeSnackbarStatus.open('글이 삭제되었습니다.', 'success');
+      noticeSnackBarStatus.open('글이 삭제되었습니다.', 'success');
       history.push('/');
     } catch (error) {
-      noticeSnackbarStatus.open('글 삭제에 실패했습니다.', 'error');
+      noticeSnackBarStatus.open('글 삭제에 실패했습니다.', 'error');
     }
     articlesStatus.articleDelete(numericId);
   };
@@ -210,7 +212,7 @@ const FreeDetail = ({ noticeSnackbarStatus }) => {
     <>
       <ReplyModal
         status={editReplyModalStatus}
-        noticeSnackbarStatus={noticeSnackbarStatus}
+        noticeSnackBarStatus={noticeSnackBarStatus}
         repliesStatus={repliesStatus}
         replyId={replyId}
       />
