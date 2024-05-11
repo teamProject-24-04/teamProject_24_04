@@ -6,7 +6,7 @@ import useArticlesStatus from '../RecipyStatus';
 import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 
-const Modify = ({ noticeSnackbarStatus }) => {
+const Modify = ({ noticeSnackBarStatus }) => {
   const articlesStatus = useArticlesStatus();
   const { id } = useParams();
   const numericId = parseInt(id, 10);
@@ -45,12 +45,18 @@ const Modify = ({ noticeSnackbarStatus }) => {
       });
 
       // 성공 시 스낵바 메시지 표시
-      noticeSnackbarStatus.open('글이 수정되었습니다.', 'success');
-      history.push(`/recipy/detail/${article.id}`);
+      noticeSnackBarStatus.open('글이 수정되었습니다.', 'success');
+      history.push(`/memberRecipy/detail/${article.id}`);
     } catch (error) {
       // 실패 시 스낵바 메시지 표시
-      noticeSnackbarStatus.open('글 수정에 실패했습니다.', 'error');
+      noticeSnackBarStatus.open('글 수정에 실패했습니다.', 'error');
     }
+  };
+
+  //수정 취소
+  const cancle = () => {
+    noticeSnackBarStatus.open('글 수정을 취소하였습니다.', 'error');
+    history.goBack();
   };
 
   return (
@@ -95,7 +101,9 @@ const Modify = ({ noticeSnackbarStatus }) => {
           />
 
           <div className="tw-flex tw-justify-around">
-            <Button variant="contained">수정취소</Button>
+            <Button variant="contained" onClick={cancle}>
+              수정취소
+            </Button>
             <Button type="submit" variant="contained">
               수정하기
             </Button>

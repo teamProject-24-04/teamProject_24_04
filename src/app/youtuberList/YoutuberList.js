@@ -17,7 +17,7 @@ import '../globals.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-function YoutuberList() {
+function YoutuberList({ noticeSnackBarStatus }) {
   const [isPressed1, setIsPressed1] = useState(true);
   const [isPressed2, setIsPressed2] = useState(false);
 
@@ -61,13 +61,35 @@ function YoutuberList() {
           />
           <Route
             path="/memberRecipy/detail/:id"
-            render={(props) => <RecipyDetail {...props} hideHeader={true} />}
+            render={(props) => (
+              <RecipyDetail
+                {...props}
+                noticeSnackBarStatus={noticeSnackBarStatus}
+                hideHeader={true}
+              />
+            )}
           />
           <Route
             path="/memberRecipy/modify/:id"
-            render={(props) => <RecipyModify {...props} hideHeader={true} />}
+            render={(props) => (
+              <RecipyModify
+                {...props}
+                noticeSnackBarStatus={noticeSnackBarStatus}
+                hideHeader={true}
+              />
+            )}
           />
-          <Route path="/search" render={(props) => <SearchPage {...props} hideHeader={true} />} />
+
+          <Route
+            path="/search"
+            render={(props) => (
+              <SearchPage
+                {...props}
+                noticeSnackBarStatus={noticeSnackBarStatus}
+                hideHeader={true}
+              />
+            )}
+          />
         </Switch>
       </Container>
     </Router>

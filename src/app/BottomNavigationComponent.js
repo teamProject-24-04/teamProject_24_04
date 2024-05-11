@@ -12,7 +12,8 @@ import YoutuberList from './youtuberList/YoutuberList';
 import MyPage from './member/mypage/MyPage';
 import ShoppingMainPage from './sub/ShoppingMainPage';
 import FreeBoardTab from './FreeBoardTab';
-function BottomNavigationComponent({ value, onChange }) {
+
+function BottomNavigationComponent({ value, onChange, noticeSnackBarStatus }) {
   const [bottomValue, setBottomValue] = React.useState(2);
 
   return (
@@ -62,8 +63,8 @@ function BottomNavigationComponent({ value, onChange }) {
 
       <Box sx={{ paddingBottom: 10, width: '97%' }}>
         {bottomValue === 0 && <ShoppingMainPage />}
-        {bottomValue === 1 && <FreeBoardTab />}
-        {bottomValue === 2 && <YoutuberList />}
+        {bottomValue === 1 && <FreeBoardTab noticeSnackBarStatus={noticeSnackBarStatus} />}
+        {bottomValue === 2 && <YoutuberList noticeSnackBarStatus={noticeSnackBarStatus} />}
         {bottomValue === 4 && <MyPage />}
       </Box>
     </>

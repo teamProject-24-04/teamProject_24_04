@@ -3,11 +3,13 @@ import axios from 'axios';
 import { Box, TextField, Button, InputLabel, MenuItem, FormControl, Select } from '@mui/material';
 import classNames from 'classnames';
 import useArticlesStatus from '../../recipy/RecipyStatus';
-const FreeWrite = ({ noticeSnackbarStatus }) => {
+import { useHistory } from 'react-router-dom';
+const FreeWrite = ({ noticeSnackBarStatus }) => {
   const [boardId, setBoardId] = useState('');
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const articlesStatus = useArticlesStatus();
+  const history = useHistory();
 
   const boardChange = (event) => {
     setBoardId(event.target.value);
@@ -34,11 +36,17 @@ const FreeWrite = ({ noticeSnackbarStatus }) => {
       });
 
       // 성공 시 스낵바 메시지 표시
-      noticeSnackbarStatus.open('글이 작성되었습니다.', 'success');
+      noticeSnackBarStatus.open('글이 작성되었습니다.', 'success');
     } catch (error) {
       // 실패 시 스낵바 메시지 표시
-      noticeSnackbarStatus.open('글 작성에 실패했습니다.', 'error');
+      noticeSnackBarStatus.open('글 작성에 실패했습니다.', 'error');
     }
+  };
+
+  //작성 취소
+  const cancle = () => {
+    noticeSnackBarStatus.open('글 작성을 취소하였습니다.', 'error');
+    history.goBack();
   };
 
   return (
@@ -58,8 +66,7 @@ const FreeWrite = ({ noticeSnackbarStatus }) => {
                   value={boardId}
                   onChange={boardChange}>
                   <MenuItem value={1}>회원레시피</MenuItem>
-                  <MenuItem value={2}>유튜버레시피</MenuItem>
-                  <MenuItem value={3}>자유게시판</MenuItem>
+                  <MenuItem value={2}>자유게시판</MenuItem>
                 </Select>
               </FormControl>
             </Box>
@@ -84,7 +91,9 @@ const FreeWrite = ({ noticeSnackbarStatus }) => {
           />
 
           <div className="tw-flex tw-justify-around">
-            <Button variant="contained">작성 취소</Button>
+            <Button variant="contained" onClick={cancle}>
+              작성 취소
+            </Button>
             <Button type="submit" variant="contained">
               작성 하기
             </Button>
