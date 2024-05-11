@@ -206,10 +206,17 @@ const RecipyDetail = ({ noticeSnackBarStatus }) => {
     history.push('/');
   };
 
+  const name = localStorage.getItem('name');
+  const nickName = localStorage.getItem('nickname');
+  const loginId = localStorage.getItem('loginId');
+
   return (
     <>
       <div>디테일페이지</div>
       <div>id : {id}</div>
+      <div>이름 : {name}</div>
+      <div>닉네임 : {nickName}</div>
+      <div></div>
       <ReplyModal
         status={editReplyModalStatus}
         noticeSnackBarStatus={noticeSnackBarStatus}
