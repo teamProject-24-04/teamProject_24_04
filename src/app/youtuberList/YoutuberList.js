@@ -9,6 +9,9 @@ import SliderComponent from './SliderComponent';
 import RecipeListComponent from './RecipeListComponent';
 import YoutubersDetail from './YoutubersDetail';
 import MembersDetail from './MembersDetail';
+import RecipyDetail from '../recipy/detail/RecipyDetail';
+import RecipyModify from '../recipy/modify/Modify';
+import SearchPage from '../search/searchPage';
 import './App.css';
 import '../globals.css';
 import 'slick-carousel/slick/slick.css';
@@ -57,9 +60,14 @@ function YoutuberList() {
             render={(props) => <YoutubersDetail {...props} hideHeader={true} />}
           />
           <Route
-            path="/MembersDetail/:id"
-            render={(props) => <MembersDetail {...props} hideHeader={true} />}
+            path="/memberRecipy/detail/:id"
+            render={(props) => <RecipyDetail {...props} hideHeader={true} />}
           />
+          <Route
+            path="/memberRecipy/modify/:id"
+            render={(props) => <RecipyModify {...props} hideHeader={true} />}
+          />
+          <Route path="/search" render={(props) => <SearchPage {...props} hideHeader={true} />} />
         </Switch>
       </Container>
     </Router>

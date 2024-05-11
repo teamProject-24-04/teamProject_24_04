@@ -1,11 +1,14 @@
 import React from 'react';
 import { CiSearch } from 'react-icons/ci';
 import { MdLocalFireDepartment } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 
 function Header() {
   return (
     <div>
-      <CiSearch style={{ marginLeft: 'auto', fontSize: '30px', marginTop: '20px' }} />
+      <Link to={`/search`}>
+        <CiSearch style={{ marginLeft: 'auto', fontSize: '30px', marginTop: '20px' }} />
+      </Link>
       <div style={{ marginTop: '5%', display: 'flex', alignItems: 'center' }}>
         <MdLocalFireDepartment
           style={{ marginRight: '5px', verticalAlign: 'bottom', fontSize: '24px', color: 'red' }}
