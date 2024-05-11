@@ -8,7 +8,8 @@ import useArticlesStatus from '../recipy/RecipyStatus';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import InsertCommentIcon from '@mui/icons-material/InsertComment';
-
+//
+import { Button } from '@mui/material';
 function RecipeListComponent({ isPressed1, isPressed2 }) {
   const [youtubers, setYoutubers] = useState([]);
   const [members, setMembers] = useState([]);
@@ -76,6 +77,11 @@ function RecipeListComponent({ isPressed1, isPressed2 }) {
         ))}
       </div>
       <div className="member_recipe" style={{ display: isPressed1 ? 'none' : 'block' }}>
+        <Link to={'/memberRecipy/write'}>
+          <Button sx={{ width: '100%' }} variant="contained">
+            회원 레시피 작성하기
+          </Button>
+        </Link>
         {articles.map((article, index) => (
           <Link
             to={`/memberRecipy/detail/${article.id}`}
@@ -100,18 +106,6 @@ function RecipeListComponent({ isPressed1, isPressed2 }) {
                     <InsertCommentIcon />
                     10
                   </h1>
-                  {/* <p>
-                    <FavoriteIcon />
-                    10
-                  </p>
-                  <p>
-                    <VisibilityIcon />
-                    {article.hitPoint}
-                  </p>
-                  <p>
-                    <InsertCommentIcon />
-                    10
-                  </p> */}
                 </div>
               </div>
             </div>

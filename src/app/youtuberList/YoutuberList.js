@@ -8,10 +8,12 @@ import Header from './Header';
 import SliderComponent from './SliderComponent';
 import RecipeListComponent from './RecipeListComponent';
 import YoutubersDetail from './YoutubersDetail';
-import MembersDetail from './MembersDetail';
+// import MembersDetail from './MembersDetail';
+//회원
 import RecipyDetail from '../recipy/detail/RecipyDetail';
 import RecipyModify from '../recipy/modify/Modify';
 import SearchPage from '../search/searchPage';
+import RecipyWrite from '../recipy/write/Write';
 import './App.css';
 import '../globals.css';
 import 'slick-carousel/slick/slick.css';
@@ -73,6 +75,17 @@ function YoutuberList({ noticeSnackBarStatus }) {
             path="/memberRecipy/modify/:id"
             render={(props) => (
               <RecipyModify
+                {...props}
+                noticeSnackBarStatus={noticeSnackBarStatus}
+                hideHeader={true}
+              />
+            )}
+          />
+
+          <Route
+            path="/memberRecipy/write"
+            render={(props) => (
+              <RecipyWrite
                 {...props}
                 noticeSnackBarStatus={noticeSnackBarStatus}
                 hideHeader={true}
