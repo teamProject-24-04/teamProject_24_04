@@ -5,6 +5,7 @@ import FreeArticleList from './free/List/freeArticleList';
 import FreeDetail from './free/detail/freeDetail';
 import FreeWrite from './free/write/freeWrite';
 import FreeModify from './free/modify/freeModify';
+import SearchPage from './search/searchPage';
 
 export default function FreeboardTab({ noticeSnackBarStatus }) {
   return (
@@ -25,6 +26,7 @@ export default function FreeboardTab({ noticeSnackBarStatus }) {
             )}
           />
           <Route path="/free/modify/:id" component={FreeModify} />
+          <Route path="/search" component={SearchPage} />
         </Switch>
       </Container>
     </Router>

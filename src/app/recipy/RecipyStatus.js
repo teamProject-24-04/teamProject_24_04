@@ -33,10 +33,11 @@ function useArticlesStatus() {
   }, []); // 마운트될
 
   // 작성
-  const articleWrite = (boardId, title, content) => {
+  const articleWrite = (boardId, title, content, memberId) => {
     const id = articles.length + 1;
     const newArticle = {
       id,
+      memberId,
       boardId,
       title,
       content,
