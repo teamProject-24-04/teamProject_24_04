@@ -12,6 +12,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import SearchIcon from '@mui/icons-material/Search';
+
 export default function FreeArticleList() {
   const articlesStatus = useArticlesStatus();
   const articles = articlesStatus.articles.filter((article) => article.boardId === 2);

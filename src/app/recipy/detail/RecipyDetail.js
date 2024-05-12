@@ -125,6 +125,7 @@ const RecipyDetail = ({ noticeSnackBarStatus }) => {
   const repliesStatus = useRepliesStatus();
   const articlesStatus = useArticlesStatus();
   const { id } = useParams();
+  const memberId = localStorage.getItem('memberId');
   const numericId = parseInt(id, 10);
   const article = articlesStatus.findArticleById(numericId);
   const replies = repliesStatus.replies.filter(
@@ -153,6 +154,7 @@ const RecipyDetail = ({ noticeSnackBarStatus }) => {
         content,
         relId,
         relTypeCode,
+        memberId,
       });
       //댓글입력창 다시 비워주기
       setContent('');
@@ -164,7 +166,7 @@ const RecipyDetail = ({ noticeSnackBarStatus }) => {
       noticeSnackBarStatus.open('댓글 작성에 실패했습니다.', 'error');
     }
     // 작성된 댓글을 상태에 추가
-    repliesStatus.replyWrite(content, relId, relTypeCode);
+    repliesStatus.replyWrite(content, relId, relTypeCode, memberId);
   };
 
   //댓글 삭제
@@ -206,19 +208,8 @@ const RecipyDetail = ({ noticeSnackBarStatus }) => {
     history.push('/');
   };
 
-  const name = localStorage.getItem('name');
-  const nickName = localStorage.getItem('nickname');
-  const loginId = localStorage.getItem('loginId');
-  const memberId = localStorage.getItem('memberId');
-
   return (
     <>
-      <div>디테일페이지</div>
-      <div>id : {id}</div>
-      <div>이름 : {name}</div>
-      <div>닉네임 : {nickName}</div>
-      <div>멤버아이디 : {memberId}</div>
-
       <ReplyModal
         status={editReplyModalStatus}
         noticeSnackBarStatus={noticeSnackBarStatus}

@@ -127,6 +127,7 @@ const FreeDetail = ({ noticeSnackBarStatus }) => {
   const repliesStatus = useRepliesStatus();
   const articlesStatus = useArticlesStatus();
   const { id } = useParams();
+  const memberId = localStorage.getItem('memberId');
   const numericId = parseInt(id, 10);
   const article = articlesStatus.findArticleById(numericId);
   const replies = repliesStatus.replies.filter(
@@ -155,6 +156,7 @@ const FreeDetail = ({ noticeSnackBarStatus }) => {
         content,
         relId,
         relTypeCode,
+        memberId,
       });
       //댓글입력창 다시 비워주기
       setContent('');
@@ -166,7 +168,7 @@ const FreeDetail = ({ noticeSnackBarStatus }) => {
       noticeSnackBarStatus.open('댓글 작성에 실패했습니다.', 'error');
     }
     // 작성된 댓글을 상태에 추가
-    repliesStatus.replyWrite(content, relId, relTypeCode);
+    repliesStatus.replyWrite(content, relId, relTypeCode, memberId);
   };
 
   //댓글 삭제
