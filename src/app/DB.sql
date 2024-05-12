@@ -19,20 +19,24 @@ CREATE TABLE `member` (
   `name` VARCHAR(50) NOT NULL,
   `nickname` VARCHAR(50) NOT NULL,
   `phoneNumber` VARCHAR(20) NOT NULL,
+  email TEXT NOT NULL,
   `address` CHAR(10) NOT NULL,
   `roadAddress` VARCHAR(255) NOT NULL,
   `jibunAddress` VARCHAR(255) NOT NULL,
   `latitude` DECIMAL(10, 8) NOT NULL,
   `longitude` DECIMAL(11, 8) NOT NULL,
   `detailAddress` VARCHAR(255) NOT NULL,
-  `regDate` DATE NOT NULL -- 가입일자 추가
+  `regDate` DATE NOT NULL, -- 가입일자 추가
+  authlevel VARCHAR(5) NOT NULL
 );
+
+
 ## article 생성 (reipy 일수도 있고 자유게시판 글일수도 있어서 article로)
 CREATE TABLE article (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     regDate DATETIME NOT NULL,
     updateDate DATETIME NOT NULL,
-    
+    memberId INT NOT NULL,
     boardId INT,
     title TEXT,
     content TEXT,
@@ -45,6 +49,7 @@ CREATE TABLE reply(
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     regDate DATETIME NOT NULL,
     updateDate DATETIME NOT NULL,
+    memberId INT NOT NULL,
     relId INT NOT NULL,
     relTypeCode CHAR(50) NOT NULL,
     
@@ -61,6 +66,7 @@ CREATE TABLE board(
     delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '삭제 여부 (0=삭제 전, 1=삭제 후)',
     delDate DATETIME COMMENT '삭제 날짜'
 );
+
 
 # board TD 생성
 INSERT INTO board
@@ -80,30 +86,34 @@ INSERT INTO article
 SET regDate = NOW(),
 updateDate = NOW(),
 boardId = 1,
-title = 'test',
-content = 'test';
+memberId = 1,
+title = '1번글 회원레시피 제목 test',
+content = '1번글 회원레시피 내용 test';
 
 ## 아티클 TD
 INSERT INTO article
 SET regDate = NOW(),
 updateDate = NOW(),
 boardId = 1,
-title = 'test2',
-content = 'test2';
+memberId = 1,
+title = '2번글 회원레시피 제목 test2',
+content = '2번글 회원레시피 내용 test2';
 
 ## 아티클 TD
 INSERT INTO article
 SET regDate = NOW(),
 updateDate = NOW(),
 boardId = 2,
-title = 'test3',
-content = 'test3';
+memberId = 2,
+title = '3번글 자유게시판 제목 test3',
+content = '3번글 자유게시판 내용 test3';
 
 ## reply TD
 INSERT INTO reply
 SET regDate = NOW(),
 updateDate = NOW(),
 relId = 1,
+memberId= 1,
 relTypeCode = 'article',
 content = '테스트1';
 
@@ -112,6 +122,7 @@ INSERT INTO reply
 SET regDate = NOW(),
 updateDate = NOW(),
 relId = 2,
+memberId= 2,
 relTypeCode = 'article',
 content = '테스트2';
 
@@ -153,51 +164,6 @@ CREATE TABLE video_ids (
     channel_id INT,
     FOREIGN KEY (channel_id) REFERENCES channels(id)
 );
-
-# insert 다 하고 마지막에 해야함!!!
-INSERT INTO videos (video_id, title, channel_id)
-SELECT vi.video_id, vi.video_title, vi.channel_id
-FROM video_ids vi
-JOIN channels c ON vi.channel_id = c.id;
-
-#####################################################################
-
-SELECT * FROM products 
-
-
-SELECT * FROM youtubers WHERE id = 1;
-
-SELECT *
-FROM channels AS c
-LEFT JOIN videos AS v ON c.id = v.channel_id
-LEFT JOIN video_ids AS vi ON c.id = vi.channel_id
-LEFT JOIN youtubers AS Y ON c.id = y.id
-
-SELECT * FROM youtubers
-
-SELECT * FROM videos;
-SELECT * FROM channels;
-
-SELECT * 
-FROM videos AS v
-INNER JOIN channels AS c
-INNER JOIN youtubers AS Y
-ON v.channel_id = c.id
-
-SELECT * 
-FROM videos AS v
-INNER JOIN channels AS c ON v.channel_id = c.id
-INNER JOIN youtubers AS Y ON c.id = Y.id
-ORDER BY Y.id, c.id
-WHERE Y.id = 1;
-
-SELECT * 
-FROM videos AS v
-INNER JOIN channels AS c ON v.channel_id = c.id
-INNER JOIN youtubers AS Y ON c.id = Y.id
-WHERE Y.id = 2
-ORDER BY Y.id, c.id;
-
 INSERT INTO channels (NAME) VALUES
 ('고기남자'),
 ('문츠'),
@@ -232,11 +198,6 @@ INSERT INTO video_ids (video_id, video_title, channel_id) VALUES
 ('Q6v3Q7Vf5sU', '부채살 바베큐', 6),
 ('ZSLmwJBTfi4', 'SUB) 소갈비 바베큐!', 6);
 
-
-SELECT * FROM youtubers;
-
-SELECT * FROM youtubers
-WHERE id = 1;
 
 INSERT INTO youtubers 
 SET `name` = '고기남자',
@@ -307,13 +268,10 @@ title1 = '가족과 바베큐, 집에서 하는 브리스킷 바베큐',
 title2 = '부채살 바베큐',
 title3 = 'SUB) 소갈비 바베큐!';
 
-
-
-
 #멤버 테스트 아이디
 INSERT INTO `member`
 SET loginId = 'test1',
-loginPw = 'asdf',
+loginPw = 'test1',
 `name` = '김철수',
 nickname = '별명1',
 phoneNumber = '01012345678',
@@ -325,8 +283,61 @@ longitude = '127.36976000',
 detailAddress = '103동',
 regDate = '2024.05.07';
 
+#멤버 테스트 아이디
+INSERT INTO `member`
+SET loginId = 'test2',
+loginPw = 'test2',
+`name` = '회원2',
+nickname = '별명2',
+phoneNumber = '1234',
+address = '1234',
+roadAddress = '서울',
+jibunAddress = '서울',
+latitude = '33.35182030',
+longitude = '126.36976000',
+detailAddress = '102동',
+regDate = '2024.05.07';
 
-SELECT * FROM `member` WHERE id = 1;
-SELECT * FROM `member`;
+#멤버 테스트 아이디
+INSERT INTO `member`
+SET loginId = 'test3',
+loginPw = 'test3',
+`name` = '회원3',
+nickname = '별명3',
+phoneNumber = '123451235213',
+address = '12312341234124',
+roadAddress = '대전',
+jibunAddress = '신탄',
+latitude = '32.35182030',
+longitude = '125.36976000',
+detailAddress = '101동',
+regDate = '2024.05.09';
 
-SELECT * FROM products;
+SELECT * FROM `member`
+
+# insert 다 하고 마지막에 해야함!!!
+INSERT INTO videos (video_id, title, channel_id)
+SELECT vi.video_id, vi.video_title, vi.channel_id
+FROM video_ids vi
+JOIN channels c ON vi.channel_id = c.id;
+
+#####################################################################
+
+
+CREATE TABLE files (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  regDate DATETIME NOT NULL,
+  updateDate DATETIME NOT NULL,
+  
+  memberId INT NOT NULL,
+  relId INT NOT NULL,
+  relTypeCode INT NOT NULL,
+  
+  fileName VARCHAR(255) NOT NULL,
+  filesize INT NOT NULL,
+  filetype VARCHAR(100) NOT NULL
+ 
+);
+
+
+SELECT * FROM reply
