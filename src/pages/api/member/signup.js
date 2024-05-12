@@ -48,7 +48,7 @@ export default async function handler(req, res) {
         longitude,
         detailAddress,
         regDate, // 가입일자 추가
-        authLevel, // 권한 레벨 추가
+        authLevel,
       ],
     );
 
