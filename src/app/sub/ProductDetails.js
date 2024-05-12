@@ -5,18 +5,23 @@ import Stack from '@mui/material/Stack';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { IoIosArrowBack } from 'react-icons/io';
-
+import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
+import CartPage from './CartPage'; // CartPage 컴포넌트를 import
 const ProductDetails = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [showImages, setShowImages] = useState(true);
   const imagesRef = useRef(null);
   const [cart, setCart] = useState([]); // State to hold the items in the cart
+  const [review, setReview] = useState('');
   const history = useHistory();
+  const [totalPrice, setTotalPrice] = useState(0); // setTotalPrice 함수 추
 
   const goBack = () => {
     history.goBack();
   };
+
   useEffect(() => {
     async function fetchProduct() {
       try {
@@ -42,8 +47,27 @@ const ProductDetails = () => {
   if (!product) {
     return <div>Product not found</div>;
   }
-  // 카트에 담기
-  // addToCart 함수 수정
+
+  const handleReviewChange = (event) => {
+    setReview(event.target.value);
+  };
+
+  const handleSubmitReview = async () => {
+    try {
+      // 서버로 리뷰 데이터 전송
+      const response = await axios.post('/api/product/review', {
+        productId: id,
+        review: review,
+      });
+      console.log('Review submitted:', response.data);
+      // 성공 시 리뷰 입력 창 초기화
+      setReview('');
+      // 여기에서 필요한 추가 작업을 수행할 수 있습니다. 예를 들어, 사용자에게 성공 메시지를 표시하거나, 리뷰 목록을 업데이트할 수 있습니다.
+    } catch (error) {
+      console.error('Error submitting review:', error);
+      // 실패 시 에러 메시지 표시 또는 기타 처리
+    }
+  };
   const addToCart = async () => {
     try {
       // 장바구니에 추가할 상품 정보
@@ -100,7 +124,7 @@ const ProductDetails = () => {
       </div>
       <div className="detail-font" style={{ marginTop: '20px' }}>
         <h2>{product.name}</h2>
-        <p>가격: {product.price}원</p>
+        <p>가격: {product.price}</p>
       </div>
 
       {showImages && product.detailImageURL && (
@@ -114,6 +138,25 @@ const ProductDetails = () => {
           )}
         </div>
       )}
+
+      <Box mt={4}>
+        <TextField
+          label="리뷰 작성"
+          multiline
+          rows={4}
+          value={review}
+          onChange={handleReviewChange}
+          variant="outlined"
+          fullWidth
+        />
+        <Button
+          variant="contained"
+          onClick={handleSubmitReview}
+          style={{ marginTop: '10px' }}
+        >
+          리뷰 제출
+        </Button>
+      </Box>
 
       <Stack spacing={2} direction="column" alignItems="center">
         <div
