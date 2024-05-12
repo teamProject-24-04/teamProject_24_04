@@ -33,7 +33,7 @@ function useRepliesStatus() {
   }, []); // 마운트될
 
   // 작성
-  const replyWrite = (content, relId, relTypeCode) => {
+  const replyWrite = (content, relId, relTypeCode, memberId) => {
     const id = replies.length + 1; // Get the new id based on the current length of the articles array
     const newReply = {
       id,
@@ -42,6 +42,7 @@ function useRepliesStatus() {
       content,
       relId,
       relTypeCode,
+      memberId,
     };
     setReplies((prevReplies) => [newReply, ...prevReplies]);
   };
