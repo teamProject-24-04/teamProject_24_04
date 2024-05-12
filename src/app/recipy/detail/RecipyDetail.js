@@ -125,7 +125,7 @@ const RecipyDetail = ({ noticeSnackBarStatus }) => {
   const repliesStatus = useRepliesStatus();
   const articlesStatus = useArticlesStatus();
   const { id } = useParams();
-  const memberId = localStorage.getItem('memberId');
+  const memberId = parseInt(localStorage.getItem('memberId'), 10);
   const numericId = parseInt(id, 10);
   const article = articlesStatus.findArticleById(numericId);
   const replies = repliesStatus.replies.filter(
@@ -223,12 +223,16 @@ const RecipyDetail = ({ noticeSnackBarStatus }) => {
           {article && <h1>{article.title}</h1>}
           {article && <h1>조회수 : {article.hitPoint}</h1>}
           좋아요 수 : 10 댓글수 : 10
-          <Link to={`/memberRecipy/modify/${id}`}>
-            <Button variant="contained">수정하기</Button>
-          </Link>
-          <Button variant="contained" onClick={handleDelete}>
-            삭제하기
-          </Button>
+          {article.memberId === memberId && (
+            <>
+              <Link to={`/free/modify/${id}`}>
+                <Button variant="contained">수정하기</Button>
+              </Link>
+              <Button variant="contained" onClick={handleDelete}>
+                삭제하기
+              </Button>
+            </>
+          )}
         </div>
         <div style={{ textAlign: 'center' }}>
           <img
@@ -264,20 +268,24 @@ const RecipyDetail = ({ noticeSnackBarStatus }) => {
                   <Button variant="contained">좋아요</Button>
                   <Button variant="contained">싫어요</Button>
                   <Button variant="contained">답글</Button>
-                  <Button
-                    variant="contained"
-                    onClick={() => {
-                      modify(reply.id);
-                    }}>
-                    수정
-                  </Button>
-                  <Button
-                    variant="contained"
-                    onClick={() => {
-                      replyDelete(reply.id);
-                    }}>
-                    삭제
-                  </Button>
+                  {reply.memberId === memberId && (
+                    <>
+                      <Button
+                        variant="contained"
+                        onClick={() => {
+                          modify(reply.id);
+                        }}>
+                        수정
+                      </Button>
+                      <Button
+                        variant="contained"
+                        onClick={() => {
+                          replyDelete(reply.id);
+                        }}>
+                        삭제
+                      </Button>
+                    </>
+                  )}
                 </div>
               </div>
             </li>

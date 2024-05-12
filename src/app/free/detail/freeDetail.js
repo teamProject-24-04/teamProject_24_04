@@ -127,7 +127,7 @@ const FreeDetail = ({ noticeSnackBarStatus }) => {
   const repliesStatus = useRepliesStatus();
   const articlesStatus = useArticlesStatus();
   const { id } = useParams();
-  const memberId = localStorage.getItem('memberId');
+  const memberId = parseInt(localStorage.getItem('memberId'), 10);
   const numericId = parseInt(id, 10);
   const article = articlesStatus.findArticleById(numericId);
   const replies = repliesStatus.replies.filter(
@@ -210,8 +210,23 @@ const FreeDetail = ({ noticeSnackBarStatus }) => {
     history.goBack();
   };
 
+  const test = (memberId, articleId) => {
+    console.log(memberId);
+    console.log(articleId);
+    console.log(typeof memberId); // memberId 변수의 데이터 타입 출력
+    console.log(typeof articleId);
+  };
+
   return (
     <>
+      <h1>게시물의 memberId :{article.memberId}</h1>
+      <h1>지금 로그인한 memberId :{memberId}</h1>
+      <button
+        onClick={() => {
+          test(memberId, article.memberId);
+        }}>
+        테스트버튼
+      </button>
       <ReplyModal
         status={editReplyModalStatus}
         noticeSnackBarStatus={noticeSnackBarStatus}
@@ -225,12 +240,16 @@ const FreeDetail = ({ noticeSnackBarStatus }) => {
           {article && <h1>{article.title}</h1>}
           {article && <h1>조회수 : {article.hitPoint}</h1>}
           좋아요 수 : 10 댓글수 : 10
-          <Link to={`/free/modify/${id}`}>
-            <Button variant="contained">수정하기</Button>
-          </Link>
-          <Button variant="contained" onClick={handleDelete}>
-            삭제하기
-          </Button>
+          {article.memberId === memberId && (
+            <>
+              <Link to={`/free/modify/${id}`}>
+                <Button variant="contained">수정하기</Button>
+              </Link>
+              <Button variant="contained" onClick={handleDelete}>
+                삭제하기
+              </Button>
+            </>
+          )}
         </div>
         <div style={{ textAlign: 'center' }}>
           <img
@@ -266,20 +285,24 @@ const FreeDetail = ({ noticeSnackBarStatus }) => {
                   <Button variant="contained">좋아요</Button>
                   <Button variant="contained">싫어요</Button>
                   <Button variant="contained">답글</Button>
-                  <Button
-                    variant="contained"
-                    onClick={() => {
-                      modify(reply.id);
-                    }}>
-                    수정
-                  </Button>
-                  <Button
-                    variant="contained"
-                    onClick={() => {
-                      replyDelete(reply.id);
-                    }}>
-                    삭제
-                  </Button>
+                  {reply.memberId === memberId && (
+                    <>
+                      <Button
+                        variant="contained"
+                        onClick={() => {
+                          modify(reply.id);
+                        }}>
+                        수정
+                      </Button>
+                      <Button
+                        variant="contained"
+                        onClick={() => {
+                          replyDelete(reply.id);
+                        }}>
+                        삭제
+                      </Button>
+                    </>
+                  )}
                 </div>
               </div>
             </li>
