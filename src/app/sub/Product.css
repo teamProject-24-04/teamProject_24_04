@@ -53,6 +53,7 @@
 .ToggleButton {
   width: 100px;
   height: 50px;
+  
 }
 .cart {
   height: 10px;
@@ -105,6 +106,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px 0;
+  margin-bottom: 55px;
 }
 
 .total-price {

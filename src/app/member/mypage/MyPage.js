@@ -79,7 +79,7 @@ const MyPage = () => {
     `;
     document.head.appendChild(style);
 
-    const storedName = localStorage.getItem('name');
+    const storedName = localStorage.getItem('nickname');
     if (storedName) {
       setName(storedName);
     }

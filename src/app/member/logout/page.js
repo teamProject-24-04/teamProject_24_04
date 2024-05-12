@@ -18,6 +18,8 @@ const LogoutPage = () => {
     localStorage.removeItem('latitude');
     localStorage.removeItem('longitude');
     localStorage.removeItem('regDate');
+    localStorage.removeItem('email');
+    localStorage.removeItem('authlevel');
     // 로그아웃 후 로그인 페이지로 이동
     window.location.href = '/';
   }, []);

@@ -9,6 +9,7 @@ export default async function handler(req, res) {
       name,
       nickname,
       phoneNumber,
+      email, // 이메일 추가
       zonecode,
       roadAddress,
       jibunAddress,
@@ -16,6 +17,7 @@ export default async function handler(req, res) {
       longitude,
       detailAddress,
       regDate, // 가입일자 추가
+      authLevel, // 권한 레벨 추가
     } = req.body;
 
     // 로그인 아이디와 비밀번호가 없는 경우 에러 반환
@@ -24,19 +26,21 @@ export default async function handler(req, res) {
     }
 
     // 필요한 데이터가 없는 경우 에러 반환
-    if (!name || !nickname || !phoneNumber) {
-      return res.status(400).json({ error: 'name, nickname, and phoneNumber are required' });
+    if (!name || !nickname || !phoneNumber || !email) {
+      // 이메일 필드 추가
+      return res.status(400).json({ error: 'name, nickname, phoneNumber, and email are required' });
     }
 
     // member 테이블에 데이터 추가
     const [result] = await pool.execute(
-      'INSERT INTO member (loginId, loginPw, name, nickname, phoneNumber, address, roadAddress, jibunAddress, latitude, longitude, detailAddress, regDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      'INSERT INTO member (loginId, loginPw, name, nickname, phoneNumber, email, address, roadAddress, jibunAddress, latitude, longitude, detailAddress, regDate, authLevel) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
       [
         loginId,
         loginPw,
         name,
         nickname,
         phoneNumber,
+        email, // 이메일 추가
         zonecode,
         roadAddress,
         jibunAddress,
@@ -44,13 +48,14 @@ export default async function handler(req, res) {
         longitude,
         detailAddress,
         regDate, // 가입일자 추가
+        authLevel,
       ],
     );
 
     // 삽입된 행의 ID를 반환
     res.status(200).json({ id: result.insertId });
   } catch (error) {
-    console.error('Error inserting members:', error);
-    res.status(500).json({ error: 'Error inserting members' });
+    console.error('Error inserting member:', error);
+    res.status(500).json({ error: 'Error inserting member' });
   }
 }
