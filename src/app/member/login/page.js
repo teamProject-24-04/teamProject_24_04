@@ -2,22 +2,11 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { TextField, Button, Typography, Box, Snackbar } from '@mui/material';
+import { TextField, Button, Typography, Box, Snackbar, Link } from '@mui/material';
 
 const LoginPage = () => {
-  const [memberId, setMemberId] = useState('');
   const [loginId, setLoginId] = useState('');
   const [loginPw, setLoginPw] = useState('');
-  const [name, setName] = useState('');
-  const [nickname, setNickname] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [address, setAddress] = useState('');
-  const [roadAddress, setRoadAddress] = useState('');
-  const [jibunAddress, setJibunAddress] = useState('');
-  const [detailAddress, setDetailAddress] = useState('');
-  const [latitude, setLatitude] = useState('');
-  const [longitude, setLongitude] = useState('');
-  const [regDate, setRegDate] = useState('');
   const [error, setError] = useState('');
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
@@ -38,9 +27,9 @@ const LoginPage = () => {
       const response = await axios.post('/api/member/login', { loginId, loginPw });
       const member = response.data;
       localStorage.setItem('isLoggedIn', true);
-      localStorage.setItem('memberId', member.member.id);
       localStorage.setItem('loginId', loginId);
       localStorage.setItem('loginPw', loginPw);
+      localStorage.setItem('memberId', member.member.id);
       localStorage.setItem('name', member.member.name);
       localStorage.setItem('nickname', member.member.nickname);
       localStorage.setItem('phoneNumber', member.member.phoneNumber);
@@ -63,60 +52,63 @@ const LoginPage = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('loginId');
-    localStorage.removeItem('loginPw');
-    localStorage.removeItem('name');
-    localStorage.removeItem('nickname');
-    localStorage.removeItem('phoneNumber');
-    localStorage.removeItem('address');
-    localStorage.removeItem('roadAddress');
-    localStorage.removeItem('jibunAddress');
-    localStorage.removeItem('detailAddress');
-    localStorage.removeItem('latitude');
-    localStorage.removeItem('longitude');
-    localStorage.removeItem('regDate');
-    window.location.href = '/member/login'; // 경로 수정
+    localStorage.clear();
+    window.location.href = '/member/login';
   };
 
   const handleSnackbarClose = () => {
-    setSnackbarOpen(false); // Snackbar 닫기 함수
+    setSnackbarOpen(false);
   };
 
   return (
-    <Box sx={{ maxWidth: 400, margin: 'auto', mt: 4 }}>
-      <Typography variant="h4" align="center" gutterBottom>
-        로그인 페이지
+    <Box sx={{ bgcolor: '#FAE0D4', minHeight: '100vh', py: 4 }}>
+      <Typography variant="h4" align="left" gutterBottom>
+        로그인
       </Typography>
-      <form onSubmit={handleSubmit}>
-        <TextField
-          label="아이디"
-          variant="outlined"
+      <Box sx={{ maxWidth: 400, margin: 'auto', mt: 4, bgcolor: 'white', p: 3, borderRadius: 10 }}>
+        <Typography variant="h4" align="left" gutterBottom>
+          일반 로그인
+        </Typography>
+        <form onSubmit={handleSubmit}>
+          <TextField
+            label="아이디"
+            variant="outlined"
+            fullWidth
+            value={loginId}
+            onChange={(e) => setLoginId(e.target.value)}
+            sx={{ mb: 2 }}
+          />
+          <TextField
+            type="password"
+            label="비밀번호"
+            variant="outlined"
+            fullWidth
+            value={loginPw}
+            onChange={(e) => setLoginPw(e.target.value)}
+            sx={{ mb: 2 }}
+          />
+          <Button
+            type="submit"
+            variant="contained"
+            fullWidth
+            sx={{ mb: 2, borderRadius: 20, bgcolor: 'red' }}>
+            로그인
+          </Button>
+        </form>
+        {error && <Typography color="error">{error}</Typography>}
+        <Button
+          variant="contained"
+          href="/member/signup"
           fullWidth
-          value={loginId}
-          onChange={(e) => setLoginId(e.target.value)}
-          sx={{ mb: 2 }}
-        />
-        <TextField
-          type="password"
-          label="비밀번호"
-          variant="outlined"
-          fullWidth
-          value={loginPw}
-          onChange={(e) => setLoginPw(e.target.value)}
-          sx={{ mb: 2 }}
-        />
-        <Button type="submit" variant="contained" fullWidth>
-          로그인
+          sx={{ borderRadius: 20, bgcolor: 'brown', color: 'white' }}>
+          회원가입
         </Button>
-      </form>
-      {error && <Typography color="error">{error}</Typography>}
-      <Snackbar // Snackbar 추가
-        open={snackbarOpen}
-        autoHideDuration={6000}
-        onClose={handleSnackbarClose}
-        message="회원가입이 성공했습니다."
-      />
+        <Typography variant="body2" align="center" sx={{ mt: 2 }}>
+          <Link href="/forgot-username">아이디 찾기</Link>
+          &nbsp;|&nbsp;
+          <Link href="/forgot-password">비밀번호 찾기</Link>
+        </Typography>
+      </Box>
     </Box>
   );
 };

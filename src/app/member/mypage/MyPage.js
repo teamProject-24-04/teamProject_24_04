@@ -41,6 +41,13 @@ const MyPage = () => {
     }
   };
 
+  const handleLogout = () => {
+    const isConfirmed = window.confirm('로그아웃 하시겠습니까?'); // 확인 대화상자 표시
+    if (isConfirmed) {
+      window.location.href = '/member/logout'; // 페이지 이동
+    }
+  };
+
   useEffect(() => {
     const style = document.createElement('style');
     style.innerHTML = `
@@ -77,8 +84,13 @@ const MyPage = () => {
   }
   return (
     <div>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
-        <IoPersonAdd style={{ marginRight: '12px', fontSize: '24px' }} />
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'flex-end',
+          marginTop: '2px',
+        }}>
         <IoSettingsOutline style={{ fontSize: '24px' }} />
       </div>
       <div style={{ display: 'flex', alignItems: 'center', marginTop: '50px', marginLeft: '30px' }}>
@@ -224,20 +236,6 @@ const MyPage = () => {
             onClick={goToModifyPage}
           />
         </div>
-        {/* <div
-          style={{ display: 'flex', alignItems: 'center', marginLeft: '10px', marginTop: '10px' }}>
-          <Typography variant="subtitle1" style={{ fontWeight: 'bold' }}>
-            찜한 친구
-          </Typography>
-          <IoIosArrowForward
-            style={{
-              marginLeft: '200px',
-              color: '#538DFF',
-              fontSize: '20px', // 아이콘 크기 조정
-            }}
-            onClick={goToModifyPage}
-          />
-        </div> */}
       </Box>
 
       <Box
@@ -256,15 +254,15 @@ const MyPage = () => {
         <div
           style={{ display: 'flex', alignItems: 'center', marginLeft: '10px', marginTop: '10px' }}>
           <Typography variant="subtitle1" style={{ fontWeight: 'bold' }}>
-            비밀번호 변경
+            로그아웃
           </Typography>
           <IoIosArrowForward
             style={{
-              marginLeft: '200px',
+              marginLeft: '236px',
               color: '#538DFF',
               fontSize: '20px', // 아이콘 크기 조정
             }}
-            onClick={goToModifyPage}
+            onClick={handleLogout}
           />
         </div>
         <div

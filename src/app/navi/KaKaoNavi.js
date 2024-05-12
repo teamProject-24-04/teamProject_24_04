@@ -1,10 +1,8 @@
-'use client';
-
 import React, { useState } from 'react';
 import './navi.css';
 import KakaoMap from './KakaoMap';
 
-export default function App() {
+const KaKaoNavi = () => {
   const [visible, setVisible] = useState(true);
 
   const [markerPositions, setMarkerPositions] = useState([]);
@@ -50,4 +48,6 @@ export default function App() {
       </div>
     </div>
   );
-}
+};
+
+export default KaKaoNavi;

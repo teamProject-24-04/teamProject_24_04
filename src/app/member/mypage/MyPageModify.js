@@ -288,6 +288,10 @@ const MyPageModify = ({ setShowModifyPage }) => {
         <div>
           <IoIosArrowBack style={{ marginRight: '10px' }} onClick={goBack} />
 
+          <Typography variant="h4" align="left" gutterBottom>
+            그릴마스터
+          </Typography>
+
           <form onSubmit={handleSubmit} style={{ marginBottom: '20px' }}>
             <TextField
               variant="outlined"

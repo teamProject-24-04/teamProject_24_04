@@ -5,11 +5,12 @@ import {
   Button,
   Typography,
   Container,
-  List,
+  Box,
   ListItem,
   ListItemText,
   Snackbar,
 } from '@mui/material';
+import { IoIosArrowBack } from 'react-icons/io';
 import axios from 'axios';
 import * as yup from 'yup';
 
@@ -142,6 +143,10 @@ export default function Page() {
     const formattedDate = `${year}.${month}.${day}`;
 
     setRegDate(formattedDate);
+  };
+
+  const handleLogout = () => {
+    window.location.href = '/'; // 페이지 이동
   };
 
   useEffect(() => {
@@ -293,164 +298,173 @@ export default function Page() {
   };
 
   return (
-    <Container maxWidth="md">
-      <div>
-        <form onSubmit={handleSubmit} style={{ marginBottom: '20px' }}>
-          <TextField
-            variant="outlined"
-            label="아이디 입력"
-            value={loginId}
-            onChange={handleIdChange}
-            fullWidth
-            margin="normal"
-            error={!!errors.loginId || isDuplicate}
-            helperText={
-              errors.loginId || (isDuplicate ? '중복된 아이디입니다.' : '아이디를 입력하세요.')
-            }
-            onKeyUp={(e) => {
-              if (e.target.value.trim() === '') {
-                setErrors((prevState) => ({ ...prevState, loginId: '아이디를 입력하세요.' }));
-              } else {
-                setErrors((prevState) => ({ ...prevState, loginId: '' }));
-              }
-            }}
-          />
-          <TextField
-            variant="outlined"
-            label="비밀번호 입력"
-            type="password"
-            value={loginPw}
-            onChange={(e) => {
-              setLoginPw(e.target.value);
-              setErrors((prevState) => ({ ...prevState, loginPw: '' }));
-            }}
-            fullWidth
-            margin="normal"
-            error={!!errors.loginPw}
-            helperText={errors.loginPw}
-            onKeyUp={(e) => {
-              if (e.target.value.trim() === '') {
-                setErrors((prevState) => ({ ...prevState, loginPw: '비밀번호를 입력하세요.' }));
-              } else {
-                setErrors((prevState) => ({ ...prevState, loginPw: '' }));
-              }
-            }}
-          />
-          <TextField
-            variant="outlined"
-            label="비밀번호 확인"
-            type="password"
-            value={confirmLoginPw}
-            onChange={handleConfirmPasswordChange}
-            fullWidth
-            margin="normal"
-            error={!!errors.confirmLoginPw}
-            helperText={errors.confirmLoginPw}
-            onKeyUp={(e) => {
-              if (e.target.value.trim() === '') {
-                setErrors((prevState) => ({
-                  ...prevState,
-                  confirmLoginPw: '비밀번호를 입력해주세요.',
-                }));
-              } else {
-                setErrors((prevState) => ({ ...prevState, confirmLoginPw: '' }));
-              }
-            }}
-          />
-          <TextField
-            variant="outlined"
-            label="이름 입력"
-            value={name}
-            onChange={handleNameChange}
-            fullWidth
-            margin="normal"
-            error={!!errors.name}
-            helperText={errors.name}
-          />
-          <TextField
-            variant="outlined"
-            label="닉네임 입력"
-            value={nickname}
-            onChange={handleNicknameChange}
-            fullWidth
-            margin="normal"
-            error={!!errors.nickname}
-            helperText={errors.nickname}
-          />
-          <TextField
-            variant="outlined"
-            label="전화번호 입력"
-            value={phoneNumber}
-            onChange={handlePhoneNumberChange}
-            fullWidth
-            margin="normal"
-            error={!!errors.phoneNumber}
-            helperText={errors.phoneNumber}
-          />
-          <AddressFinder
-            setAddress={setAddress}
-            setZonecode={setZonecode}
-            setRoadAddress={setRoadAddress}
-            setJibunAddress={setJibunAddress}
-            setLatitude={setLatitude}
-            setLongitude={setLongitude}
-          />
-          <TextField
-            variant="outlined"
-            label="우편번호"
-            value={zonecode}
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            variant="outlined"
-            label="도로명주소"
-            value={roadAddress}
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            variant="outlined"
-            label="지번주소"
-            value={jibunAddress}
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            variant="outlined"
-            label="상세 주소"
-            value={detailAddress} // 입력된 상세 주소를 표시합니다.
-            onChange={handleDetailAddressChange} // 상세 주소가 변경될 때마다 호출됩니다.
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            variant="outlined"
-            label="위도"
-            value={latitude} // 위도 상태 표시
-            fullWidth
-            margin="normal"
-            style={{ display: 'none' }}
-          />
-          <TextField
-            variant="outlined"
-            label="경도"
-            value={longitude} // 경도 상태 표시
-            fullWidth
-            margin="normal"
-            style={{ display: 'none' }}
-          />
-          <Button
-            variant="outlined"
-            type="submit"
-            style={{ marginTop: '10px' }}
-            disabled={
-              !!errors.loginId || !!errors.loginPw || !!errors.confirmLoginPw || isDuplicate
-            }>
+    <Container maxWidth="md" sx={{ bgcolor: '#FAE0D4', minHeight: '100vh', py: 4 }}>
+      <Typography variant="h4" align="left" gutterBottom>
+        <IoIosArrowBack onClick={handleLogout} />
+        그릴마스터
+      </Typography>
+      <Box sx={{ maxWidth: 400, margin: 'auto', mt: 4, bgcolor: 'white', p: 3, borderRadius: 10 }}>
+        <div>
+          <Typography variant="h4" align="left" gutterBottom>
             회원가입
-          </Button>
-        </form>
-      </div>
+          </Typography>
+          <form onSubmit={handleSubmit} style={{ marginBottom: '20px' }}>
+            <TextField
+              variant="outlined"
+              label="아이디 입력"
+              value={loginId}
+              onChange={handleIdChange}
+              fullWidth
+              margin="normal"
+              error={!!errors.loginId || isDuplicate}
+              helperText={
+                errors.loginId || (isDuplicate ? '중복된 아이디입니다.' : '아이디를 입력하세요.')
+              }
+              onKeyUp={(e) => {
+                if (e.target.value.trim() === '') {
+                  setErrors((prevState) => ({ ...prevState, loginId: '아이디를 입력하세요.' }));
+                } else {
+                  setErrors((prevState) => ({ ...prevState, loginId: '' }));
+                }
+              }}
+            />
+            <TextField
+              variant="outlined"
+              label="비밀번호 입력"
+              type="password"
+              value={loginPw}
+              onChange={(e) => {
+                setLoginPw(e.target.value);
+                setErrors((prevState) => ({ ...prevState, loginPw: '' }));
+              }}
+              fullWidth
+              margin="normal"
+              error={!!errors.loginPw}
+              helperText={errors.loginPw}
+              onKeyUp={(e) => {
+                if (e.target.value.trim() === '') {
+                  setErrors((prevState) => ({ ...prevState, loginPw: '비밀번호를 입력하세요.' }));
+                } else {
+                  setErrors((prevState) => ({ ...prevState, loginPw: '' }));
+                }
+              }}
+            />
+            <TextField
+              variant="outlined"
+              label="비밀번호 확인"
+              type="password"
+              value={confirmLoginPw}
+              onChange={handleConfirmPasswordChange}
+              fullWidth
+              margin="normal"
+              error={!!errors.confirmLoginPw}
+              helperText={errors.confirmLoginPw}
+              onKeyUp={(e) => {
+                if (e.target.value.trim() === '') {
+                  setErrors((prevState) => ({
+                    ...prevState,
+                    confirmLoginPw: '비밀번호를 입력해주세요.',
+                  }));
+                } else {
+                  setErrors((prevState) => ({ ...prevState, confirmLoginPw: '' }));
+                }
+              }}
+            />
+            <TextField
+              variant="outlined"
+              label="이름 입력"
+              value={name}
+              onChange={handleNameChange}
+              fullWidth
+              margin="normal"
+              error={!!errors.name}
+              helperText={errors.name}
+            />
+            <TextField
+              variant="outlined"
+              label="닉네임 입력"
+              value={nickname}
+              onChange={handleNicknameChange}
+              fullWidth
+              margin="normal"
+              error={!!errors.nickname}
+              helperText={errors.nickname}
+            />
+            <TextField
+              variant="outlined"
+              label="전화번호 입력"
+              value={phoneNumber}
+              onChange={handlePhoneNumberChange}
+              fullWidth
+              margin="normal"
+              error={!!errors.phoneNumber}
+              helperText={errors.phoneNumber}
+            />
+            <AddressFinder
+              setAddress={setAddress}
+              setZonecode={setZonecode}
+              setRoadAddress={setRoadAddress}
+              setJibunAddress={setJibunAddress}
+              setLatitude={setLatitude}
+              setLongitude={setLongitude}
+            />
+            <TextField
+              variant="outlined"
+              label="우편번호"
+              value={zonecode}
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              variant="outlined"
+              label="도로명주소"
+              value={roadAddress}
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              variant="outlined"
+              label="지번주소"
+              value={jibunAddress}
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              variant="outlined"
+              label="상세 주소"
+              value={detailAddress} // 입력된 상세 주소를 표시합니다.
+              onChange={handleDetailAddressChange} // 상세 주소가 변경될 때마다 호출됩니다.
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              variant="outlined"
+              label="위도"
+              value={latitude} // 위도 상태 표시
+              fullWidth
+              margin="normal"
+              style={{ display: 'none' }}
+            />
+            <TextField
+              variant="outlined"
+              label="경도"
+              value={longitude} // 경도 상태 표시
+              fullWidth
+              margin="normal"
+              style={{ display: 'none' }}
+            />
+            <Button
+              variant="outlined"
+              type="submit"
+              style={{ marginTop: '10px' }}
+              disabled={
+                !!errors.loginId || !!errors.loginPw || !!errors.confirmLoginPw || isDuplicate
+              }>
+              회원가입
+            </Button>
+          </form>
+        </div>
+      </Box>
     </Container>
   );
 }
