@@ -3,12 +3,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { TextField, Button, Typography, Box, Snackbar, Link } from '@mui/material';
+import FindLoginId from './FindLoginId';
+import FindLoginPw from './FindLoginPw';
 
 const LoginPage = () => {
   const [loginId, setLoginId] = useState('');
   const [loginPw, setLoginPw] = useState('');
   const [error, setError] = useState('');
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
@@ -106,13 +109,19 @@ const LoginPage = () => {
           회원가입
         </Button>
         <Typography variant="body2" align="center" sx={{ mt: 2 }}>
-          <Link href="/forgot-username" sx={{ color: 'black', textDecoration: 'none' }}>
+          <Button
+            sx={{ color: 'black', textDecoration: 'none' }}
+            onClick={() => setModalOpen(true)}>
             아이디 찾기
-          </Link>
+          </Button>
+          <FindLoginId open={modalOpen} onClose={() => setModalOpen(false)} />
           &nbsp;|&nbsp;
-          <Link href="/forgot-password" sx={{ color: 'black', textDecoration: 'none' }}>
+          <Button
+            sx={{ color: 'black', textDecoration: 'none' }}
+            onClick={() => setModalOpen(true)}>
             비밀번호 찾기
-          </Link>
+          </Button>
+          <FindLoginPw open={modalOpen} onClose={() => setModalOpen(false)} />
         </Typography>
       </Box>
     </Box>
