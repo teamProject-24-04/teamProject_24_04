@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom'; 
 import './Product.css';
-
+import { IoIosArrowBack } from 'react-icons/io';
 const CartPage = () => {
   const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
-
+  const history = useHistory();
+  const goBack = () => {
+    history.goBack();
+  };
   useEffect(() => {
     const fetchCartItems = async () => {
       setLoading(true);
@@ -62,6 +66,17 @@ const CartPage = () => {
   };
 
   return (
+    <>
+    <div
+      style={{
+        position: 'fixed',
+        left: '20px',
+        zIndex: '999',
+        width: '100%',
+        background: 'white',
+      }}>
+      <IoIosArrowBack style={{ fontSize: '30px', cursor: 'pointer' }} onClick={goBack} />
+    </div>
     <div className="cart-container">
       <div className="cart-content">
         <div className="cartbar">
@@ -104,6 +119,7 @@ const CartPage = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

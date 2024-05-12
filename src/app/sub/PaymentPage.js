@@ -4,7 +4,6 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
-import { bottomNavigationActionClasses } from '@mui/material';
 
 const PaymentPage = ({ initialProduct }) => {
   const { id } = useParams();
@@ -19,12 +18,25 @@ const PaymentPage = ({ initialProduct }) => {
   const [loading, setLoading] = useState(false);
   const [showNewShippingAddress, setShowNewShippingAddress] = useState(false);
   const memberInfoString = localStorage.getItem('member');
-  const memberInfo = JSON.parse(memberInfoString);
+  
   useEffect(() => {
     if (!selectedProduct) {
       fetchProduct();
     }
   }, []);
+ 
+
+    const storedLoginId = localStorage.getItem('loginId');
+    const storedName = localStorage.getItem('name');
+    const storedNickname = localStorage.getItem('nickname');
+    const storedPhoneNumber = localStorage.getItem('phoneNumber');
+    const storedAddress = localStorage.getItem('address');
+    const storedRoadAddress = localStorage.getItem('roadAddress');
+    const storedJibunAddress = localStorage.getItem('jibunAddress');
+    const storedLatitude = localStorage.getItem('latitude');
+    const storedLongitude = localStorage.getItem('longitude');
+    const storedDetailAddress = localStorage.getItem('detailAddress');
+
 
   const fetchProduct = async () => {
     try {
@@ -74,23 +86,37 @@ const PaymentPage = ({ initialProduct }) => {
     setOrderMemo(e.target.value);
   };
 
+ 
+
   const handleSubmitPayment = async () => {
     try {
-      const response = await axios.post('/api/payments', {
-        paymentKey: 'test_ck_P9BRQmyarYPKP7a7XJnpVJ07KzLN', // 클라이언트 키로 변경
-        amount: selectedProduct.price,
-        orderId: selectedProduct.id,
+      // 클라이언트 키
+      const clientKey = 'test_ck_P9BRQmyarYPKP7a7XJnpVJ07KzLN';
+  
+      // Toss Payments API를 사용하여 결제 인텐트를 생성합니다.
+      const response = await axios.post('/api/tosspayment', {
+        amount: selectedProduct.price, // Toss Payments는 원 단위로 금액을 요구합니다.
+        orderId: selectedProduct.id, // 필요한 경우 주문 ID 또는 식별자를 포함합니다.
+        clientKey: clientKey, // 클라이언트 키를 요청에 포함합니다.
+        // Toss Payments API에 필요한 기타 매개변수를 추가합니다.
       });
-      console.log('Payment confirmed:', response.data);
-      // 서버에서 결제를 진행한 후의 처리를 여기에 추가할 수 있습니다.
-      // 결제 성공 시 SuccessPage로 이동
-      history.push('/success');
+  
+      // Toss Payments API로부터의 성공적인 응답을 처리합니다.
+      console.log('Toss payment response:', response);
+  
+      // 위 코드를 아래와 같이 변경하여 직접 HTTPS 요청을 보내도록 합니다.
+      const paymentResponse = await axios.post('/api/tosspayment', response.data);
+      console.log('Payment response:', paymentResponse);
+  
     } catch (error) {
-      console.error('Error confirming payment:', error);
-      // 결제 실패 시 FailPage로 이동
+      console.error('결제 확인 중 오류 발생:', error);
+      // 결제 실패를 처리합니다.
       history.push('/fail');
     }
   };
+  
+
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -104,6 +130,7 @@ const PaymentPage = ({ initialProduct }) => {
       <div className="product_info">
         <img src={selectedProduct.imageURL} alt="Product" className="product_image" />
         <p>상품 가격: {selectedProduct.price}원</p>
+        <p>상품 가격: {selectedProduct.id}원</p>
       </div>
       <div className="order_box">
         <h2 className="order_tit">주문 고객</h2>
@@ -114,7 +141,7 @@ const PaymentPage = ({ initialProduct }) => {
               id="orderName"
               label="주문자"
               variant="outlined"
-              value={memberInfo.member.name}
+              value={storedName}
               onChange={handleOrderNameChange}
               fullWidth
             />
@@ -129,7 +156,7 @@ const PaymentPage = ({ initialProduct }) => {
               id="receiverName"
               label="수령인"
               variant="outlined"
-              value={memberInfo.member.name}
+              value={storedName}
               onChange={handleReceiverNameChange}
               fullWidth
             />
@@ -137,7 +164,7 @@ const PaymentPage = ({ initialProduct }) => {
               id="receiverPhoneNumber"
               label="전화번호"
               variant="outlined"
-              value={memberInfo.member.phoneNumber}
+              value={storedPhoneNumber}
               onChange={handleReceiverPhoneChange}
               fullWidth
             />
@@ -145,7 +172,7 @@ const PaymentPage = ({ initialProduct }) => {
               id="shippingAddress"
               label="배송 주소"
               variant="outlined"
-              value={memberInfo.member.jibunAddress}
+              value={storedName}
               onChange={handleShippingAddressChange}
               fullWidth
             />
@@ -153,7 +180,7 @@ const PaymentPage = ({ initialProduct }) => {
               id="shippingDetailAddress"
               label="상세 주소"
               variant="outlined"
-              value={memberInfo.member.detailAddress}
+              value={storedDetailAddress}
               onChange={handleShippingDetailAddressChange}
               fullWidth
             />
