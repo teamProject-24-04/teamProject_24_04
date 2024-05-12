@@ -11,8 +11,30 @@ import { FiShoppingCart } from 'react-icons/fi';
 import { IoIosArrowForward } from 'react-icons/io';
 import MyPageModify from './MyPageModify';
 import PasswordModal from './PasswordModal'; // PasswordModal 컴포넌트 import
+import useArticlesStatus from '../../recipy/RecipyStatus';
+import useRepliesStatus from '../../reply/replyStatus';
 
 const MyPage = () => {
+  const articlesStatus = useArticlesStatus();
+  const repliesStatus = useRepliesStatus();
+  const memberId = localStorage.getItem('memberId');
+
+  const articles = articlesStatus.articles.filter((article) => {
+    return article.memberId != memberId && article.boardId == 2;
+  });
+
+  const Recipes = articlesStatus.articles.filter((article) => {
+    return article.memberId != memberId && article.boardId == 1;
+  });
+
+  const replies = repliesStatus.replies.filter((reply) => {
+    return reply.memberId != memberId;
+  });
+
+  const RecipesCount = Recipes.length;
+  const articlesCount = articles.length; // articles 배열의 길이 확인
+  const repliesCount = replies.length; // articles 배열의 길이 확인
+
   const [showModifyPage, setShowModifyPage] = useState(false);
   const [name, setName] = useState('');
   const [loginId, setLoginId] = useState('');
@@ -91,7 +113,7 @@ const MyPage = () => {
           justifyContent: 'flex-end',
           marginTop: '2px',
         }}>
-        <IoSettingsOutline style={{ fontSize: '24px' }} />
+        {/* <IoSettingsOutline style={{ fontSize: '24px' }} /> */}
       </div>
       <div style={{ display: 'flex', alignItems: 'center', marginTop: '50px', marginLeft: '30px' }}>
         <Stack direction="row" spacing={2}>
@@ -106,7 +128,7 @@ const MyPage = () => {
           }}>
           {name}
         </div>
-        <LuPencil style={{ marginRight: '13px', marginTop: '7px', fontSize: '9px' }} />
+        <LuPencil style={{ marginRight: '250px', marginTop: '7px', fontSize: '9px' }} />
       </div>
       <Box sx={{ display: 'flex', marginTop: '20px', marginLeft: '18px', width: '365px' }}>
         <Card variant="outlined" sx={{ width: '100%' }}>
@@ -154,7 +176,7 @@ const MyPage = () => {
             borderRadius={1}
             sx={{ border: '2px solid grey' }}>
             <Typography variant="subtitle1" style={{ fontWeight: 'bold' }}>
-              레시피 수<Typography>5개</Typography>
+              레시피 수<Typography>{RecipesCount}</Typography>
             </Typography>
           </Box>
         </Box>
@@ -172,13 +194,13 @@ const MyPage = () => {
             내 게시글 바로가기
           </Typography>
           <Typography variant="body2" style={{ marginLeft: '10px' }}>
-            35개
+            {articlesCount}개
           </Typography>
           <Typography variant="subtitle1" style={{ fontWeight: 'bold', marginLeft: '10px' }}>
             내 댓글 바로가기
           </Typography>
           <Typography variant="body2" style={{ marginLeft: '10px' }}>
-            35개
+            {repliesCount}개
           </Typography>
         </Box>
         <Box
