@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, Button, Container } from '@mui/material';
+import { TextField, Button, Container, Typography } from '@mui/material';
 import axios from 'axios';
 import * as yup from 'yup';
 import { IoIosArrowBack } from 'react-icons/io';
@@ -120,6 +120,8 @@ const MyPageModify = ({ setShowModifyPage }) => {
   const [latitude, setLatitude] = useState('');
   const [longitude, setLongitude] = useState('');
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [authlevel, setAuthlevel] = useState('');
+  const [email, setEmail] = useState('');
 
   useEffect(() => {
     const storedLoginId = localStorage.getItem('loginId');
@@ -132,6 +134,8 @@ const MyPageModify = ({ setShowModifyPage }) => {
     const storedLatitude = localStorage.getItem('latitude');
     const storedLongitude = localStorage.getItem('longitude');
     const storedDetailAddress = localStorage.getItem('detailAddress');
+    const storedEamil = localStorage.getItem('email');
+    const storedAuthLevel = localStorage.getItem('authlevel');
 
     // 가져온 값들을 state 변수들에 설정
     if (storedName) setName(storedName);
@@ -144,6 +148,8 @@ const MyPageModify = ({ setShowModifyPage }) => {
     if (storedJibunAddress) setJibunAddress(storedJibunAddress);
     if (storedLatitude) setLatitude(storedLatitude);
     if (storedLongitude) setLongitude(storedLongitude);
+    if (storedEamil) setEmail(storedEamil);
+    if (storedAuthLevel) setAuthlevel(storedAuthLevel);
 
     fetchMembers();
   }, []);
@@ -218,12 +224,14 @@ const MyPageModify = ({ setShowModifyPage }) => {
               phoneNumber,
               loginId,
               loginPw,
+              email,
               zonecode,
               roadAddress,
               jibunAddress,
               latitude,
               longitude,
               detailAddress,
+              authlevel,
             })
             .then(() => {
               fetchMembers();
@@ -240,6 +248,8 @@ const MyPageModify = ({ setShowModifyPage }) => {
               setLongitude('');
               handleSignupSuccess();
               setDetailAddress('');
+              setEmail('');
+              setAuthlevel(3);
             })
             .catch((error) => console.error('Error writing member:', error));
         })
@@ -368,6 +378,27 @@ const MyPageModify = ({ setShowModifyPage }) => {
               margin="normal"
               error={!!errors.phoneNumber}
               helperText={errors.phoneNumber}
+            />
+            {/* 이메일 입력 필드 */}
+            <TextField
+              variant="outlined"
+              label="이메일"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              fullWidth
+              margin="normal"
+            />
+            {/* 권한 레벨 입력 필드 (읽기 전용) */}
+            <TextField
+              variant="outlined"
+              label="권한 레벨"
+              value={authlevel}
+              fullWidth
+              margin="normal"
+              InputProps={{
+                readOnly: true,
+              }}
+              style={{ display: 'none' }} // 숨기기
             />
             <AddressFinder
               setAddress={setAddress}

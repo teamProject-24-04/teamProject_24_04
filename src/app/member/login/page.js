@@ -40,6 +40,8 @@ const LoginPage = () => {
       localStorage.setItem('latitude', member.member.latitude);
       localStorage.setItem('longitude', member.member.longitude);
       localStorage.setItem('regDate', member.member.regDate);
+      localStorage.setItem('email', member.member.email);
+      localStorage.setItem('authlevel', member.member.authlevel);
       window.location.href = '/';
     } catch (error) {
       console.error('Error logging in:', error);
@@ -61,9 +63,9 @@ const LoginPage = () => {
   };
 
   return (
-    <Box sx={{ bgcolor: '#FAE0D4', minHeight: '100vh', py: 4 }}>
+    <Box sx={{ bgcolor: '#FAE0D4', minHeight: '100vh', py: 4, width: '100%' }}>
       <Typography variant="h4" align="left" gutterBottom>
-        로그인
+        Grill Master
       </Typography>
       <Box sx={{ maxWidth: 400, margin: 'auto', mt: 4, bgcolor: 'white', p: 3, borderRadius: 10 }}>
         <Typography variant="h4" align="left" gutterBottom>
@@ -91,7 +93,7 @@ const LoginPage = () => {
             type="submit"
             variant="contained"
             fullWidth
-            sx={{ mb: 2, borderRadius: 20, bgcolor: 'red' }}>
+            sx={{ mb: 2, borderRadius: 20, bgcolor: 'red', fontWeight: 'Bold' }}>
             로그인
           </Button>
         </form>
@@ -100,13 +102,17 @@ const LoginPage = () => {
           variant="contained"
           href="/member/signup"
           fullWidth
-          sx={{ borderRadius: 20, bgcolor: 'brown', color: 'white' }}>
+          sx={{ borderRadius: 20, bgcolor: 'brown', color: 'white', fontWeight: 'Bold' }}>
           회원가입
         </Button>
         <Typography variant="body2" align="center" sx={{ mt: 2 }}>
-          <Link href="/forgot-username">아이디 찾기</Link>
+          <Link href="/forgot-username" sx={{ color: 'black', textDecoration: 'none' }}>
+            아이디 찾기
+          </Link>
           &nbsp;|&nbsp;
-          <Link href="/forgot-password">비밀번호 찾기</Link>
+          <Link href="/forgot-password" sx={{ color: 'black', textDecoration: 'none' }}>
+            비밀번호 찾기
+          </Link>
         </Typography>
       </Box>
     </Box>

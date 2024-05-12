@@ -1,15 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import {
-  TextField,
-  Button,
-  Typography,
-  Container,
-  Box,
-  ListItem,
-  ListItemText,
-  Snackbar,
-} from '@mui/material';
+import { TextField, Button, Typography, Container, Box, Snackbar } from '@mui/material';
 import { IoIosArrowBack } from 'react-icons/io';
 import axios from 'axios';
 import * as yup from 'yup';
@@ -130,6 +121,8 @@ export default function Page() {
   const [longitude, setLongitude] = useState('');
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [regDate, setRegDate] = useState('');
+  const [authLevel] = useState(3); // 권한 레벨을 3으로 고정
+  const [email, setEmail] = useState('');
 
   const setTodayAsRegDate = () => {
     const today = new Date();
@@ -146,12 +139,12 @@ export default function Page() {
   };
 
   const handleLogout = () => {
-    window.location.href = '/'; // 페이지 이동
+    window.location.href = '/';
   };
 
   useEffect(() => {
+    setTodayAsRegDate();
     fetchMembers();
-    setTodayAsRegDate(); // 가입일자를 설정
   }, []);
 
   const fetchMembers = async () => {
@@ -239,7 +232,9 @@ export default function Page() {
               latitude,
               longitude,
               detailAddress,
-              regDate, // 가입일자 추가
+              regDate,
+              authLevel, // 권한 레벨 추가
+              email, // 이메일 추가
             })
             .then(() => {
               fetchMembers();
@@ -254,8 +249,11 @@ export default function Page() {
               setJibunAddress('');
               setLatitude('');
               setLongitude('');
-              handleSignupSuccess();
-              setDetailAddress();
+              setDetailAddress('');
+              setEmail(''); // 이메일 초기화
+              setSnackbarOpen(true);
+              // 회원가입 성공 후 로그인 페이지로 이동
+              window.location.href = '/member/login';
             })
             .catch((error) => console.error('Error writing member:', error));
         })
@@ -286,15 +284,6 @@ export default function Page() {
       return;
     }
     setSnackbarOpen(false);
-  };
-
-  const handleSnackbarOpen = () => {
-    setSnackbarOpen(true);
-  };
-
-  const handleSignupSuccess = () => {
-    handleSnackbarOpen();
-    window.location.href = '/member/login'; // 회원가입 성공 후 페이지 이동
   };
 
   return (
@@ -400,6 +389,27 @@ export default function Page() {
               error={!!errors.phoneNumber}
               helperText={errors.phoneNumber}
             />
+            {/* 이메일 입력 필드 */}
+            <TextField
+              variant="outlined"
+              label="이메일"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              fullWidth
+              margin="normal"
+            />
+            {/* 권한 레벨 입력 필드 (읽기 전용) */}
+            <TextField
+              variant="outlined"
+              label="권한 레벨"
+              value={authLevel}
+              fullWidth
+              margin="normal"
+              InputProps={{
+                readOnly: true,
+              }}
+              style={{ display: 'none' }} // 숨기기
+            />
             <AddressFinder
               setAddress={setAddress}
               setZonecode={setZonecode}
@@ -465,6 +475,16 @@ export default function Page() {
           </form>
         </div>
       </Box>
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        open={snackbarOpen}
+        autoHideDuration={8000}
+        onClose={handleSnackbarClose}
+        message="회원가입이 완료되었습니다."
+      />
     </Container>
   );
 }
