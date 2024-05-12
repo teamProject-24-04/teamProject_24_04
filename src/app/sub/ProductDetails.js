@@ -3,6 +3,8 @@ import { useParams, Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import { IoIosArrowBack } from 'react-icons/io';
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -10,6 +12,11 @@ const ProductDetails = () => {
   const [showImages, setShowImages] = useState(true);
   const imagesRef = useRef(null);
   const [cart, setCart] = useState([]); // State to hold the items in the cart
+  const history = useHistory();
+
+  const goBack = () => {
+    history.goBack();
+  };
   useEffect(() => {
     async function fetchProduct() {
       try {
@@ -71,6 +78,17 @@ const ProductDetails = () => {
   };
 
   return (
+    <>
+    <div
+      style={{
+        position: 'fixed',
+        left: '20px',
+        zIndex: '999',
+        width: '100%',
+        background: 'white',
+      }}>
+      <IoIosArrowBack style={{ fontSize: '30px', cursor: 'pointer' }} onClick={goBack} />
+    </div>
     <div className="product-details">
       <div className="product-card">
         <img
@@ -101,7 +119,7 @@ const ProductDetails = () => {
         <div
           style={{
             position: 'fixed',
-            bottom: 20,
+            bottom: 60,
             left: '50%',
             transform: 'translateX(-50%)',
             zIndex: 999,
@@ -127,6 +145,7 @@ const ProductDetails = () => {
         </div>
       </Stack>
     </div>
+    </>
   );
 };
 
