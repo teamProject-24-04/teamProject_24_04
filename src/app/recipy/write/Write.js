@@ -1,5 +1,6 @@
 'use client';
 import React, { useState, useRef } from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import {
   Box,
@@ -22,7 +23,8 @@ const RecipyWrite = ({ noticeSnackBarStatus }) => {
   const [boardId, setBoardId] = useState('');
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-
+  const memberId = localStorage.getItem('memberId');
+  const history = useHistory();
   const [files, setFiles] = useState([]);
   const inputFileRef = useRef(null);
   // 파일 업로드 함수
@@ -49,10 +51,18 @@ const RecipyWrite = ({ noticeSnackBarStatus }) => {
   const contentChange = (event) => {
     setContent(event.target.value);
   };
+  //글쓰기 취소
+  const cancle = () => {
+    history.goBack();
+    noticeSnackBarStatus.open('글 작성을 취소하였습니다.', 'erorr');
+  };
 
+  //////
+
+  /////////////////////#########################################//////////////////////////////////
   const write = async (event) => {
     event.preventDefault();
-    articlesStatus.articleWrite(boardId, title, content);
+    articlesStatus.articleWrite(boardId, title, content, memberId);
 
     try {
       // 글 작성
@@ -60,6 +70,7 @@ const RecipyWrite = ({ noticeSnackBarStatus }) => {
         boardId: boardId,
         title: title,
         content: content,
+        memberId: memberId,
       });
 
       // 성공 시 스낵바 메시지 표시
@@ -72,6 +83,7 @@ const RecipyWrite = ({ noticeSnackBarStatus }) => {
 
   return (
     <>
+      <div>{memberId}</div>
       <div style={{ border: '2px solid red' }}>
         <form action="" onSubmit={write}>
           <div
@@ -128,8 +140,8 @@ const RecipyWrite = ({ noticeSnackBarStatus }) => {
                 )}
                 {/* 파일 이름 또는 미리보기를 표시 */}
                 <ListItemText primary={file.name} />
-                <ListItemText primary={file.size} />
-                <ListItemText primary={file.type} />
+                {/* <ListItemText primary={file.size} />
+                <ListItemText primary={file.type} /> */}
 
                 <Button onClick={() => handleFileDelete(index)} color="error" size="small">
                   <CloseIcon />
@@ -150,7 +162,9 @@ const RecipyWrite = ({ noticeSnackBarStatus }) => {
           />
 
           <div className="tw-flex tw-justify-around">
-            <Button variant="contained">작성 취소</Button>
+            <Button variant="contained" onClick={cancle}>
+              작성 취소
+            </Button>
             <Button type="submit" variant="contained">
               작성 하기
             </Button>

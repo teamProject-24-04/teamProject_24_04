@@ -10,6 +10,7 @@ const FreeWrite = ({ noticeSnackBarStatus }) => {
   const [content, setContent] = useState('');
   const articlesStatus = useArticlesStatus();
   const history = useHistory();
+  const memberId = localStorage.getItem('memberId');
 
   const boardChange = (event) => {
     setBoardId(event.target.value);
@@ -25,7 +26,7 @@ const FreeWrite = ({ noticeSnackBarStatus }) => {
 
   const write = async (event) => {
     event.preventDefault();
-    articlesStatus.articleWrite(boardId, title, content);
+    articlesStatus.articleWrite(boardId, title, content, memberId);
 
     try {
       // 글 작성
@@ -33,6 +34,7 @@ const FreeWrite = ({ noticeSnackBarStatus }) => {
         boardId: boardId,
         title: title,
         content: content,
+        memberId: memberId,
       });
 
       // 성공 시 스낵바 메시지 표시

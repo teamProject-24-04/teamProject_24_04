@@ -11,7 +11,7 @@ import ModeCommentIcon from '@mui/icons-material/ModeComment';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { MemoryRouter as Router, Route, Switch } from 'react-router-dom';
+import SearchIcon from '@mui/icons-material/Search';
 export default function FreeArticleList() {
   const articlesStatus = useArticlesStatus();
   const articles = articlesStatus.articles.filter((article) => article.boardId === 2);
@@ -28,6 +28,11 @@ export default function FreeArticleList() {
 
   return (
     <>
+      <div style={{ textAlign: 'end' }}>
+        <Link to={'/search'}>
+          <SearchIcon sx={{ width: '50px', height: '50px' }} />
+        </Link>
+      </div>
       <Link to={'/free/write'}>
         <Button style={{ width: '100%' }} className="tw-flex" variant="contained">
           자유게시판 글쓰기

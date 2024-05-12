@@ -3,15 +3,15 @@ import pool from '../../../app/lib/db';
 
 export default async function handler(req, res) {
   try {
-    const { title, content, boardId } = req.body;
+    const { title, content, boardId, memberId } = req.body;
 
-    if (!title || !content || !boardId) {
+    if (!title || !content || !boardId || !memberId) {
       return res.status(400).json({ error: 'Title, content, and boardId are required' });
     }
 
     const [result] = await pool.execute(
-      'INSERT INTO article (regDate, updateDate, title, content, boardId) VALUES (NOW(), NOW(),?, ?, ?)',
-      [title, content, boardId],
+      'INSERT INTO article (regDate, updateDate, title, content, boardId,memberId) VALUES (NOW(), NOW(),?, ?, ?,?)',
+      [title, content, boardId, memberId],
     );
 
     res.status(200).json({ id: result.insertId });
