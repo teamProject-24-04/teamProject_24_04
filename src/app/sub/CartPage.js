@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom'; 
 import './Product.css';
 import { IoIosArrowBack } from 'react-icons/io';
+import {  useHistory } from 'react-router-dom';
+
 const CartPage = () => {
   const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -45,7 +46,7 @@ const CartPage = () => {
   const fetchCartItems = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('/api/cart');
+      const response = await axios.get('/api/cartadd');
       setCart(response.data.cartItems);
       calculateTotalPrice(response.data.cartItems);
       setLoading(false);
@@ -54,6 +55,23 @@ const CartPage = () => {
       setLoading(false);
     }
   };
+  const addToCart = async (productId, product_name, price, quantity, imageURL) => {
+  try {
+    const response = await axios.post('/api/cartadd', {
+      productId: productId,
+      product_name: product_name,
+      price: price,
+      quantity: quantity,
+      imageURL: imageURL
+    });
+    console.log('Item added to cart:', response.data);
+    // 성공적으로 상품이 장바구니에 추가되었을 때 수행할 작업 추가
+  } catch (error) {
+    console.error('Error adding item to cart:', error);
+    // 상품 추가 중 오류가 발생했을 때 수행할 작업 추가
+  }
+};
+
 
   const removeFromCart = async (productId) => {
     try {
@@ -66,17 +84,16 @@ const CartPage = () => {
   };
 
   return (
-    <>
-    <div
-      style={{
-        position: 'fixed',
-        left: '20px',
-        zIndex: '999',
-        width: '100%',
-        background: 'white',
-      }}>
-      <IoIosArrowBack style={{ fontSize: '30px', cursor: 'pointer' }} onClick={goBack} />
-    </div>
+    <><div
+    style={{
+      position: 'fixed',
+      left: '20px',
+      zIndex: '999',
+      width: '100%',
+      background: 'white',
+    }}>
+    <IoIosArrowBack style={{ fontSize: '30px', cursor: 'pointer' }} onClick={goBack} />
+  </div>
     <div className="cart-container">
       <div className="cart-content">
         <div className="cartbar">
