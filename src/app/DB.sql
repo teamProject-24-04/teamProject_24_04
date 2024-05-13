@@ -261,7 +261,7 @@ title3 = '당겨먹는 돼지고기 통바베큐';
 INSERT INTO youtubers
 SET `name` = '취요남',
 content_name = '취미로 요리하는 남자 Yonam',
-img_url = 'https://i.namu.wiki/i/LWNmFEecKVs4e0rXZS52gnDvzSZ-PUfNh6zGZCD-1XCLR2bRRX-cpnUGv9KvqvaJLtPTDQPVfCkXgbdHGV0C4Nkr8-a8U-bfITZpgcmrmxPHFDPEQh7aFb-XYFQDo7uhlGmBq0nGJRCF7XAjOF-F3w.webp',
+img_url = 'https://i.namu.wiki/i/5jOPd_ID2aU-q3fgRjzDsYv45MFzuVCXN2XkLPROyoTOlBJxStjM17gaHhWVySclHxXYS-bw26cihm3rU5BrXPRK7xBDoof3mxrTa_LVhKe-WFadEB_r7qXfwxC4KTWFUTi01PO3MIa1jSQANBeMnQ.webp',
 fullName = '노재형(취요남)',
 `body` = '대한민국의 요리 유튜버이다. 전직 마술사 출신이며, 원래는 인스타그램과 루리웹 음식 갤러리에서 요리 사진을 올리며 활동하던 중, 친구인 유튜버 제이제이의 영상에서 출연한 후 본격적으로 유튜버 활동을 시작했다.',
 title1 = '가족과 바베큐, 집에서 하는 브리스킷 바베큐',
@@ -271,7 +271,7 @@ title3 = 'SUB) 소갈비 바베큐!';
 #멤버 테스트 아이디
 INSERT INTO `member`
 SET loginId = 'test1',
-loginPw = 'asdf',
+loginPw = 'test1',
 `name` = '김철수',
 nickname = '별명1',
 phoneNumber = '01012345678',
@@ -281,9 +281,7 @@ jibunAddress = '대전 서구 갈마동 308-18',
 latitude = '36.35182030',
 longitude = '127.36976000',
 detailAddress = '103동',
-regDate = '2024.05.07',
-email = 'test@naver.com',
-authlevel = 7
+regDate = '2024.05.07';
 
 #멤버 테스트 아이디
 INSERT INTO `member`
@@ -298,9 +296,7 @@ jibunAddress = '서울',
 latitude = '33.35182030',
 longitude = '126.36976000',
 detailAddress = '102동',
-regDate = '2024.05.07'
-email = 'test2@naver.com',
-authlevel = 3
+regDate = '2024.05.07';
 
 #멤버 테스트 아이디
 INSERT INTO `member`
@@ -315,10 +311,9 @@ jibunAddress = '신탄',
 latitude = '32.35182030',
 longitude = '125.36976000',
 detailAddress = '101동',
-regDate = '2024.05.09'
-email = 'test3@naver.com',
-authlevel = 3
+regDate = '2024.05.09';
 
+SELECT * FROM `member`
 
 # insert 다 하고 마지막에 해야함!!!
 INSERT INTO videos (video_id, title, channel_id)
