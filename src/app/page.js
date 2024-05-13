@@ -24,6 +24,7 @@ import MainPage from './mainPage';
 //   Receipt as ReceiptIcon,
 // } from '@mui/icons-material';
 import BottomNavigationComponent from './BottomNavigationComponent';
+import Main from './Main';
 
 import useNoticeSnackBarStatus from './Ut/noticeSnackBar/noticeSnackBarStatus';
 
@@ -64,7 +65,7 @@ function App() {
     setIsLoggedIn(storedIsLoggedIn === 'true'); // 로컬 스토리지에서 가져온 값이 문자열이므로 불리언으로 변환
   }, []);
 
-  return <>{isLoggedIn === false ? <MainPage /> : <MainPage2 />}</>;
+  return <>{isLoggedIn === false ? <Main /> : <MainPage2 />}</>;
 }
 
 export default function ThemeApp() {
