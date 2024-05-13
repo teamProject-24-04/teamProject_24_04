@@ -219,24 +219,10 @@ const FreeDetail = ({ noticeSnackBarStatus }) => {
 
   return (
     <>
-      <h1>게시물의 memberId :{article.memberId}</h1>
-      <h1>지금 로그인한 memberId :{memberId}</h1>
-      <button
-        onClick={() => {
-          test(memberId, article.memberId);
-        }}>
-        테스트버튼
-      </button>
-      <ReplyModal
-        status={editReplyModalStatus}
-        noticeSnackBarStatus={noticeSnackBarStatus}
-        repliesStatus={repliesStatus}
-        replyId={replyId}
-      />
       <div style={{ padding: '10px' }} className="title-box tw-flex tw-justify-between">
         <div>
           <ArrowBackIosNewIcon onClick={back} />
-          <h1>회원 바베큐 레시피</h1>
+          <h1 style={{ marginTop: '5%' }}>자유게시판</h1>
           {article && <h1>{article.title}</h1>}
           {article && <h1>조회수 : {article.hitPoint}</h1>}
           좋아요 수 : 10 댓글수 : 10
@@ -253,12 +239,12 @@ const FreeDetail = ({ noticeSnackBarStatus }) => {
         </div>
         <div style={{ textAlign: 'center' }}>
           <img
-            style={{ width: '100px', Height: '100px', border: '2px solid red' }}
+            style={{ width: '100px', Height: '100px' }}
             src="https://picsum.photos/id/237/200/300"
           />
         </div>
       </div>
-      <div className="img-box tw-border-2 tw-border-red-500 ">
+      <div className="img-box  ">
         <ul className="tw-flex">
           <li style={{ marginLeft: '10px', marginRight: '10px' }}>
             <img src="https://picsum.photos/id/237/200/300" />

@@ -48,20 +48,22 @@ export default function FreeArticleList() {
                 onClick={() => {
                   hitPointUp(article.id);
                 }}>
-                <div>
-                  <img
-                    style={{ width: '50px', height: '50px' }}
-                    src="https://picsum.photos/id/237/200/300"
-                  />
-                  <h1>회원1</h1>
-                </div>
-                <div>
-                  <h1>제목:{article.title}</h1>
-                  <h1>날짜:{article.updateDate}</h1>
+                <div className="tw-flex tw-mt-3">
                   <div>
-                    <VisibilityIcon /> : {article.hitPoint}
-                    <FavoriteIcon /> : 10
-                    <ModeCommentIcon />: 10
+                    <img
+                      style={{ width: '80px', height: '80px' }}
+                      src="https://picsum.photos/id/237/200/300"
+                    />
+                    <h1>회원1</h1>
+                  </div>
+                  <div className="tw-ml-3">
+                    <h1>제목:{article.title}</h1>
+                    <h1>날짜:{article.updateDate}</h1>
+                    <div>
+                      <VisibilityIcon /> : {article.hitPoint}
+                      <FavoriteIcon /> : 10
+                      <ModeCommentIcon />: 10
+                    </div>
                   </div>
                 </div>
               </Link>

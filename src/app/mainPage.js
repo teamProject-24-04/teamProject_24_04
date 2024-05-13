@@ -34,7 +34,6 @@ export default function MainPage() {
           backgroundImage: `url('/mainImage.png')`, // 이미지를 백그라운드로 설정
           backgroundSize: 'cover', // 이미지를 채울 수 있도록 cover로 설정
           backgroundPosition: 'center', // 이미지를 가운데 정렬
-          borderRadius: '10px',
         }}>
         <Box sx={{ width: '80%', height: '70%', position: 'relative' }}>
           <Stack
