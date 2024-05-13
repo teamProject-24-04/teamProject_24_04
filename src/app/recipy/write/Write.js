@@ -83,12 +83,9 @@ const RecipyWrite = ({ noticeSnackBarStatus }) => {
 
   return (
     <>
-      <div>{memberId}</div>
-      <div style={{ border: '2px solid red' }}>
+      <div style={{}}>
         <form action="" onSubmit={write}>
-          <div
-            style={{ border: '2px solid red' }}
-            className="tw-flex tw-items-center tw-justify-around">
+          <div style={{}} className="tw-flex tw-items-center tw-justify-around">
             <div>분류 :</div>
             <Box sx={{ minWidth: '70%' }}>
               <FormControl fullWidth>
@@ -105,9 +102,7 @@ const RecipyWrite = ({ noticeSnackBarStatus }) => {
             </Box>
           </div>
 
-          <div
-            className="tw-flex tw-items-center tw-justify-around"
-            style={{ border: '2px solid red' }}>
+          <div className="tw-flex tw-items-center tw-justify-around" style={{}}>
             <div>제목 :</div>{' '}
             <TextField name="title" sx={{ width: '70%' }} value={title} onChange={titleChange} />
           </div>
