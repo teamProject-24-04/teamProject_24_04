@@ -9,9 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@capacitor/android": "^5.7.4",
-    "@capacitor/cli": "^5.7.4",
-    "@capacitor/core": "^5.7.4",
+    "@capacitor/android": "^5.7.5",
+    "@capacitor/cli": "^5.7.5",
+    "@capacitor/core": "^5.7.5",
     "@emailjs/browser": "^4.3.3",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
