@@ -11,7 +11,8 @@ const LoginPage = () => {
   const [loginPw, setLoginPw] = useState('');
   const [error, setError] = useState('');
   const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
+  const [idModalOpen, setIdModalOpen] = useState(false);
+  const [pwModalOpen, setPwModalOpen] = useState(false);
 
   useEffect(() => {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
@@ -111,17 +112,17 @@ const LoginPage = () => {
         <Typography variant="body2" align="center" sx={{ mt: 2 }}>
           <Button
             sx={{ color: 'black', textDecoration: 'none' }}
-            onClick={() => setModalOpen(true)}>
+            onClick={() => setIdModalOpen(true)}>
             아이디 찾기
           </Button>
-          <FindLoginId open={modalOpen} onClose={() => setModalOpen(false)} />
+          <FindLoginId open={idModalOpen} onClose={() => setIdModalOpen(false)} />
           &nbsp;|&nbsp;
           <Button
             sx={{ color: 'black', textDecoration: 'none' }}
-            onClick={() => setModalOpen(true)}>
+            onClick={() => setPwModalOpen(true)}>
             비밀번호 찾기
           </Button>
-          <FindLoginPw open={modalOpen} onClose={() => setModalOpen(false)} />
+          <FindLoginPw open={pwModalOpen} onClose={() => setPwModalOpen(false)} />
         </Typography>
       </Box>
     </Box>

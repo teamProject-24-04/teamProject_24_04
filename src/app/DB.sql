@@ -271,7 +271,7 @@ title3 = 'SUB) 소갈비 바베큐!';
 #멤버 테스트 아이디
 INSERT INTO `member`
 SET loginId = 'test1',
-loginPw = 'test1',
+loginPw = 'asdf',
 `name` = '김철수',
 nickname = '별명1',
 phoneNumber = '01012345678',
@@ -281,7 +281,9 @@ jibunAddress = '대전 서구 갈마동 308-18',
 latitude = '36.35182030',
 longitude = '127.36976000',
 detailAddress = '103동',
-regDate = '2024.05.07';
+regDate = '2024.05.07',
+email = 'test@naver.com',
+authlevel = 7
 
 #멤버 테스트 아이디
 INSERT INTO `member`
@@ -296,7 +298,9 @@ jibunAddress = '서울',
 latitude = '33.35182030',
 longitude = '126.36976000',
 detailAddress = '102동',
-regDate = '2024.05.07';
+regDate = '2024.05.07'
+email = 'test2@naver.com',
+authlevel = 3
 
 #멤버 테스트 아이디
 INSERT INTO `member`
@@ -311,9 +315,10 @@ jibunAddress = '신탄',
 latitude = '32.35182030',
 longitude = '125.36976000',
 detailAddress = '101동',
-regDate = '2024.05.09';
+regDate = '2024.05.09'
+email = 'test3@naver.com',
+authlevel = 3
 
-SELECT * FROM `member`
 
 # insert 다 하고 마지막에 해야함!!!
 INSERT INTO videos (video_id, title, channel_id)

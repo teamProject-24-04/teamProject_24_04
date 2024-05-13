@@ -57,6 +57,8 @@ const MyPage = () => {
         const response = await axios.post('/api/member/delete', { loginId });
         console.log(response.data); // 탈퇴 처리 결과 확인
         // 탈퇴 후 로직 작성
+        localStorage.clear();
+        window.location.href = '/';
       } catch (error) {
         console.error('Error withdrawing member:', error);
       }
