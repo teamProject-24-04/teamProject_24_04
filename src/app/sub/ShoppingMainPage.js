@@ -22,7 +22,7 @@ function ShoppingMainPage() {
           </Route>
           <Route path="/product-details/:id" component={ProductDetails} />
           <Route path="/PaymentPage/:id" render={(props) => <PaymentPage {...props} />} />
-          <Route path="/tosspay/" component={Page} /> {/* 변경된 부분 */}
+          <Route path="/tosspay/" component={Page} />
           <Route path="/CartPage">
             <CartPage cart={cart} />
           </Route>

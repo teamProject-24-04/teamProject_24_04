@@ -103,92 +103,87 @@ const ProductDetails = () => {
 
   return (
     <>
-    <div
-      style={{
-        position: 'fixed',
-        left: '20px',
-        zIndex: '999',
-        width: '100%',
-        background: 'white',
-      }}>
-      <IoIosArrowBack style={{ fontSize: '30px', cursor: 'pointer' }} onClick={goBack} />
-    </div>
-    <div className="product-details">
-      <div className="product-card">
-        <img
-          src={product.imageURL}
-          alt={product.name}
-          className="product-detailimg"
-          style={{ maxWidth: '100%' }}
-        />
+      <div
+        style={{
+          position: 'fixed',
+          left: '20px',
+          zIndex: '999',
+          width: '100%',
+          background: 'white',
+        }}>
+        <IoIosArrowBack style={{ fontSize: '30px', cursor: 'pointer' }} onClick={goBack} />
       </div>
-      <div className="detail-font" style={{ marginTop: '20px' }}>
-        <h2>{product.name}</h2>
-        <p>가격: {product.price}</p>
+      <div className="product-details">
+        <div className="product-card">
+          <img
+            src={product.imageURL}
+            alt={product.name}
+            className="product-detailimg"
+            style={{ maxWidth: '100%' }}
+          />
+        </div>
+        <div className="detail-font" style={{ marginTop: '20px' }}>
+          <h2>{product.name}</h2>
+          <p>가격: {product.price}</p>
+        </div>
+
+        {showImages && product.detailImageURL && (
+          <div ref={imagesRef} style={{ marginTop: '50px' }}>
+            {Array.isArray(product.detailImageURL) ? (
+              product.detailImageURL.map((detailImageUrl, index) => (
+                <img key={index} src={detailImageUrl} alt={`Detail Image ${index + 1}`} />
+              ))
+            ) : (
+              <img src={product.detailImageURL} alt="Detail Image" />
+            )}
+          </div>
+        )}
+
+        <Box mt={4}>
+          <TextField
+            label="리뷰 작성"
+            multiline
+            rows={4}
+            value={review}
+            onChange={handleReviewChange}
+            variant="outlined"
+            fullWidth
+          />
+          <Button variant="contained" onClick={handleSubmitReview} style={{ marginTop: '10px' }}>
+            리뷰 제출
+          </Button>
+        </Box>
+
+        <Stack spacing={2} direction="column" alignItems="center">
+          <div
+            style={{
+              position: 'fixed',
+              bottom: 60,
+              left: '50%',
+              transform: 'translateX(-50%)',
+              zIndex: 999,
+              backgroundColor: 'white',
+            }}>
+            <Stack spacing={2} direction="row">
+              {/* Add to cart button */}
+              <Link to="/CartPage">
+                <Button
+                  variant="outlined"
+                  style={{ width: '180px', height: '40px' }}
+                  onClick={addToCart}>
+                  장바구니
+                </Button>
+              </Link>
+              {/* Link to the payment page */}
+              <Link to={`/PaymentPage/${id}`} style={{ textDecoration: 'none' }}>
+                <Button variant="outlined" style={{ width: '180px', height: '40px' }}>
+                  구매하기
+                </Button>
+              </Link>
+            </Stack>
+          </div>
+        </Stack>
       </div>
-
-      {showImages && product.detailImageURL && (
-        <div ref={imagesRef} style={{ marginTop: '50px' }}>
-          {Array.isArray(product.detailImageURL) ? (
-            product.detailImageURL.map((detailImageUrl, index) => (
-              <img key={index} src={detailImageUrl} alt={`Detail Image ${index + 1}`} />
-            ))
-          ) : (
-            <img src={product.detailImageURL} alt="Detail Image" />
-          )}
-        </div>
-      )}
-
-      <Box mt={4}>
-        <TextField
-          label="리뷰 작성"
-          multiline
-          rows={4}
-          value={review}
-          onChange={handleReviewChange}
-          variant="outlined"
-          fullWidth
-        />
-        <Button
-          variant="contained"
-          onClick={handleSubmitReview}
-          style={{ marginTop: '10px' }}
-        >
-          리뷰 제출
-        </Button>
-      </Box>
-
-      <Stack spacing={2} direction="column" alignItems="center">
-        <div
-          style={{
-            position: 'fixed',
-            bottom: 60,
-            left: '50%',
-            transform: 'translateX(-50%)',
-            zIndex: 999,
-            backgroundColor: 'white',
-          }}>
-          <Stack spacing={2} direction="row">
-            {/* Add to cart button */}
-            <Link to="/CartPage">
-              <Button
-                variant="outlined"
-                style={{ width: '180px', height: '40px' }}
-                onClick={addToCart}>
-                장바구니
-              </Button>
-            </Link>
-            {/* Link to the payment page */}
-            <Link to={`/PaymentPage/${id}`} style={{ textDecoration: 'none' }}>
-              <Button variant="outlined" style={{ width: '180px', height: '40px' }}>
-                구매하기
-              </Button>
-            </Link>
-          </Stack>
-        </div>
-      </Stack>
-      <div>안녕</div>
-    </div>
     </>
   );
 };
