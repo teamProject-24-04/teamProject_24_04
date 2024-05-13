@@ -9,7 +9,36 @@
 # 사용 스택
 
 # 사용방법
+vscode를 실행합니다
+<img src="https://velog.velcdn.com/images/tama51/post/df869ec8-ff54-4eb8-b279-8268df5eb38a/image.png">
+엔터 -> 경로를 설정하게 됩니다
+저희는 c드라이브에서 새폴더 work 폴더를 만듭니다
+그리고 work 폴더에 들어가서 nextJs_project 폴더를 만듭니다
+그리고 이 폴더를 선택하고 여기에 만드시면 됩니다
+
+새창에서 열던 기존창에서 열던 프로젝트를 여러줍니다
+
+{
 <img src="https://velog.velcdn.com/images/tama51/post/2f26c369-5e84-4c7c-99b0-fe90a86e7ce2/image.png">
+package.json 폴더에 저희가 설치한 라이브러리 들이 들어가 있습니다.
+ctrl + (백틱(1번 숫자키 왼쪽에 있는 키 , esc 밑에 있는 키) 을 눌러서 터미널을 열어줍니다
+<img src="https://velog.velcdn.com/images/tama51/post/0c62a42f-ff5f-4293-8f40-837063c4487a/image.png">
+여기에 npm install 을 입력하게 되면 기존에 dependencies에 있는 라이브러리들을 자동으로 설치해 줍니다
+
+xampp 실행
+
+mysql 실행해 줍니다
+
+<img src="https://velog.velcdn.com/images/tama51/post/5501fe7c-d47c-46fa-a507-7c1917216cc0/image.png">
+다음과 같이 설정해 준 후 연결을 해줍니다
+
+src / app DB.sql 에 있는 내용을 복사합니다
+그후 mysql에 붙여넣기 후 모두 실행해 주면 db 준비가 끝납니다
+
+그후 다시 vscode로 돌아가서 터미널에 npm run dev 를 실행해 줍니다
+
+그러면 localhost:3000 에서 프로젝트가 실행이 됩니다.
+
 
 # 프로젝트 예시 결과
 
