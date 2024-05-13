@@ -61,11 +61,9 @@ const Modify = ({ noticeSnackBarStatus }) => {
 
   return (
     <>
-      <div style={{ border: '2px solid red' }}>
+      <div>
         <form action="" onSubmit={modify}>
-          <div
-            style={{ border: '2px solid red' }}
-            className="tw-flex tw-items-center tw-justify-around">
+          <div className="tw-flex tw-items-center tw-justify-around">
             <div>분류 :</div>
             <Box sx={{ minWidth: '70%' }}>
               <FormControl fullWidth disabled>
@@ -81,9 +79,7 @@ const Modify = ({ noticeSnackBarStatus }) => {
               </FormControl>
             </Box>
           </div>
-          <div
-            className="tw-flex tw-items-center tw-justify-around"
-            style={{ border: '2px solid red' }}>
+          <div className="tw-flex tw-items-center tw-justify-around">
             <div>제목 :</div>{' '}
             <TextField name="title" sx={{ width: '70%' }} value={title} onChange={titleChange} />
           </div>

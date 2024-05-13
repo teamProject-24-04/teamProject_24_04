@@ -25,7 +25,13 @@ export default function FreeboardTab({ noticeSnackBarStatus }) {
               <FreeDetail {...props} noticeSnackBarStatus={noticeSnackBarStatus} />
             )}
           />
-          <Route path="/free/modify/:id" component={FreeModify} />
+          <Route
+            path="/free/modify/:id"
+            render={(props) => (
+              <FreeModify {...props} noticeSnackBarStatus={noticeSnackBarStatus} />
+            )}
+          />
+          {/* <Route path="/free/modify/:id" component={FreeModify} /> */}
           <Route path="/search" component={SearchPage} />
         </Switch>
       </Container>

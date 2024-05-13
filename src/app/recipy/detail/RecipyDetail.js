@@ -225,7 +225,7 @@ const RecipyDetail = ({ noticeSnackBarStatus }) => {
           좋아요 수 : 10 댓글수 : 10
           {article.memberId === memberId && (
             <>
-              <Link to={`/free/modify/${id}`}>
+              <Link to={`/memberRecipy/modify/${id}`}>
                 <Button variant="contained">수정하기</Button>
               </Link>
               <Button variant="contained" onClick={handleDelete}>
@@ -236,12 +236,12 @@ const RecipyDetail = ({ noticeSnackBarStatus }) => {
         </div>
         <div style={{ textAlign: 'center' }}>
           <img
-            style={{ width: '100px', Height: '100px', border: '2px solid red' }}
+            style={{ width: '100px', Height: '100px' }}
             src="https://picsum.photos/id/237/200/300"
           />
         </div>
       </div>
-      <div className="img-box tw-border-2 tw-border-red-500 ">
+      <div className="img-box">
         <ul className="tw-flex">
           <li style={{ marginLeft: '10px', marginRight: '10px' }}>
             <img src="https://picsum.photos/id/237/200/300" />
