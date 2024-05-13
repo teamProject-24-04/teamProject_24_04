@@ -1,4 +1,4 @@
-# GrillMaster
+# 프로젝트명 : GrillMaster
 
 ## 2024 4월 프로젝트 진행
 
